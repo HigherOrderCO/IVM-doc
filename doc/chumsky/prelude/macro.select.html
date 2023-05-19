@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Create a parser that selects one or more input patterns and map them to an output value."><title>select in chumsky::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="chumsky" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (ec2f40c6b 2023-03-30)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="sidebar-items.js"></script><script defer src="../../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc macro"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../chumsky/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../chumsky/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><div class="sidebar-elems"><h2><a href="index.html">In chumsky::prelude</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Macro <a href="../index.html">chumsky</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="macro" href="#">select</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../../src/chumsky/lib.rs.html#2538-2547">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><span class="macro">macro_rules! </span>select {
+    ($(<span class="macro-nonterminal">$p</span>:pat $(= <span class="macro-nonterminal">$span</span>:ident)<span class="question-mark">? </span>$(<span class="kw">if </span><span class="macro-nonterminal">$guard</span>:expr)<span class="question-mark">? </span>$(=&gt; <span class="macro-nonterminal">$out</span>:expr)<span class="question-mark">?</span>),+ $(,)<span class="question-mark">?</span>) =&gt; { ... };
+}</pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Create a parser that selects one or more input patterns and map them to an output value.</p>
+<p>This is most useful when turning the tokens of a previous compilation pass (such as lexing) into data that can be
+used for parsing, although it can also generally be used to select inputs and map them to outputs. Any unmapped
+input patterns will become syntax errors, just as with <a href="../trait.Parser.html#method.filter" title="method chumsky::Parser::filter"><code>Parser::filter</code></a>.</p>
+<p>Internally, <a href="macro.select.html" title="macro chumsky::prelude::select"><code>select!</code></a> is very similar to <a href="../trait.Parser.html#method.try_map" title="method chumsky::Parser::try_map"><code>Parser::try_map</code></a> and thinking of it as such might make it less
+confusing.</p>
+<p><code>select!</code> requires that tokens implement <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone"><code>Clone</code></a>.</p>
+<p>If you’re trying to access tokens referentially (for the sake of nested parsing, or simply because you want to
+avoid cloning the token), see <a href="macro.select_ref.html" title="macro chumsky::prelude::select_ref"><code>select_ref!</code></a>.</p>
+<h2 id="examples"><a href="#examples">Examples</a></h2>
+<p><code>select!</code> is syntactically similar to a <code>match</code> expression and has support for
+<a href="https://doc.rust-lang.org/reference/expressions/match-expr.html#match-guards">pattern guards</a>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Clone)]
+</span><span class="kw">enum </span>Token&lt;<span class="lifetime">&#39;a</span>&gt; { Ident(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) }
+
+<span class="kw">enum </span>Expr&lt;<span class="lifetime">&#39;a</span>&gt; { Local(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str), Null, True, False }
+
+<span class="macro">select! </span>{
+    Token::Ident(s) <span class="kw">if </span>s == <span class="string">&quot;true&quot; </span>=&gt; Expr::True,
+    Token::Ident(s) <span class="kw">if </span>s == <span class="string">&quot;false&quot; </span>=&gt; Expr::False,
+    Token::Ident(s) <span class="kw">if </span>s == <span class="string">&quot;null&quot; </span>=&gt; Expr::Null,
+    Token::Ident(s) =&gt; Expr::Local(s),
+}</code></pre></div>
+<p>If you require access to the token’s span, you may add an argument after a pattern to gain access to it:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Clone)]
+</span><span class="kw">enum </span>Token&lt;<span class="lifetime">&#39;a</span>&gt; { Num(f64), Str(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) }
+
+<span class="kw">enum </span>Expr&lt;<span class="lifetime">&#39;a</span>&gt; { Num(f64), Str(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str) }
+
+<span class="kw">type </span>Span = SimpleSpan&lt;usize&gt;;
+
+<span class="kw">impl</span>&lt;<span class="lifetime">&#39;a</span>&gt; Expr&lt;<span class="lifetime">&#39;a</span>&gt; {
+    <span class="kw">fn </span>spanned(<span class="self">self</span>, span: Span) -&gt; (<span class="self">Self</span>, Span) { (<span class="self">self</span>, span) }
+}
+
+<span class="macro">select! </span>{
+    Token::Num(x) = span =&gt; Expr::Num(x).spanned(span),
+    Token::Str(s) = span =&gt; Expr::Str(s).spanned(span),
+}</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// The type of our parser&#39;s input (tokens like this might be emitted by your compiler&#39;s lexer)
+</span><span class="attr">#[derive(Clone, Debug, PartialEq)]
+</span><span class="kw">enum </span>Token {
+    Num(u64),
+    Bool(bool),
+    LParen,
+    RParen,
+}
+
+<span class="comment">// The type of our parser&#39;s output, a syntax tree
+</span><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">enum </span>Ast {
+    Num(u64),
+    Bool(bool),
+    List(Vec&lt;Ast&gt;),
+}
+
+<span class="comment">// Our parser converts a stream of input tokens into an AST
+// `select!` is used to deconstruct some of the tokens and turn them into AST nodes
+</span><span class="kw">let </span>ast = recursive::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;Token&gt;&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(|ast| {
+    <span class="kw">let </span>literal = <span class="macro">select! </span>{
+        Token::Num(x) =&gt; Ast::Num(x),
+        Token::Bool(x) =&gt; Ast::Bool(x),
+    };
+
+    literal.or(ast
+        .repeated()
+        .collect()
+        .delimited_by(just(Token::LParen), just(Token::RParen))
+        .map(Ast::List))
+});
+
+<span class="kw">use </span>Token::<span class="kw-2">*</span>;
+<span class="macro">assert_eq!</span>(
+    ast.parse(<span class="kw-2">&amp;</span>[LParen, Num(<span class="number">5</span>), LParen, Bool(<span class="bool-val">false</span>), Num(<span class="number">42</span>), RParen, RParen]).into_result(),
+    <span class="prelude-val">Ok</span>(Ast::List(<span class="macro">vec!</span>[
+        Ast::Num(<span class="number">5</span>),
+        Ast::List(<span class="macro">vec!</span>[
+            Ast::Bool(<span class="bool-val">false</span>),
+            Ast::Num(<span class="number">42</span>),
+        ]),
+    ])),
+);</code></pre></div>
+</div></details></section></div></main></body></html>

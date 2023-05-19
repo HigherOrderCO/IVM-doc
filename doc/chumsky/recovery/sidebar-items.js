@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["nested_delimiters","skip_then_retry_until","skip_until","via_parser"],"struct":["RecoverWith","SkipThenRetryUntil","SkipUntil","ViaParser"],"trait":["Strategy"]};

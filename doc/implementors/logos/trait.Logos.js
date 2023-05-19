@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"ivm":[["impl&lt;'s&gt; <a class=\"trait\" href=\"logos/trait.Logos.html\" title=\"trait logos::Logos\">Logos</a>&lt;'s&gt; for <a class=\"enum\" href=\"ivm/lexer/enum.MultiLineComment.html\" title=\"enum ivm::lexer::MultiLineComment\">MultiLineComment</a>"],["impl&lt;'s&gt; <a class=\"trait\" href=\"logos/trait.Logos.html\" title=\"trait logos::Logos\">Logos</a>&lt;'s&gt; for <a class=\"enum\" href=\"ivm/lexer/enum.Token.html\" title=\"enum ivm::lexer::Token\">Token</a>&lt;'s&gt;"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

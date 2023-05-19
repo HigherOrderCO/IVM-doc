@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["output_result","pass_output_and_errors_to_result","print_program_errors"],"type":["IvmResult","OutputResult","ProgramError","ProgramErrors"]};

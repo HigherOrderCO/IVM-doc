@@ -1,0 +1,1179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A trait implemented by parsers."><title>Parser in chumsky - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../" data-static-root-path="../static.files/" data-current-crate="chumsky" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (ec2f40c6b 2023-03-30)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="sidebar-items.js"></script><script defer src="../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc trait"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../chumsky/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../chumsky/index.html"><img class="rust-logo" src="../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Parser</a></h2><div class="sidebar-elems"><section><h3><a href="#provided-methods">Provided Methods</a></h3><ul class="block"><li><a href="#method.and_is">and_is</a></li><li><a href="#method.boxed">boxed</a></li><li><a href="#method.check">check</a></li><li><a href="#method.check_with_state">check_with_state</a></li><li><a href="#method.delimited_by">delimited_by</a></li><li><a href="#method.filter">filter</a></li><li><a href="#method.foldl">foldl</a></li><li><a href="#method.foldl_with_state">foldl_with_state</a></li><li><a href="#method.from_str">from_str</a></li><li><a href="#method.ignore_then">ignore_then</a></li><li><a href="#method.ignored">ignored</a></li><li><a href="#method.labelled">labelled</a></li><li><a href="#method.lazy">lazy</a></li><li><a href="#method.map">map</a></li><li><a href="#method.map_err">map_err</a></li><li><a href="#method.map_err_with_state">map_err_with_state</a></li><li><a href="#method.map_slice">map_slice</a></li><li><a href="#method.map_with_span">map_with_span</a></li><li><a href="#method.map_with_state">map_with_state</a></li><li><a href="#method.nested_in">nested_in</a></li><li><a href="#method.not">not</a></li><li><a href="#method.or">or</a></li><li><a href="#method.or_not">or_not</a></li><li><a href="#method.padded">padded</a></li><li><a href="#method.padded_by">padded_by</a></li><li><a href="#method.parse">parse</a></li><li><a href="#method.parse_with_state">parse_with_state</a></li><li><a href="#method.recover_with">recover_with</a></li><li><a href="#method.repeated">repeated</a></li><li><a href="#method.rewind">rewind</a></li><li><a href="#method.separated_by">separated_by</a></li><li><a href="#method.slice">slice</a></li><li><a href="#method.then">then</a></li><li><a href="#method.then_ignore">then_ignore</a></li><li><a href="#method.then_with_ctx">then_with_ctx</a></li><li><a href="#method.to">to</a></li><li><a href="#method.to_span">to_span</a></li><li><a href="#method.try_map">try_map</a></li><li><a href="#method.try_map_with_state">try_map_with_state</a></li><li><a href="#method.unwrapped">unwrapped</a></li><li><a href="#method.validate">validate</a></li><li><a href="#method.with_ctx">with_ctx</a></li></ul><h3><a href="#implementors">Implementors</a></h3></section><h2><a href="index.html">In chumsky</a></h2></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Trait <a href="index.html">chumsky</a>::<wbr><a class="trait" href="#">Parser</a><button id="copy-path" title="Copy item path to clipboard"><img src="../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/chumsky/lib.rs.html#302-1986">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><pre class="rust item-decl"><code>pub trait Parser&lt;'a, I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;, O, E: <a class="trait" href="extra/trait.ParserExtra.html" title="trait chumsky::extra::ParserExtra">ParserExtra</a>&lt;'a, I&gt; = <a class="type" href="extra/type.Default.html" title="type chumsky::extra::Default">Default</a>&gt;: ParserSealed&lt;'a, I, O, E&gt; {
+<details class="toggle type-contents-toggle"><summary class="hideme"><span>Show 42 methods</span></summary>    // Provided methods
+    fn <a href="#method.parse" class="fn">parse</a>(&amp;self, input: I) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;O, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.parse_with_state" class="fn">parse_with_state</a>(
+        &amp;self,
+        input: I,
+        state: &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>
+    ) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;O, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.check" class="fn">check</a>(&amp;self, input: I) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.check_with_state" class="fn">check_with_state</a>(
+        &amp;self,
+        input: I,
+        state: &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>
+    ) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map_slice" class="fn">map_slice</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(I::<a class="associatedtype" href="input/trait.SliceInput.html#associatedtype.Slice" title="type chumsky::input::SliceInput::Slice">Slice</a>) -&gt; U&gt;(
+        self,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.MapSlice.html" title="struct chumsky::combinator::MapSlice">MapSlice</a>&lt;'a, Self, I, O, E, F, U&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.SliceInput.html" title="trait chumsky::input::SliceInput">SliceInput</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.slice" class="fn">slice</a>(self) -&gt; <a class="struct" href="combinator/struct.Slice.html" title="struct chumsky::combinator::Slice">Slice</a>&lt;Self, O&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.filter" class="fn">filter</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;O</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Filter.html" title="struct chumsky::combinator::Filter">Filter</a>&lt;Self, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map" class="fn">map</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O) -&gt; U&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Map.html" title="struct chumsky::combinator::Map">Map</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map_with_span" class="fn">map_with_span</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>) -&gt; U&gt;(
+        self,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.MapWithSpan.html" title="struct chumsky::combinator::MapWithSpan">MapWithSpan</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.to_span" class="fn">to_span</a>(self) -&gt; <a class="struct" href="combinator/struct.ToSpan.html" title="struct chumsky::combinator::ToSpan">ToSpan</a>&lt;Self, O&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map_with_state" class="fn">map_with_state</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; U&gt;(
+        self,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.MapWithState.html" title="struct chumsky::combinator::MapWithState">MapWithState</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.try_map" class="fn">try_map</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;&gt;(
+        self,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.TryMap.html" title="struct chumsky::combinator::TryMap">TryMap</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.try_map_with_state" class="fn">try_map_with_state</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;&gt;(
+        self,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.TryMapWithState.html" title="struct chumsky::combinator::TryMapWithState">TryMapWithState</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.ignored" class="fn">ignored</a>(self) -&gt; <a class="struct" href="combinator/struct.Ignored.html" title="struct chumsky::combinator::Ignored">Ignored</a>&lt;Self, O&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.to" class="fn">to</a>&lt;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>&gt;(self, to: U) -&gt; <a class="struct" href="combinator/struct.To.html" title="struct chumsky::combinator::To">To</a>&lt;Self, O, U&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.labelled" class="fn">labelled</a>&lt;L&gt;(self, label: L) -&gt; <a class="struct" href="label/struct.Labelled.html" title="struct chumsky::label::Labelled">Labelled</a>&lt;Self, L&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>: <a class="trait" href="label/trait.LabelError.html" title="trait chumsky::label::LabelError">LabelError</a>&lt;'a, I, L&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.then" class="fn">then</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.Then.html" title="struct chumsky::combinator::Then">Then</a>&lt;Self, B, O, U, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.ignore_then" class="fn">ignore_then</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(
+        self,
+        other: B
+    ) -&gt; <a class="struct" href="combinator/struct.IgnoreThen.html" title="struct chumsky::combinator::IgnoreThen">IgnoreThen</a>&lt;Self, B, O, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.then_ignore" class="fn">then_ignore</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(
+        self,
+        other: B
+    ) -&gt; <a class="struct" href="combinator/struct.ThenIgnore.html" title="struct chumsky::combinator::ThenIgnore">ThenIgnore</a>&lt;Self, B, U, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.nested_in" class="fn">nested_in</a>&lt;B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, I, E&gt;&gt;(
+        self,
+        other: B
+    ) -&gt; <a class="struct" href="combinator/struct.NestedIn.html" title="struct chumsky::combinator::NestedIn">NestedIn</a>&lt;Self, B, O, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: 'a</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.then_with_ctx" class="fn">then_with_ctx</a>&lt;U, P&gt;(
+        self,
+        then: P
+    ) -&gt; <a class="struct" href="combinator/struct.ThenWithCtx.html" title="struct chumsky::combinator::ThenWithCtx">ThenWithCtx</a>&lt;Self, P, O, I, <a class="struct" href="extra/struct.Full.html" title="struct chumsky::extra::Full">Full</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>, O&gt;&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             O: 'a,
+             P: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, <a class="struct" href="extra/struct.Full.html" title="struct chumsky::extra::Full">Full</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>, O&gt;&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.with_ctx" class="fn">with_ctx</a>&lt;Ctx&gt;(self, ctx: Ctx) -&gt; <a class="struct" href="combinator/struct.WithCtx.html" title="struct chumsky::combinator::WithCtx">WithCtx</a>&lt;Self, Ctx&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             Ctx: 'a + <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.and_is" class="fn">and_is</a>&lt;U, B&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.AndIs.html" title="struct chumsky::combinator::AndIs">AndIs</a>&lt;Self, B, U&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.delimited_by" class="fn">delimited_by</a>&lt;U, V, B, C&gt;(
+        self,
+        start: B,
+        end: C
+    ) -&gt; <a class="struct" href="combinator/struct.DelimitedBy.html" title="struct chumsky::combinator::DelimitedBy">DelimitedBy</a>&lt;Self, B, C, U, V&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;,
+             C: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, V, E&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.padded_by" class="fn">padded_by</a>&lt;U, B&gt;(self, padding: B) -&gt; <a class="struct" href="combinator/struct.PaddedBy.html" title="struct chumsky::combinator::PaddedBy">PaddedBy</a>&lt;Self, B, U&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.or" class="fn">or</a>&lt;B&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.Or.html" title="struct chumsky::combinator::Or">Or</a>&lt;Self, B&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, O, E&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.or_not" class="fn">or_not</a>(self) -&gt; <a class="struct" href="combinator/struct.OrNot.html" title="struct chumsky::combinator::OrNot">OrNot</a>&lt;Self&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.not" class="fn">not</a>(self) -&gt; <a class="struct" href="combinator/struct.Not.html" title="struct chumsky::combinator::Not">Not</a>&lt;Self, O&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.repeated" class="fn">repeated</a>(self) -&gt; <a class="struct" href="combinator/struct.Repeated.html" title="struct chumsky::combinator::Repeated">Repeated</a>&lt;Self, O, I, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.separated_by" class="fn">separated_by</a>&lt;U, B&gt;(
+        self,
+        separator: B
+    ) -&gt; <a class="struct" href="combinator/struct.SeparatedBy.html" title="struct chumsky::combinator::SeparatedBy">SeparatedBy</a>&lt;Self, B, O, U, I, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.foldl" class="fn">foldl</a>&lt;B, F, OB&gt;(self, other: B, f: F) -&gt; <a class="struct" href="combinator/struct.Foldl.html" title="struct chumsky::combinator::Foldl">Foldl</a>&lt;F, Self, B, OB, E&gt;
+       <span class="where">where F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, OB) -&gt; O,
+             B: <a class="trait" href="trait.IterParser.html" title="trait chumsky::IterParser">IterParser</a>&lt;'a, I, OB, E&gt;,
+             Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.foldl_with_state" class="fn">foldl_with_state</a>&lt;B, F, OB&gt;(
+        self,
+        other: B,
+        f: F
+    ) -&gt; <a class="struct" href="combinator/struct.FoldlWithState.html" title="struct chumsky::combinator::FoldlWithState">FoldlWithState</a>&lt;F, Self, B, OB, E&gt;
+       <span class="where">where F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, OB, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; O,
+             B: <a class="trait" href="trait.IterParser.html" title="trait chumsky::IterParser">IterParser</a>&lt;'a, I, OB, E&gt;,
+             Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.rewind" class="fn">rewind</a>(self) -&gt; <a class="struct" href="combinator/struct.Rewind.html" title="struct chumsky::combinator::Rewind">Rewind</a>&lt;Self&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.lazy" class="fn">lazy</a>(self) -&gt; <a class="type" href="combinator/type.Lazy.html" title="type chumsky::combinator::Lazy">Lazy</a>&lt;'a, Self, I, E&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.ValueInput.html" title="trait chumsky::input::ValueInput">ValueInput</a>&lt;'a&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.padded" class="fn">padded</a>(self) -&gt; <a class="struct" href="text/struct.Padded.html" title="struct chumsky::text::Padded">Padded</a>&lt;Self&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+             I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Token" title="type chumsky::input::Input::Token">Token</a>: <a class="trait" href="text/trait.Char.html" title="trait chumsky::text::Char">Char</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.recover_with" class="fn">recover_with</a>&lt;S: <a class="trait" href="recovery/trait.Strategy.html" title="trait chumsky::recovery::Strategy">Strategy</a>&lt;'a, I, O, E&gt;&gt;(
+        self,
+        strategy: S
+    ) -&gt; <a class="struct" href="recovery/struct.RecoverWith.html" title="struct chumsky::recovery::RecoverWith">RecoverWith</a>&lt;Self, S&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map_err" class="fn">map_err</a>&lt;F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.MapErr.html" title="struct chumsky::combinator::MapErr">MapErr</a>&lt;Self, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>) -&gt; E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.map_err_with_state" class="fn">map_err_with_state</a>&lt;F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.MapErrWithState.html" title="struct chumsky::combinator::MapErrWithState">MapErrWithState</a>&lt;Self, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.validate" class="fn">validate</a>&lt;U, F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Validate.html" title="struct chumsky::combinator::Validate">Validate</a>&lt;Self, O, F&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut <a class="struct" href="input/struct.Emitter.html" title="struct chumsky::input::Emitter">Emitter</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;) -&gt; U</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.from_str" class="fn">from_str</a>&lt;U&gt;(self) -&gt; <a class="struct" href="combinator/struct.Map.html" title="struct chumsky::combinator::Map">Map</a>&lt;Self, O, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.fn.html">fn</a>(_: O) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, U::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html#associatedtype.Err" title="type core::str::traits::FromStr::Err">Err</a>&gt;&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+             U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html" title="trait core::str::traits::FromStr">FromStr</a>,
+             O: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;</span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.unwrapped" class="fn">unwrapped</a>(self) -&gt; <a class="struct" href="combinator/struct.Unwrapped.html" title="struct chumsky::combinator::Unwrapped">Unwrapped</a>&lt;Self, O&gt;
+       <span class="where">where Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span> { ... }
+<span class="item-spacer"></span>    fn <a href="#method.boxed" class="fn">boxed</a>&lt;'b&gt;(self) -&gt; <a class="struct" href="struct.Boxed.html" title="struct chumsky::Boxed">Boxed</a>&lt;'a, 'b, I, O, E&gt;
+       <span class="where">where Self: <a class="trait" href="util/trait.MaybeSync.html" title="trait chumsky::util::MaybeSync">MaybeSync</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + 'a + 'b</span> { ... }
+</details>}</code></pre><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A trait implemented by parsers.</p>
+<p>Parsers take inputs of type <code>I</code>, which will implement <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a>. Refer to the documentation on <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a> for examples
+of common input types. It will then attempt to parse them into a value of type <code>O</code>, which may be just about any type.
+In doing so, they may encounter errors. These need not be fatal to the parsing process: syntactic errors can be
+recovered from and a valid output may still be generated alongside any syntax errors that were encountered along the
+way. Usually, this output comes in the form of an
+<a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a> (AST).</p>
+<p>The final type parameter, <code>E</code>, is expected to be one of the type in the <a href="extra/index.html" title="mod chumsky::extra"><code>extra</code></a> module,
+implementing <a href="extra/trait.ParserExtra.html" title="trait chumsky::extra::ParserExtra"><code>ParserExtra</code></a>. This trait is used to encapsulate the various types a parser
+uses that are not simply its input and output. Refer to the documentation on the <a href="extra/trait.ParserExtra.html" title="trait chumsky::extra::ParserExtra"><code>ParserExtra</code></a> trait
+for more detail on the contained types. If not provided, it will default to <a href="extra/type.Default.html" title="type chumsky::extra::Default"><code>extra::Default</code></a>,
+which will have the least overhead, but also the least meaningful errors.</p>
+<p>The lifetime of the parser is used for zero-copy output - the input is bound by the lifetime,
+and returned values or parser state may take advantage of this to borrow tokens or slices of the
+input and hold on to them, if the input supports this.</p>
+<p>You cannot directly implement this trait yourself. If you feel like the built-in parsers are not enough for you,
+there are several options in increasing order of complexity:</p>
+<ol>
+<li>
+<p>Try using combinators like <a href="trait.Parser.html#method.try_map" title="method chumsky::Parser::try_map"><code>Parser::try_map</code></a> and <a href="trait.Parser.html#method.validate" title="method chumsky::Parser::validate"><code>Parser::validate</code></a> to implement custom error generation</p>
+</li>
+<li>
+<p>Use <a href="primitive/fn.custom.html" title="fn chumsky::primitive::custom"><code>custom</code></a> to implement your own parsing logic inline within an existing parser</p>
+</li>
+<li>
+<p>Use chumsky’s [<code>extension</code>] API to write an extension parser that feels like it’s native to chumsky</p>
+</li>
+<li>
+<p>If you believe you’ve found a common use-case that’s missing from chumsky, you could open a pull request to
+implement it in chumsky itself.</p>
+</li>
+</ol>
+</div></details><h2 id="provided-methods" class="small-section-header">Provided Methods<a href="#provided-methods" class="anchor">§</a></h2><div class="methods"><details class="toggle method-toggle" open><summary><section id="method.parse" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#312-320">source</a><h4 class="code-header">fn <a href="#method.parse" class="fn">parse</a>(&amp;self, input: I) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;O, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,</span></h4></section></summary><div class="docblock"><p>Parse a stream of tokens, yielding an output if possible, and any errors encountered along the way.</p>
+<p>If <code>None</code> is returned (i.e: parsing failed) then there will <em>always</em> be at least one item in the error <code>Vec</code>.
+If you want to include non-default state, use <a href="trait.Parser.html#method.parse_with_state" title="method chumsky::Parser::parse_with_state"><code>Parser::parse_with_state</code></a> instead.</p>
+<p>Although the signature of this function looks complicated, it’s simpler than you think! You can pass a
+[<code>&amp;[T]</code>], a <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="primitive str"><code>&amp;str</code></a>, [<code>Stream</code>], or anything implementing <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a> to it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.parse_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#330-349">source</a><h4 class="code-header">fn <a href="#method.parse_with_state" class="fn">parse_with_state</a>(
+    &amp;self,
+    input: I,
+    state: &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>
+) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;O, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,</span></h4></section></summary><div class="docblock"><p>Parse a stream of tokens, yielding an output if possible, and any errors encountered along the way.
+The provided state will be passed on to parsers that expect it, such as <a href="trait.Parser.html#method.map_with_state" title="method chumsky::Parser::map_with_state"><code>map_with_state</code></a>.</p>
+<p>If <code>None</code> is returned (i.e: parsing failed) then there will <em>always</em> be at least one item in the error <code>Vec</code>.
+If you want to just use a default state value, use <a href="trait.Parser.html#method.parse" title="method chumsky::Parser::parse"><code>Parser::parse</code></a> instead.</p>
+<p>Although the signature of this function looks complicated, it’s simpler than you think! You can pass a
+[<code>&amp;[T]</code>], a <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="primitive str"><code>&amp;str</code></a>, [<code>Stream</code>], or anything implementing <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a> to it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.check" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#358-366">source</a><h4 class="code-header">fn <a href="#method.check" class="fn">check</a>(&amp;self, input: I) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,</span></h4></section></summary><div class="docblock"><p>Parse a stream of tokens, ignoring any output, and returning any errors encountered along the way.</p>
+<p>If parsing failed, then there will <em>always</em> be at least one item in the returned <code>Vec</code>.
+If you want to include non-default state, use <a href="trait.Parser.html#method.check_with_state" title="method chumsky::Parser::check_with_state"><code>Parser::check_with_state</code></a> instead.</p>
+<p>Although the signature of this function looks complicated, it’s simpler than you think! You can pass a
+[<code>&amp;[T]</code>], a <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="primitive str"><code>&amp;str</code></a>, [<code>Stream</code>], or anything implementing <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a> to it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.check_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#375-394">source</a><h4 class="code-header">fn <a href="#method.check_with_state" class="fn">check_with_state</a>(
+    &amp;self,
+    input: I,
+    state: &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>
+) -&gt; <a class="struct" href="struct.ParseResult.html" title="struct chumsky::ParseResult">ParseResult</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Context" title="type chumsky::extra::ParserExtra::Context">Context</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a>,</span></h4></section></summary><div class="docblock"><p>Parse a stream of tokens, ignoring any output, and returning any errors encountered along the way.</p>
+<p>If parsing failed, then there will <em>always</em> be at least one item in the returned <code>Vec</code>.
+If you want to just use a default state value, use <a href="trait.Parser.html#method.check" title="method chumsky::Parser::check"><code>Parser::check</code></a> instead.</p>
+<p>Although the signature of this function looks complicated, it’s simpler than you think! You can pass a
+[<code>&amp;[T]</code>], a <a href="https://doc.rust-lang.org/nightly/std/primitive.str.html" title="primitive str"><code>&amp;str</code></a>, [<code>Stream</code>], or anything implementing <a href="input/trait.Input.html" title="trait chumsky::input::Input"><code>Input</code></a> to it.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map_slice" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#400-410">source</a><h4 class="code-header">fn <a href="#method.map_slice" class="fn">map_slice</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(I::<a class="associatedtype" href="input/trait.SliceInput.html#associatedtype.Slice" title="type chumsky::input::SliceInput::Slice">Slice</a>) -&gt; U&gt;(
+    self,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.MapSlice.html" title="struct chumsky::combinator::MapSlice">MapSlice</a>&lt;'a, Self, I, O, E, F, U&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.SliceInput.html" title="trait chumsky::input::SliceInput">SliceInput</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Map from a slice of the input based on the current parser’s span to a value.</p>
+<p>The returned value may borrow data from the input slice, making this function very useful
+for creating zero-copy AST output values</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.slice" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#416-424">source</a><h4 class="code-header">fn <a href="#method.slice" class="fn">slice</a>(self) -&gt; <a class="struct" href="combinator/struct.Slice.html" title="struct chumsky::combinator::Slice">Slice</a>&lt;Self, O&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Convert the output of this parser into a slice of the input, based on the current parser’s
+span.</p>
+<p>This is effectively a special case of <a href="trait.Parser.html#method.map_slice" title="method chumsky::Parser::map_slice"><code>map_slice</code></a><code>(|x| x)</code></p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.filter" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#443-451">source</a><h4 class="code-header">fn <a href="#method.filter" class="fn">filter</a>&lt;F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;O</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Filter.html" title="struct chumsky::combinator::Filter">Filter</a>&lt;Self, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Filter the output of this parser, accepting only inputs that match the given predicate.</p>
+<p>The output type of this parser is <code>I</code>, the input that was found.</p>
+<h5 id="examples"><a href="#examples">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>lowercase = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(char::is_ascii_lowercase)
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;();
+
+<span class="macro">assert_eq!</span>(lowercase.parse(<span class="string">&quot;hello&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&quot;hello&quot;</span>.to_string()));
+<span class="macro">assert!</span>(lowercase.parse(<span class="string">&quot;Hello&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#481-490">source</a><h4 class="code-header">fn <a href="#method.map" class="fn">map</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O) -&gt; U&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Map.html" title="struct chumsky::combinator::Map">Map</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Map the output of this parser to another value.</p>
+<p>The output type of this parser is <code>U</code>, the same as the function’s output.</p>
+<h5 id="examples-1"><a href="#examples-1">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">enum </span>Token { Word(String), Num(u64) }
+
+<span class="kw">let </span>word = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_alphabetic())
+    .repeated().at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;()
+    .map(Token::Word);
+
+<span class="kw">let </span>num = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_ascii_digit())
+    .repeated().at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;()
+    .map(|s| Token::Num(s.parse().unwrap()));
+
+<span class="kw">let </span>token = word.or(num);
+
+<span class="macro">assert_eq!</span>(token.parse(<span class="string">&quot;test&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Token::Word(<span class="string">&quot;test&quot;</span>.to_string())));
+<span class="macro">assert_eq!</span>(token.parse(<span class="string">&quot;42&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Token::Num(<span class="number">42</span>)));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map_with_span" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#514-523">source</a><h4 class="code-header">fn <a href="#method.map_with_span" class="fn">map_with_span</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>) -&gt; U&gt;(
+    self,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.MapWithSpan.html" title="struct chumsky::combinator::MapWithSpan">MapWithSpan</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Map the output of this parser to another value, making use of the pattern’s span when doing so.</p>
+<p>This is very useful when generating an AST that attaches a span to each AST node.</p>
+<p>The output type of this parser is <code>U</code>, the same as the function’s output.</p>
+<h5 id="examples-2"><a href="#examples-2">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="comment">// It&#39;s common for AST nodes to use a wrapper type that allows attaching span information to them
+</span><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">pub struct </span>Spanned&lt;T&gt;(T, SimpleSpan&lt;usize&gt;);
+
+<span class="kw">let </span>ident = text::ident::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .map_with_span(Spanned) <span class="comment">// Equivalent to `.map_with_span(|ident, span| Spanned(ident, span))`
+    </span>.padded();
+
+<span class="macro">assert_eq!</span>(ident.parse(<span class="string">&quot;hello&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Spanned(<span class="string">&quot;hello&quot;</span>, (<span class="number">0</span>..<span class="number">5</span>).into())));
+<span class="macro">assert_eq!</span>(ident.parse(<span class="string">&quot;       hello   &quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Spanned(<span class="string">&quot;hello&quot;</span>, (<span class="number">7</span>..<span class="number">12</span>).into())));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.to_span" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#566-574">source</a><h4 class="code-header">fn <a href="#method.to_span" class="fn">to_span</a>(self) -&gt; <a class="struct" href="combinator/struct.ToSpan.html" title="struct chumsky::combinator::ToSpan">ToSpan</a>&lt;Self, O&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Transform the output of this parser to the pattern’s span.</p>
+<p>This is commonly used when you know what pattern you’ve parsed and are only interested in the span of the
+pattern.</p>
+<p>The output type of this parser is <code>I::Span</code>.</p>
+<h5 id="examples-3"><a href="#examples-3">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="comment">// It&#39;s common for AST nodes to use a wrapper type that allows attaching span information to them
+</span><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">pub enum </span>Expr&lt;<span class="lifetime">&#39;a</span>&gt; {
+    Int(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, SimpleSpan),
+    <span class="comment">// The span is that of the operator, &#39;+&#39;
+    </span>Add(Box&lt;Expr&lt;<span class="lifetime">&#39;a</span>&gt;&gt;, SimpleSpan, Box&lt;Expr&lt;<span class="lifetime">&#39;a</span>&gt;&gt;),
+}
+
+<span class="kw">let </span>int = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .slice()
+    .map_with_span(Expr::Int)
+    .padded();
+
+<span class="kw">let </span>add_op = just(<span class="string">&#39;+&#39;</span>).to_span().padded();
+<span class="kw">let </span>sum = int.foldl(
+    add_op.then(int).repeated(),
+    |a, (op_span, b)| Expr::Add(Box::new(a), op_span, Box::new(b)),
+);
+
+<span class="macro">assert_eq!</span>(sum.parse(<span class="string">&quot;42 + 7 + 13&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Expr::Add(
+    Box::new(Expr::Add(
+        Box::new(Expr::Int(<span class="string">&quot;42&quot;</span>, (<span class="number">0</span>..<span class="number">2</span>).into())),
+        (<span class="number">3</span>..<span class="number">4</span>).into(),
+        Box::new(Expr::Int(<span class="string">&quot;7&quot;</span>, (<span class="number">5</span>..<span class="number">6</span>).into())),
+    )),
+    (<span class="number">7</span>..<span class="number">8</span>).into(),
+    Box::new(Expr::Int(<span class="string">&quot;13&quot;</span>, (<span class="number">9</span>..<span class="number">11</span>).into())),
+)));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#623-635">source</a><h4 class="code-header">fn <a href="#method.map_with_state" class="fn">map_with_state</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; U&gt;(
+    self,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.MapWithState.html" title="struct chumsky::combinator::MapWithState">MapWithState</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Map the output of this parser to another value, making use of the parser’s state when doing so.</p>
+<p>This is very useful for parsing non context-free grammars.</p>
+<p>The output type of this parser is <code>U</code>, the same as the function’s output.</p>
+<h5 id="examples-4"><a href="#examples-4">Examples</a></h5><h6 id="general"><a href="#general">General</a></h6>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>std::ops::Range;
+<span class="kw">use </span>lasso::{Rodeo, Spur};
+
+<span class="comment">// It&#39;s common for AST nodes to use interned versions of identifiers
+// Keys are generally smaller, faster to compare, and can be `Copy`
+</span><span class="attr">#[derive(Copy, Clone)]
+</span><span class="kw">pub struct </span>Ident(Spur);
+
+<span class="kw">let </span>ident = text::ident::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Full&lt;Simple&lt;char&gt;, Rodeo, ()&gt;&gt;()
+    .map_with_state(|ident, span, state| Ident(state.get_or_intern(ident)))
+    .padded()
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+<span class="comment">// Test out parser
+
+</span><span class="kw">let </span><span class="kw-2">mut </span>interner = Rodeo::new();
+
+<span class="kw">match </span>ident.parse_with_state(<span class="string">&quot;hello&quot;</span>, <span class="kw-2">&amp;mut </span>interner).into_result() {
+    <span class="prelude-val">Ok</span>(idents) =&gt; {
+        <span class="macro">assert_eq!</span>(interner.resolve(<span class="kw-2">&amp;</span>idents[<span class="number">0</span>].<span class="number">0</span>), <span class="string">&quot;hello&quot;</span>);
+    }
+    <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Parsing Failed: {:?}&quot;</span>, e),
+}
+
+<span class="kw">match </span>ident.parse_with_state(<span class="string">&quot;hello hello&quot;</span>, <span class="kw-2">&amp;mut </span>interner).into_result() {
+    <span class="prelude-val">Ok</span>(idents) =&gt; {
+        <span class="macro">assert_eq!</span>(idents[<span class="number">0</span>].<span class="number">0</span>, idents[<span class="number">1</span>].<span class="number">0</span>);
+    }
+    <span class="prelude-val">Err</span>(e) =&gt; <span class="macro">panic!</span>(<span class="string">&quot;Parsing Failed: {:?}&quot;</span>, e),
+}</code></pre></div>
+<p>See <a href="trait.Parser.html#method.foldl_with_state" title="method chumsky::Parser::foldl_with_state"><code>Parser::foldl_with_state</code></a> for an example showing arena allocation via parser state.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.try_map" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#658-667">source</a><h4 class="code-header">fn <a href="#method.try_map" class="fn">try_map</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;&gt;(
+    self,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.TryMap.html" title="struct chumsky::combinator::TryMap">TryMap</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>After a successful parse, apply a fallible function to the output. If the function produces an error, treat it
+as a parsing error.</p>
+<p>If you wish parsing of this pattern to continue when an error is generated instead of halting, consider using
+<a href="trait.Parser.html#method.validate" title="method chumsky::Parser::validate"><code>Parser::validate</code></a> instead.</p>
+<p>The output type of this parser is <code>U</code>, the <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok" title="variant core::result::Result::Ok"><code>Ok</code></a> return value of the function.</p>
+<h5 id="examples-5"><a href="#examples-5">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>byte = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Rich&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .try_map(|s: <span class="kw-2">&amp;</span>str, span| s
+        .parse::&lt;u8&gt;()
+        .map_err(|e| Rich::custom(span, e)));
+
+<span class="macro">assert!</span>(byte.parse(<span class="string">&quot;255&quot;</span>).has_output());
+<span class="macro">assert!</span>(byte.parse(<span class="string">&quot;256&quot;</span>).has_errors()); <span class="comment">// Out of range</span></code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.try_map_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#676-688">source</a><h4 class="code-header">fn <a href="#method.try_map_with_state" class="fn">try_map_with_state</a>&lt;U, F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;&gt;(
+    self,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.TryMapWithState.html" title="struct chumsky::combinator::TryMapWithState">TryMapWithState</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>After a successful parse, apply a fallible function to the output, making use of the parser’s state when
+doing so. If the function produces an error, treat it as a parsing error.</p>
+<p>If you wish parsing of this pattern to continue when an error is generated instead of halting, consider using
+<a href="trait.Parser.html#method.validate" title="method chumsky::Parser::validate"><code>Parser::validate</code></a> instead.</p>
+<p>The output type of this parser is <code>U</code>, the <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok" title="variant core::result::Result::Ok"><code>Ok</code></a> return value of the function.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.ignored" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#713-721">source</a><h4 class="code-header">fn <a href="#method.ignored" class="fn">ignored</a>(self) -&gt; <a class="struct" href="combinator/struct.Ignored.html" title="struct chumsky::combinator::Ignored">Ignored</a>&lt;Self, O&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Ignore the output of this parser, yielding <code>()</code> as an output instead.</p>
+<p>This can be used to reduce the cost of parsing by avoiding unnecessary allocations (most collections containing
+<a href="https://doc.rust-lang.org/nomicon/exotic-sizes.html#zero-sized-types-zsts">ZSTs</a>
+<a href="https://doc.rust-lang.org/std/vec/struct.Vec.html#guarantees">do not allocate</a>). For example, it’s common to
+want to ignore whitespace in many grammars (see <a href="text/fn.whitespace.html" title="fn chumsky::text::whitespace"><code>text::whitespace</code></a>).</p>
+<p>The output type of this parser is <code>()</code>.</p>
+<h5 id="examples-6"><a href="#examples-6">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// A parser that parses any number of whitespace characters without allocating
+</span><span class="kw">let </span>whitespace = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_whitespace())
+    .ignored()
+    .repeated()
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+<span class="macro">assert_eq!</span>(whitespace.parse(<span class="string">&quot;    &quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[(); <span class="number">4</span>]));
+<span class="macro">assert!</span>(whitespace.parse(<span class="string">&quot;  hello&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.to" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#760-769">source</a><h4 class="code-header">fn <a href="#method.to" class="fn">to</a>&lt;U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>&gt;(self, to: U) -&gt; <a class="struct" href="combinator/struct.To.html" title="struct chumsky::combinator::To">To</a>&lt;Self, O, U&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Transform all outputs of this parser to a pretermined value.</p>
+<p>The output type of this parser is <code>U</code>, the type of the predetermined value.</p>
+<h5 id="examples-7"><a href="#examples-7">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Clone, Debug, PartialEq)]
+</span><span class="kw">enum </span>Op { Add, Sub, Mul, Div }
+
+<span class="kw">let </span>op = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&#39;+&#39;</span>).to(Op::Add)
+    .or(just(<span class="string">&#39;-&#39;</span>).to(Op::Sub))
+    .or(just(<span class="string">&#39;*&#39;</span>).to(Op::Mul))
+    .or(just(<span class="string">&#39;/&#39;</span>).to(Op::Div));
+
+<span class="macro">assert_eq!</span>(op.parse(<span class="string">&quot;+&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Op::Add));
+<span class="macro">assert_eq!</span>(op.parse(<span class="string">&quot;/&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(Op::Div));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.labelled" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#778-788">source</a><h4 class="code-header">fn <a href="#method.labelled" class="fn">labelled</a>&lt;L&gt;(self, label: L) -&gt; <a class="struct" href="label/struct.Labelled.html" title="struct chumsky::label::Labelled">Labelled</a>&lt;Self, L&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>: <a class="trait" href="label/trait.LabelError.html" title="trait chumsky::label::LabelError">LabelError</a>&lt;'a, I, L&gt;,</span></h4></section></summary><div class="docblock"><p>Label this parser with the given label.</p>
+<p>Labelling a parser makes all errors generated by the parser refer to the label rather than any sub-elements
+within the parser. For example, labelling a parser for an expression would yield “expected expression” errors
+rather than “expected integer, string, binary op, etc.” errors.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.then" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#808-817">source</a><h4 class="code-header">fn <a href="#method.then" class="fn">then</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.Then.html" title="struct chumsky::combinator::Then">Then</a>&lt;Self, B, O, U, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Parse one thing and then another thing, yielding a tuple of the two outputs.</p>
+<p>The output type of this parser is <code>(O, U)</code>, a combination of the outputs of both parsers.</p>
+<h5 id="examples-8"><a href="#examples-8">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>word = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_alphabetic())
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;();
+<span class="kw">let </span>two_words = word.then_ignore(just(<span class="string">&#39; &#39;</span>)).then(word);
+
+<span class="macro">assert_eq!</span>(two_words.parse(<span class="string">&quot;dog cat&quot;</span>).into_result(), <span class="prelude-val">Ok</span>((<span class="string">&quot;dog&quot;</span>.to_string(), <span class="string">&quot;cat&quot;</span>.to_string())));
+<span class="macro">assert!</span>(two_words.parse(<span class="string">&quot;hedgehog&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.ignore_then" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#839-848">source</a><h4 class="code-header">fn <a href="#method.ignore_then" class="fn">ignore_then</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(
+    self,
+    other: B
+) -&gt; <a class="struct" href="combinator/struct.IgnoreThen.html" title="struct chumsky::combinator::IgnoreThen">IgnoreThen</a>&lt;Self, B, O, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Parse one thing and then another thing, yielding only the output of the latter.</p>
+<p>The output type of this parser is <code>U</code>, the same as the second parser.</p>
+<h5 id="examples-9"><a href="#examples-9">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>zeroes = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;().filter(|c: <span class="kw-2">&amp;</span>char| <span class="kw-2">*</span>c == <span class="string">&#39;0&#39;</span>).ignored().repeated().collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+<span class="kw">let </span>digits = any().filter(|c: <span class="kw-2">&amp;</span>char| c.is_ascii_digit())
+    .repeated()
+    .collect::&lt;String&gt;();
+<span class="kw">let </span>integer = zeroes
+    .ignore_then(digits)
+    .from_str()
+    .unwrapped();
+
+<span class="macro">assert_eq!</span>(integer.parse(<span class="string">&quot;00064&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">64</span>));
+<span class="macro">assert_eq!</span>(integer.parse(<span class="string">&quot;32&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">32</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.then_ignore" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#882-891">source</a><h4 class="code-header">fn <a href="#method.then_ignore" class="fn">then_ignore</a>&lt;U, B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;&gt;(
+    self,
+    other: B
+) -&gt; <a class="struct" href="combinator/struct.ThenIgnore.html" title="struct chumsky::combinator::ThenIgnore">ThenIgnore</a>&lt;Self, B, U, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Parse one thing and then another thing, yielding only the output of the former.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-10"><a href="#examples-10">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>word = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_alphabetic())
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;();
+
+<span class="kw">let </span>punctuated = word
+    .then_ignore(just(<span class="string">&#39;!&#39;</span>).or(just(<span class="string">&#39;?&#39;</span>)).or_not());
+
+<span class="kw">let </span>sentence = punctuated
+    .padded() <span class="comment">// Allow for whitespace gaps
+    </span>.repeated()
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+<span class="macro">assert_eq!</span>(
+    sentence.parse(<span class="string">&quot;hello! how are you?&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[
+        <span class="string">&quot;hello&quot;</span>.to_string(),
+        <span class="string">&quot;how&quot;</span>.to_string(),
+        <span class="string">&quot;are&quot;</span>.to_string(),
+        <span class="string">&quot;you&quot;</span>.to_string(),
+    ]),
+);</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.nested_in" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#946-956">source</a><h4 class="code-header">fn <a href="#method.nested_in" class="fn">nested_in</a>&lt;B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, I, E&gt;&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.NestedIn.html" title="struct chumsky::combinator::NestedIn">NestedIn</a>&lt;Self, B, O, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: 'a,</span></h4></section></summary><div class="docblock"><p>Parse input as part of a token-tree - using an input generated from within the current
+input. In other words, this parser will attempt to create a <em>new</em> input stream from within
+the one it is being run on, and the parser it was called on will be provided this <em>new</em> input.
+By default, the original parser is expected to consume up to the end of the new stream. To
+allow only consuming part of the stream, use <a href="trait.Parser.html#method.lazy" title="method chumsky::Parser::lazy"><code>Parser::lazy</code></a> to ignore trailing tokens.</p>
+<p>The provided parser <code>P</code> is expected to have both an input and output type which match the input
+type of the parser it is called on. As an example, if the original parser takes an input of
+<code>Stream&lt;Iterator&lt;Item = T&gt;&gt;</code>, <code>P</code> will be run first against that input, and is expected to
+output a new <code>Stream&lt;Iterator&lt;Item = T&gt;&gt;</code> which the original parser will be run against.</p>
+<p>The output of this parser is <code>O</code>, the output of the parser it is called on.</p>
+<h5 id="examples-11"><a href="#examples-11">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Debug, Clone, PartialEq)]
+</span><span class="kw">enum </span>Token&lt;<span class="lifetime">&#39;a</span>&gt; {
+    Struct,
+    Ident(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
+    Item(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
+    Group(Vec&lt;Token&lt;<span class="lifetime">&#39;a</span>&gt;&gt;),
+}
+
+<span class="kw">let </span>group = <span class="macro">select_ref! </span>{ Token::Group(g) =&gt; g.as_slice() };
+
+<span class="kw">let </span>ident = <span class="macro">select_ref! </span>{ Token::Ident(i) =&gt; <span class="kw-2">*</span>i };
+
+<span class="kw">let </span>items = <span class="macro">select_ref! </span>{ Token::Item(i) =&gt; <span class="kw-2">*</span>i }
+    .repeated()
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+    .nested_in(group);
+
+<span class="kw">let </span>struc = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;<span class="kw">_</span>&gt;&gt;&gt;(<span class="kw-2">&amp;</span>Token::Struct)
+    .ignore_then(ident)
+    .then(items);
+
+<span class="kw">let </span>tl = struc
+    .repeated()
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+<span class="kw">let </span>tokens = [
+    Token::Struct,
+    Token::Ident(<span class="string">&quot;foo&quot;</span>),
+    Token::Group(<span class="macro">vec!</span>[
+        Token::Item(<span class="string">&quot;a&quot;</span>),
+        Token::Item(<span class="string">&quot;b&quot;</span>),
+    ]),
+];
+
+<span class="macro">assert_eq!</span>(tl.parse(<span class="kw-2">&amp;</span>tokens).into_result(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[(<span class="string">&quot;foo&quot;</span>, <span class="macro">vec!</span>[<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>])]));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.then_with_ctx" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#981-995">source</a><h4 class="code-header">fn <a href="#method.then_with_ctx" class="fn">then_with_ctx</a>&lt;U, P&gt;(
+    self,
+    then: P
+) -&gt; <a class="struct" href="combinator/struct.ThenWithCtx.html" title="struct chumsky::combinator::ThenWithCtx">ThenWithCtx</a>&lt;Self, P, O, I, <a class="struct" href="extra/struct.Full.html" title="struct chumsky::extra::Full">Full</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>, O&gt;&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    O: 'a,
+    P: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, <a class="struct" href="extra/struct.Full.html" title="struct chumsky::extra::Full">Full</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>, O&gt;&gt;,</span></h4></section></summary><div class="docblock"><p>Parse one thing and then another thing, creating the second parser from the result of
+the first. If you only have a couple cases to handle, prefer <a href="trait.Parser.html#method.or" title="method chumsky::Parser::or"><code>Parser::or</code></a>.</p>
+<p>The output of this parser is <code>U</code>, the result of the second parser</p>
+<p>Error recovery for this parser may be sub-optimal, as if the first parser succeeds on
+recovery then the second produces an error, the primary error will point to the location in
+the second parser which failed, ignoring that the first parser may be the root cause. There
+may be other pathological errors cases as well.</p>
+<h5 id="examples-12"><a href="#examples-12">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>successor = just(<span class="string">b&#39;\0&#39;</span>).configure(|cfg, ctx: <span class="kw-2">&amp;</span>u8| cfg.seq(<span class="kw-2">*</span>ctx + <span class="number">1</span>));
+
+<span class="comment">// A parser that parses a single letter and then its successor
+</span><span class="kw">let </span>successive_letters = one_of::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;u8&gt;&gt;&gt;(<span class="string">b&#39;a&#39;</span>..=<span class="string">b&#39;z&#39;</span>)
+    .then_with_ctx(successor);
+
+<span class="macro">assert_eq!</span>(successive_letters.parse(<span class="string">b&quot;ab&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">b&#39;b&#39;</span>)); <span class="comment">// &#39;b&#39; follows &#39;a&#39;
+</span><span class="macro">assert!</span>(successive_letters.parse(<span class="string">b&quot;ac&quot;</span>).has_errors()); <span class="comment">// &#39;c&#39; does not follow &#39;a&#39;</span></code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.with_ctx" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1013-1019">source</a><h4 class="code-header">fn <a href="#method.with_ctx" class="fn">with_ctx</a>&lt;Ctx&gt;(self, ctx: Ctx) -&gt; <a class="struct" href="combinator/struct.WithCtx.html" title="struct chumsky::combinator::WithCtx">WithCtx</a>&lt;Self, Ctx&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    Ctx: 'a + <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a>,</span></h4></section></summary><div class="docblock"><p>Run the previous contextual parser with the provided context</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="kw">let </span>generic = just(<span class="string">b&#39;0&#39;</span>).configure(|cfg, ctx: <span class="kw-2">&amp;</span>u8| cfg.seq(<span class="kw-2">*</span>ctx));
+
+<span class="kw">let </span>parse_a = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Default&gt;(<span class="string">b&#39;b&#39;</span>).ignore_then(generic.with_ctx::&lt;u8&gt;(<span class="string">b&#39;a&#39;</span>));
+<span class="kw">let </span>parse_b = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Default&gt;(<span class="string">b&#39;a&#39;</span>).ignore_then(generic.with_ctx(<span class="string">b&#39;b&#39;</span>));
+
+<span class="macro">assert_eq!</span>(parse_a.parse(<span class="string">b&quot;ba&quot; </span><span class="kw">as </span><span class="kw-2">&amp;</span>[<span class="kw">_</span>]).into_result(), <span class="prelude-val">Ok</span>::&lt;<span class="kw">_</span>, Vec&lt;EmptyErr&gt;&gt;(<span class="string">b&#39;a&#39;</span>));
+<span class="macro">assert!</span>(parse_a.parse(<span class="string">b&quot;bb&quot;</span>).has_errors());
+<span class="macro">assert_eq!</span>(parse_b.parse(<span class="string">b&quot;ab&quot; </span><span class="kw">as </span><span class="kw-2">&amp;</span>[<span class="kw">_</span>]).into_result(), <span class="prelude-val">Ok</span>(<span class="string">b&#39;b&#39;</span>));
+<span class="macro">assert!</span>(parse_b.parse(<span class="string">b&quot;aa&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.and_is" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1055-1065">source</a><h4 class="code-header">fn <a href="#method.and_is" class="fn">and_is</a>&lt;U, B&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.AndIs.html" title="struct chumsky::combinator::AndIs">AndIs</a>&lt;Self, B, U&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;,</span></h4></section></summary><div class="docblock"><p>Applies both parsers to the same position in the input, succeeding
+only if both succeed. The returned value will be that of the first parser,
+and the input will be at the end of the first parser if <code>and_is</code> succeeds.</p>
+<p>The second parser is allowed to consume more or less input than the first parser,
+but like its output, how much it consumes won’t affect the final result.</p>
+<p>The motivating use-case is in combination with <a href="trait.Parser.html#method.not" title="method chumsky::Parser::not"><code>Parser::not</code></a>, allowing a parser
+to consume something only if it isn’t also something like an escape sequence or a nested block.</p>
+<h5 id="examples-13"><a href="#examples-13">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="kw">let </span>escape = just(<span class="string">&quot;\\n&quot;</span>).to(<span class="string">&#39;\n&#39;</span>);
+
+<span class="comment">// C-style string literal
+</span><span class="kw">let </span>string = none_of::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&#39;&quot;&#39;</span>)
+    .and_is(escape.not())
+    .or(escape)
+    .repeated()
+    .collect::&lt;String&gt;()
+    .padded_by(just(<span class="string">&#39;&quot;&#39;</span>));
+
+<span class="macro">assert_eq!</span>(
+    string.parse(<span class="string">&quot;\&quot;wxyz\&quot;&quot;</span>).into_result().as_deref(),
+    <span class="prelude-val">Ok</span>(<span class="string">&quot;wxyz&quot;</span>),
+);
+<span class="macro">assert_eq!</span>(
+    string.parse(<span class="string">&quot;\&quot;a\nb\&quot;&quot;</span>).into_result().as_deref(),
+    <span class="prelude-val">Ok</span>(<span class="string">&quot;a\nb&quot;</span>),
+);</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.delimited_by" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1115-1127">source</a><h4 class="code-header">fn <a href="#method.delimited_by" class="fn">delimited_by</a>&lt;U, V, B, C&gt;(
+    self,
+    start: B,
+    end: C
+) -&gt; <a class="struct" href="combinator/struct.DelimitedBy.html" title="struct chumsky::combinator::DelimitedBy">DelimitedBy</a>&lt;Self, B, C, U, V&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;,
+    C: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, V, E&gt;,</span></h4></section></summary><div class="docblock"><p>Parse the pattern surrounded by the given delimiters.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-14"><a href="#examples-14">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// A LISP-style S-expression
+</span><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">enum </span>SExpr {
+    Ident(String),
+    Num(u64),
+    List(Vec&lt;SExpr&gt;),
+}
+
+<span class="kw">let </span>ident = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;().filter(|c: <span class="kw-2">&amp;</span>char| c.is_alphabetic())
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;();
+
+<span class="kw">let </span>num = text::int(<span class="number">10</span>)
+    .from_str()
+    .unwrapped();
+
+<span class="kw">let </span>s_expr = recursive(|s_expr| s_expr
+    .padded()
+    .repeated()
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+    .map(SExpr::List)
+    .delimited_by(just(<span class="string">&#39;(&#39;</span>), just(<span class="string">&#39;)&#39;</span>))
+    .or(ident.map(SExpr::Ident))
+    .or(num.map(SExpr::Num)));
+
+<span class="comment">// A valid input
+</span><span class="macro">assert_eq!</span>(
+    s_expr.parse(<span class="string">&quot;(add (mul 42 3) 15)&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>(SExpr::List(<span class="macro">vec!</span>[
+        SExpr::Ident(<span class="string">&quot;add&quot;</span>.to_string()),
+        SExpr::List(<span class="macro">vec!</span>[
+            SExpr::Ident(<span class="string">&quot;mul&quot;</span>.to_string()),
+            SExpr::Num(<span class="number">42</span>),
+            SExpr::Num(<span class="number">3</span>),
+        ]),
+        SExpr::Num(<span class="number">15</span>),
+    ])),
+);</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.padded_by" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1145-1155">source</a><h4 class="code-header">fn <a href="#method.padded_by" class="fn">padded_by</a>&lt;U, B&gt;(self, padding: B) -&gt; <a class="struct" href="combinator/struct.PaddedBy.html" title="struct chumsky::combinator::PaddedBy">PaddedBy</a>&lt;Self, B, U&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;,</span></h4></section></summary><div class="docblock"><p>Parse a pattern, but with an instance of another pattern on either end, yielding the output of the inner.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-15"><a href="#examples-15">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>ident = text::ident::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .padded_by(just(<span class="string">&#39;!&#39;</span>));
+
+<span class="macro">assert_eq!</span>(ident.parse(<span class="string">&quot;!hello!&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&quot;hello&quot;</span>));
+<span class="macro">assert!</span>(ident.parse(<span class="string">&quot;hello!&quot;</span>).has_errors());
+<span class="macro">assert!</span>(ident.parse(<span class="string">&quot;!hello&quot;</span>).has_errors());
+<span class="macro">assert!</span>(ident.parse(<span class="string">&quot;hello&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.or" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1187-1195">source</a><h4 class="code-header">fn <a href="#method.or" class="fn">or</a>&lt;B&gt;(self, other: B) -&gt; <a class="struct" href="combinator/struct.Or.html" title="struct chumsky::combinator::Or">Or</a>&lt;Self, B&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, O, E&gt;,</span></h4></section></summary><div class="docblock"><p>Parse one thing or, on failure, another thing.</p>
+<p>The output of both parsers must be of the same type, because either output can be produced.</p>
+<p>If both parser succeed, the output of the first parser is guaranteed to be prioritised over the output of the
+second.</p>
+<p>If both parsers produce errors, the combinator will attempt to select from or combine the errors to produce an
+error that is most likely to be useful to a human attempting to understand the problem. The exact algorithm
+used is left unspecified, and is not part of the crate’s semver guarantees, although regressions in error
+quality should be reported in the issue tracker of the main repository.</p>
+<p>Please note that long chains of <a href="trait.Parser.html#method.or" title="method chumsky::Parser::or"><code>Parser::or</code></a> combinators have been known to result in poor compilation times.
+If you feel you are experiencing this, consider using <a href="primitive/fn.choice.html" title="fn chumsky::primitive::choice"><code>choice</code></a> instead.</p>
+<p>The output type of this parser is <code>O</code>, the output of both parsers.</p>
+<h5 id="examples-16"><a href="#examples-16">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>op = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&#39;+&#39;</span>)
+    .or(just(<span class="string">&#39;-&#39;</span>))
+    .or(just(<span class="string">&#39;*&#39;</span>))
+    .or(just(<span class="string">&#39;/&#39;</span>));
+
+<span class="macro">assert_eq!</span>(op.parse(<span class="string">&quot;+&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&#39;+&#39;</span>));
+<span class="macro">assert_eq!</span>(op.parse(<span class="string">&quot;/&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&#39;/&#39;</span>));
+<span class="macro">assert!</span>(op.parse(<span class="string">&quot;!&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.or_not" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1218-1223">source</a><h4 class="code-header">fn <a href="#method.or_not" class="fn">or_not</a>(self) -&gt; <a class="struct" href="combinator/struct.OrNot.html" title="struct chumsky::combinator::OrNot">OrNot</a>&lt;Self&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Attempt to parse something, but only if it exists.</p>
+<p>If parsing of the pattern is successful, the output is <code>Some(_)</code>. Otherwise, the output is <code>None</code>.</p>
+<p>The output type of this parser is <code>Option&lt;O&gt;</code>.</p>
+<h5 id="examples-17"><a href="#examples-17">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>word = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;().filter(|c: <span class="kw-2">&amp;</span>char| c.is_alphabetic())
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;();
+
+<span class="kw">let </span>word_or_question = word
+    .then(just(<span class="string">&#39;?&#39;</span>).or_not());
+
+<span class="macro">assert_eq!</span>(word_or_question.parse(<span class="string">&quot;hello?&quot;</span>).into_result(), <span class="prelude-val">Ok</span>((<span class="string">&quot;hello&quot;</span>.to_string(), <span class="prelude-val">Some</span>(<span class="string">&#39;?&#39;</span>))));
+<span class="macro">assert_eq!</span>(word_or_question.parse(<span class="string">&quot;wednesday&quot;</span>).into_result(), <span class="prelude-val">Ok</span>((<span class="string">&quot;wednesday&quot;</span>.to_string(), <span class="prelude-val">None</span>)));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.not" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1283-1291">source</a><h4 class="code-header">fn <a href="#method.not" class="fn">not</a>(self) -&gt; <a class="struct" href="combinator/struct.Not.html" title="struct chumsky::combinator::Not">Not</a>&lt;Self, O&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Invert the result of the contained parser, failing if it succeeds and succeeding if it fails.
+The output of this parser is always <code>()</code>, the unit type.</p>
+<p>The motivating case for this is in combination with <a href="trait.Parser.html#method.and_is" title="method chumsky::Parser::and_is"><code>Parser::and_is</code></a>, allowing a parser
+to consume something only if it isn’t also something like an escape sequence or a nested block.</p>
+<p>Caveats:</p>
+<ul>
+<li>The error message produced by <code>not</code> by default will likely be fairly unhelpful - it can
+only tell the span that was wrong.</li>
+<li>If not careful, it’s fairly easy to create non-intuitive behavior due to end-of-input
+being a valid token for a parser to consume, and as most parsers fail at end of input,
+<code>not</code> will succeed on it.</li>
+</ul>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">enum </span>Tree&lt;<span class="lifetime">&#39;a</span>&gt; {
+    Text(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
+    Group(Vec&lt;<span class="self">Self</span>&gt;),
+}
+
+<span class="comment">// Arbitrary text, nested in a tree with { ... } delimiters
+</span><span class="kw">let </span>tree = recursive::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(|tree| {
+    <span class="kw">let </span>text = any()
+        .and_is(one_of(<span class="string">&quot;{}&quot;</span>).not())
+        .repeated()
+        .at_least(<span class="number">1</span>)
+        .map_slice(Tree::Text);
+
+    <span class="kw">let </span>group = tree
+        .repeated()
+        .collect()
+        .delimited_by(just(<span class="string">&#39;{&#39;</span>), just(<span class="string">&#39;}&#39;</span>))
+        .map(Tree::Group);
+
+    text.or(group)
+});
+
+<span class="macro">assert_eq!</span>(
+    tree.parse(<span class="string">&quot;{abcd{efg{hijk}lmn{opq}rs}tuvwxyz}&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>(Tree::Group(<span class="macro">vec!</span>[
+        Tree::Text(<span class="string">&quot;abcd&quot;</span>),
+        Tree::Group(<span class="macro">vec!</span>[
+            Tree::Text(<span class="string">&quot;efg&quot;</span>),
+            Tree::Group(<span class="macro">vec!</span>[
+                Tree::Text(<span class="string">&quot;hijk&quot;</span>),
+            ]),
+            Tree::Text(<span class="string">&quot;lmn&quot;</span>),
+            Tree::Group(<span class="macro">vec!</span>[
+                Tree::Text(<span class="string">&quot;opq&quot;</span>),
+            ]),
+            Tree::Text(<span class="string">&quot;rs&quot;</span>),
+        ]),
+        Tree::Text(<span class="string">&quot;tuvwxyz&quot;</span>),
+    ])),
+);</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.repeated" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1318-1330">source</a><h4 class="code-header">fn <a href="#method.repeated" class="fn">repeated</a>(self) -&gt; <a class="struct" href="combinator/struct.Repeated.html" title="struct chumsky::combinator::Repeated">Repeated</a>&lt;Self, O, I, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Parse a pattern any number of times (including zero times).</p>
+<p>Input is eagerly parsed. Be aware that the parser will accept no occurences of the pattern too. Consider using
+<a href="combinator/struct.Repeated.html#method.at_least" title="method chumsky::combinator::Repeated::at_least"><code>Repeated::at_least</code></a> instead if it better suits your use-case.</p>
+<p>The output type of this parser can be any <a href="container/trait.Container.html" title="trait chumsky::container::Container"><code>Container</code></a>.</p>
+<h5 id="examples-18"><a href="#examples-18">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>num = any::&lt;<span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .filter(|c: <span class="kw-2">&amp;</span>char| c.is_ascii_digit())
+    .repeated()
+    .at_least(<span class="number">1</span>)
+    .collect::&lt;String&gt;()
+    .from_str()
+    .unwrapped();
+
+<span class="kw">let </span>sum = num.clone()
+    .foldl(just(<span class="string">&#39;+&#39;</span>).ignore_then(num).repeated(), |a, b| a + b);
+
+<span class="macro">assert_eq!</span>(sum.parse(<span class="string">&quot;2+13+4+0+5&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">24</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.separated_by" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1354-1370">source</a><h4 class="code-header">fn <a href="#method.separated_by" class="fn">separated_by</a>&lt;U, B&gt;(self, separator: B) -&gt; <a class="struct" href="combinator/struct.SeparatedBy.html" title="struct chumsky::combinator::SeparatedBy">SeparatedBy</a>&lt;Self, B, O, U, I, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    B: <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, U, E&gt;,</span></h4></section></summary><div class="docblock"><p>Parse a pattern, separated by another, any number of times.</p>
+<p>You can use <a href="combinator/struct.SeparatedBy.html#method.allow_leading" title="method chumsky::combinator::SeparatedBy::allow_leading"><code>SeparatedBy::allow_leading</code></a> or <a href="combinator/struct.SeparatedBy.html#method.allow_trailing" title="method chumsky::combinator::SeparatedBy::allow_trailing"><code>SeparatedBy::allow_trailing</code></a> to allow leading or trailing
+separators.</p>
+<p>The output type of this parser can be any <a href="container/trait.Container.html" title="trait chumsky::container::Container"><code>Container</code></a>.</p>
+<h5 id="examples-19"><a href="#examples-19">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>shopping = text::ident::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;()
+    .padded()
+    .separated_by(just(<span class="string">&#39;,&#39;</span>))
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+<span class="macro">assert_eq!</span>(shopping.parse(<span class="string">&quot;eggs&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="string">&quot;eggs&quot;</span>]));
+<span class="macro">assert_eq!</span>(shopping.parse(<span class="string">&quot;eggs, flour, milk&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="string">&quot;eggs&quot;</span>, <span class="string">&quot;flour&quot;</span>, <span class="string">&quot;milk&quot;</span>]));</code></pre></div>
+<p>See <a href="combinator/struct.SeparatedBy.html#method.allow_leading" title="method chumsky::combinator::SeparatedBy::allow_leading"><code>SeparatedBy::allow_leading</code></a> and <a href="combinator/struct.SeparatedBy.html#method.allow_trailing" title="method chumsky::combinator::SeparatedBy::allow_trailing"><code>SeparatedBy::allow_trailing</code></a> for more examples.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.foldl" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1394-1408">source</a><h4 class="code-header">fn <a href="#method.foldl" class="fn">foldl</a>&lt;B, F, OB&gt;(self, other: B, f: F) -&gt; <a class="struct" href="combinator/struct.Foldl.html" title="struct chumsky::combinator::Foldl">Foldl</a>&lt;F, Self, B, OB, E&gt;<span class="where fmt-newline">where
+    F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, OB) -&gt; O,
+    B: <a class="trait" href="trait.IterParser.html" title="trait chumsky::IterParser">IterParser</a>&lt;'a, I, OB, E&gt;,
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Left-fold the output of the parser into a single value.</p>
+<p>The output of the original parser must be of type <code>(A, impl IntoIterator&lt;Item = B&gt;)</code>.</p>
+<p>The output type of this parser is <code>A</code>, the left-hand component of the original parser’s output.</p>
+<h5 id="examples-20"><a href="#examples-20">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>int = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .from_str()
+    .unwrapped();
+
+<span class="kw">let </span>sum = int
+    .clone()
+    .foldl(just(<span class="string">&#39;+&#39;</span>).ignore_then(int).repeated(), |a, b| a + b);
+
+<span class="macro">assert_eq!</span>(sum.parse(<span class="string">&quot;1+12+3+9&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">25</span>));
+<span class="macro">assert_eq!</span>(sum.parse(<span class="string">&quot;6&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">6</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.foldl_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1484-1498">source</a><h4 class="code-header">fn <a href="#method.foldl_with_state" class="fn">foldl_with_state</a>&lt;B, F, OB&gt;(
+    self,
+    other: B,
+    f: F
+) -&gt; <a class="struct" href="combinator/struct.FoldlWithState.html" title="struct chumsky::combinator::FoldlWithState">FoldlWithState</a>&lt;F, Self, B, OB, E&gt;<span class="where fmt-newline">where
+    F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, OB, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; O,
+    B: <a class="trait" href="trait.IterParser.html" title="trait chumsky::IterParser">IterParser</a>&lt;'a, I, OB, E&gt;,
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Left-fold the output of the parser into a single value, making use of the parser’s state when doing so.</p>
+<p>The output of the original parser must be of type <code>(A, impl IntoIterator&lt;Item = B&gt;)</code>.</p>
+<p>The output type of this parser is <code>A</code>, the left-hand component of the original parser’s output.</p>
+<h5 id="examples-21"><a href="#examples-21">Examples</a></h5><h6 id="general-1"><a href="#general-1">General</a></h6>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>int = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Full&lt;Simple&lt;char&gt;, i32, ()&gt;&gt;(<span class="number">10</span>)
+    .from_str()
+    .unwrapped();
+
+<span class="kw">let </span>sum = int
+    .clone()
+    .foldl_with_state(just(<span class="string">&#39;+&#39;</span>).ignore_then(int).repeated(), |a, b, state| (a + b) * <span class="kw-2">*</span>state);
+
+<span class="kw">let </span><span class="kw-2">mut </span>multiplier = <span class="number">2i32</span>;
+<span class="macro">assert_eq!</span>(sum.parse_with_state(<span class="string">&quot;1+12+3+9&quot;</span>, <span class="kw-2">&amp;mut </span>multiplier).into_result(), <span class="prelude-val">Ok</span>(<span class="number">134</span>));
+<span class="macro">assert_eq!</span>(sum.parse_with_state(<span class="string">&quot;6&quot;</span>, <span class="kw-2">&amp;mut </span>multiplier).into_result(), <span class="prelude-val">Ok</span>(<span class="number">6</span>));</code></pre></div>
+<h6 id="interning--arena-allocation"><a href="#interning--arena-allocation">Interning / Arena Allocation</a></h6>
+<p>This example assumes use of the <code>slotmap</code> crate for arena allocation.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>slotmap::{new_key_type, SlotMap};
+
+<span class="comment">// Metadata type for node Ids for extra type safety
+</span><span class="macro">new_key_type! </span>{
+   <span class="kw">pub struct </span>NodeId;
+}
+
+<span class="comment">// AST nodes reference other nodes with `NodeId`s instead of containing boxed/owned values
+</span><span class="attr">#[derive(Copy, Clone, Debug, PartialEq)]
+</span><span class="kw">enum </span>Expr {
+    Int(i32),
+    Add(NodeId, NodeId),
+}
+
+<span class="kw">type </span>NodeArena = SlotMap&lt;NodeId, Expr&gt;;
+
+<span class="comment">// Now, define our parser
+</span><span class="kw">let </span>int = text::int::&lt;<span class="kw-2">&amp;</span>str, <span class="kw">_</span>, extra::Full&lt;Simple&lt;char&gt;, NodeArena, ()&gt;&gt;(<span class="number">10</span>)
+    .padded()
+    .map_with_state(|s, <span class="kw">_</span>, state: <span class="kw-2">&amp;mut </span>NodeArena|
+        <span class="comment">// Return the ID of the new integer node
+        </span>state.insert(Expr::Int(s.parse().unwrap()))
+    );
+
+<span class="kw">let </span>sum = int.foldl_with_state(
+    just(<span class="string">&#39;+&#39;</span>).padded().ignore_then(int).repeated(),
+    |a: NodeId, b: NodeId, state: <span class="kw-2">&amp;mut </span>NodeArena| {
+        <span class="comment">// Inserting an item into the arena returns its ID
+        </span>state.insert(Expr::Add(a, b))
+    }
+);
+
+<span class="comment">// Test our parser
+</span><span class="kw">let </span><span class="kw-2">mut </span>arena = NodeArena::default();
+<span class="kw">let </span>four_plus_eight = sum.parse_with_state(<span class="string">&quot;4 + 8&quot;</span>, <span class="kw-2">&amp;mut </span>arena).unwrap();
+<span class="kw">if let </span>Expr::Add(a, b) = arena[four_plus_eight] {
+    <span class="macro">assert_eq!</span>(arena[a], Expr::Int(<span class="number">4</span>));
+    <span class="macro">assert_eq!</span>(arena[b], Expr::Int(<span class="number">8</span>));
+} <span class="kw">else </span>{
+    <span class="macro">panic!</span>(<span class="string">&quot;Not an Expr::Add&quot;</span>);
+}</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.rewind" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1522-1527">source</a><h4 class="code-header">fn <a href="#method.rewind" class="fn">rewind</a>(self) -&gt; <a class="struct" href="combinator/struct.Rewind.html" title="struct chumsky::combinator::Rewind">Rewind</a>&lt;Self&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Parse a pattern. Afterwards, the input stream will be rewound to its original state, as if parsing had not
+occurred.</p>
+<p>This combinator is useful for cases in which you wish to avoid a parser accidentally consuming too much input,
+causing later parsers to fail as a result. A typical use-case of this is that you want to parse something that
+is not followed by something else.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-22"><a href="#examples-22">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>just_numbers = text::digits::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .slice()
+    .padded()
+    .then_ignore(none_of(<span class="string">&quot;+-*/&quot;</span>).rewind())
+    .separated_by(just(<span class="string">&#39;,&#39;</span>))
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+<span class="comment">// 3 is not parsed because it&#39;s followed by &#39;+&#39;.
+</span><span class="macro">assert_eq!</span>(just_numbers.lazy().parse(<span class="string">&quot;1, 2, 3 + 4&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="macro">vec!</span>[<span class="string">&quot;1&quot;</span>, <span class="string">&quot;2&quot;</span>]));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.lazy" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1545-1551">source</a><h4 class="code-header">fn <a href="#method.lazy" class="fn">lazy</a>(self) -&gt; <a class="type" href="combinator/type.Lazy.html" title="type chumsky::combinator::Lazy">Lazy</a>&lt;'a, Self, I, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.ValueInput.html" title="trait chumsky::input::ValueInput">ValueInput</a>&lt;'a&gt;,</span></h4></section></summary><div class="docblock"><p>Make the parser lazy, such that it parses as much as it validly can and then finished successfully, leaving
+trailing input untouched.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-23"><a href="#examples-23">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>digits = one_of::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&#39;0&#39;</span>..=<span class="string">&#39;9&#39;</span>)
+    .repeated()
+    .collect::&lt;String&gt;()
+    .lazy();
+
+<span class="macro">assert_eq!</span>(digits.parse(<span class="string">&quot;12345abcde&quot;</span>).into_result().as_deref(), <span class="prelude-val">Ok</span>(<span class="string">&quot;12345&quot;</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.padded" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1568-1575">source</a><h4 class="code-header">fn <a href="#method.padded" class="fn">padded</a>(self) -&gt; <a class="struct" href="text/struct.Padded.html" title="struct chumsky::text::Padded">Padded</a>&lt;Self&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Token" title="type chumsky::input::Input::Token">Token</a>: <a class="trait" href="text/trait.Char.html" title="trait chumsky::text::Char">Char</a>,</span></h4></section></summary><div class="docblock"><p>Parse a pattern, ignoring any amount of whitespace both before and after the pattern.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-24"><a href="#examples-24">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>ident = text::ident::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;().padded();
+
+<span class="comment">// A pattern with no whitespace surrounding it is accepted
+</span><span class="macro">assert_eq!</span>(ident.parse(<span class="string">&quot;hello&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&quot;hello&quot;</span>));
+<span class="comment">// A pattern with arbitrary whitespace surrounding it is also accepted
+</span><span class="macro">assert_eq!</span>(ident.parse(<span class="string">&quot; \t \n  \t   world  \t  &quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="string">&quot;world&quot;</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.recover_with" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1643-1651">source</a><h4 class="code-header">fn <a href="#method.recover_with" class="fn">recover_with</a>&lt;S: <a class="trait" href="recovery/trait.Strategy.html" title="trait chumsky::recovery::Strategy">Strategy</a>&lt;'a, I, O, E&gt;&gt;(
+    self,
+    strategy: S
+) -&gt; <a class="struct" href="recovery/struct.RecoverWith.html" title="struct chumsky::recovery::RecoverWith">RecoverWith</a>&lt;Self, S&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>Apply a fallback recovery strategy to this parser should it fail.</p>
+<p>There is no silver bullet for error recovery, so this function allows you to specify one of several different
+strategies at the location of your choice. Prefer an error recovery strategy that more precisely mirrors valid
+syntax where possible to make error recovery more reliable.</p>
+<p>Because chumsky is a <a href="https://en.m.wikipedia.org/wiki/Parsing_expression_grammar">PEG</a> parser, which always
+take the first successful parsing route through a grammar, recovering from an error may cause the parser to
+erroneously miss alternative valid routes through the grammar that do not generate recoverable errors. If you
+run into cases where valid syntax fails to parse without errors, this might be happening: consider removing
+error recovery or switching to a more specific error recovery strategy.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-25"><a href="#examples-25">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="attr">#[derive(Debug, PartialEq)]
+</span><span class="kw">enum </span>Expr&lt;<span class="lifetime">&#39;a</span>&gt; {
+    Error,
+    Int(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str),
+    List(Vec&lt;Expr&lt;<span class="lifetime">&#39;a</span>&gt;&gt;),
+}
+
+<span class="kw">let </span>recovery = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&#39;[&#39;</span>)
+        .then(none_of(<span class="string">&#39;]&#39;</span>).repeated().then(just(<span class="string">&#39;]&#39;</span>)));
+
+<span class="kw">let </span>expr = recursive::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;, <span class="kw">_</span>, <span class="kw">_</span>&gt;(|expr| expr
+    .separated_by(just(<span class="string">&#39;,&#39;</span>))
+    .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+    .delimited_by(just(<span class="string">&#39;[&#39;</span>), just(<span class="string">&#39;]&#39;</span>))
+    .map(Expr::List)
+    <span class="comment">// If parsing a list expression fails, recover at the next delimiter, generating an error AST node
+    </span>.recover_with(via_parser(recovery.map(|<span class="kw">_</span>| Expr::Error)))
+    .or(text::int(<span class="number">10</span>).map(Expr::Int))
+    .padded());
+
+<span class="macro">assert!</span>(expr.parse(<span class="string">&quot;five&quot;</span>).has_errors()); <span class="comment">// Text is not a valid expression in this language...
+</span><span class="macro">assert_eq!</span>(
+    expr.parse(<span class="string">&quot;[1, 2, 3]&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>(Expr::List(<span class="macro">vec!</span>[Expr::Int(<span class="string">&quot;1&quot;</span>), Expr::Int(<span class="string">&quot;2&quot;</span>), Expr::Int(<span class="string">&quot;3&quot;</span>)])),
+); <span class="comment">// ...but lists and numbers are!
+
+// This input has two syntax errors...
+</span><span class="kw">let </span>res = expr.parse(<span class="string">&quot;[[1, two], [3, four]]&quot;</span>);
+<span class="comment">// ...and error recovery allows us to catch both of them!
+</span><span class="macro">assert_eq!</span>(res.errors().len(), <span class="number">2</span>);
+<span class="comment">// Additionally, the AST we get back still has useful information.
+</span><span class="macro">assert_eq!</span>(res.output(), <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>Expr::List(<span class="macro">vec!</span>[Expr::Error, Expr::Error])));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map_err" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1660-1669">source</a><h4 class="code-header">fn <a href="#method.map_err" class="fn">map_err</a>&lt;F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.MapErr.html" title="struct chumsky::combinator::MapErr">MapErr</a>&lt;Self, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>) -&gt; E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>,</span></h4></section></summary><div class="docblock"><p>Map the primary error of this parser to another value.</p>
+<p>This function is most useful when using a custom error type, allowing you to augment errors according to
+context.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.map_err_with_state" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1699-1708">source</a><h4 class="code-header">fn <a href="#method.map_err_with_state" class="fn">map_err_with_state</a>&lt;F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.MapErrWithState.html" title="struct chumsky::combinator::MapErrWithState">MapErrWithState</a>&lt;Self, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.State" title="type chumsky::extra::ParserExtra::State">State</a>) -&gt; E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>,</span></h4></section></summary><div class="docblock"><p>Map the primary error of this parser to another value, making use of the parser state.</p>
+<p>This function is useful for augmenting errors to allow them to include context in non context-free
+languages, or provide contextual notes on possible causes.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.validate" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1799-1809">source</a><h4 class="code-header">fn <a href="#method.validate" class="fn">validate</a>&lt;U, F&gt;(self, f: F) -&gt; <a class="struct" href="combinator/struct.Validate.html" title="struct chumsky::combinator::Validate">Validate</a>&lt;Self, O, F&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    F: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="trait core::ops::function::Fn">Fn</a>(O, I::<a class="associatedtype" href="input/trait.Input.html#associatedtype.Span" title="type chumsky::input::Input::Span">Span</a>, &amp;mut <a class="struct" href="input/struct.Emitter.html" title="struct chumsky::input::Emitter">Emitter</a>&lt;E::<a class="associatedtype" href="extra/trait.ParserExtra.html#associatedtype.Error" title="type chumsky::extra::ParserExtra::Error">Error</a>&gt;) -&gt; U,</span></h4></section></summary><div class="docblock"><p>Validate an output, producing non-terminal errors if it does not fulfil certain criteria.
+The errors will not immediately halt parsing on this path, but instead it will continue,
+potentially emitting one or more other errors, only failing after the pattern has otherwise
+successfully, or emitted another terminal error.</p>
+<p>This function also permits mapping the output to a value of another type, similar to <a href="trait.Parser.html#method.map" title="method chumsky::Parser::map"><code>Parser::map</code></a>.</p>
+<p>If you wish parsing of this pattern to halt when an error is generated instead of continuing, consider using
+<a href="trait.Parser.html#method.try_map" title="method chumsky::Parser::try_map"><code>Parser::try_map</code></a> instead.</p>
+<p>The output type of this parser is <code>U</code>, the result of the validation closure.</p>
+<h5 id="examples-26"><a href="#examples-26">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>large_int = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Rich&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .from_str()
+    .unwrapped()
+    .validate(|x: u32, span, emitter| {
+        <span class="kw">if </span>x &lt; <span class="number">256 </span>{ emitter.emit(Rich::custom(span, <span class="macro">format!</span>(<span class="string">&quot;{} must be 256 or higher.&quot;</span>, x))) }
+        x
+    });
+
+<span class="macro">assert_eq!</span>(large_int.parse(<span class="string">&quot;537&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">537</span>));
+<span class="macro">assert!</span>(large_int.parse(<span class="string">&quot;243&quot;</span>).into_result().is_err());</code></pre></div>
+<p>To show the difference in behavior from <a href="trait.Parser.html#method.try_map" title="method chumsky::Parser::try_map"><code>Parser::try_map</code></a>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// start with the same large_int validator
+</span><span class="kw">let </span>large_int_val = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Rich&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+        .from_str()
+        .unwrapped()
+        .validate(|x: u32, span, emitter| {
+            <span class="kw">if </span>x &lt; <span class="number">256 </span>{ emitter.emit(Rich::custom(span, <span class="macro">format!</span>(<span class="string">&quot;{} must be 256 or higher&quot;</span>, x))) }
+            x
+        });
+
+<span class="comment">// A try_map version of the same parser
+</span><span class="kw">let </span>large_int_tm = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Rich&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+        .from_str()
+        .unwrapped()
+        .try_map(|x: u32, span| {
+            <span class="kw">if </span>x &lt; <span class="number">256 </span>{
+                <span class="prelude-val">Err</span>(Rich::custom(span, <span class="macro">format!</span>(<span class="string">&quot;{} must be 256 or higher&quot;</span>, x)))
+            } <span class="kw">else </span>{
+                <span class="prelude-val">Ok</span>(x)
+            }
+        });
+
+<span class="comment">// Parser that uses the validation version
+</span><span class="kw">let </span>multi_step_val = large_int_val.then(text::ident().padded());
+<span class="comment">// Parser that uses the try_map version
+</span><span class="kw">let </span>multi_step_tm = large_int_tm.then(text::ident().padded());
+
+<span class="comment">// On success, both parsers are equivalent
+</span><span class="macro">assert_eq!</span>(
+    multi_step_val.parse(<span class="string">&quot;512 foo&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>((<span class="number">512</span>, <span class="string">&quot;foo&quot;</span>))
+);
+
+<span class="macro">assert_eq!</span>(
+    multi_step_tm.parse(<span class="string">&quot;512 foo&quot;</span>).into_result(),
+    <span class="prelude-val">Ok</span>((<span class="number">512</span>, <span class="string">&quot;foo&quot;</span>))
+);
+
+<span class="comment">// However, on failure, they may produce different errors:
+</span><span class="macro">assert_eq!</span>(
+    multi_step_val.parse(<span class="string">&quot;100 2&quot;</span>).into_result(),
+    <span class="prelude-val">Err</span>(<span class="macro">vec!</span>[
+        Rich::&lt;char&gt;::custom((<span class="number">0</span>..<span class="number">3</span>).into(), <span class="string">&quot;100 must be 256 or higher&quot;</span>),
+        &lt;Rich&lt;char&gt; <span class="kw">as </span>Error&lt;<span class="kw-2">&amp;</span>str&gt;&gt;::expected_found([], <span class="prelude-val">Some</span>(MaybeRef::Val(<span class="string">&#39;2&#39;</span>)), (<span class="number">4</span>..<span class="number">5</span>).into()),
+    ])
+);
+
+<span class="macro">assert_eq!</span>(
+    multi_step_tm.parse(<span class="string">&quot;100 2&quot;</span>).into_result(),
+    <span class="prelude-val">Err</span>(<span class="macro">vec!</span>[Rich::&lt;char&gt;::custom((<span class="number">0</span>..<span class="number">3</span>).into(), <span class="string">&quot;100 must be 256 or higher&quot;</span>)])
+);</code></pre></div>
+<p>As is seen in the above example, validation doesn’t prevent the emission of later errors in the
+same parser, but still produces an error in the output.</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.from_str" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1847-1854">source</a><h4 class="code-header">fn <a href="#method.from_str" class="fn">from_str</a>&lt;U&gt;(self) -&gt; <a class="struct" href="combinator/struct.Map.html" title="struct chumsky::combinator::Map">Map</a>&lt;Self, O, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.fn.html">fn</a>(_: O) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;U, U::<a class="associatedtype" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html#associatedtype.Err" title="type core::str::traits::FromStr::Err">Err</a>&gt;&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,
+    U: <a class="trait" href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html" title="trait core::str::traits::FromStr">FromStr</a>,
+    O: <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html" title="trait core::convert::AsRef">AsRef</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>&gt;,</span></h4></section></summary><div class="docblock"><p>Attempt to convert the output of this parser into something else using Rust’s <a href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html" title="trait core::str::traits::FromStr"><code>FromStr</code></a> trait.</p>
+<p>This is most useful when wanting to convert literal values into their corresponding Rust type, such as when
+parsing integers.</p>
+<p>The output type of this parser is <code>Result&lt;U, U::Err&gt;</code>, the result of attempting to parse the output, <code>O</code>, into
+the value <code>U</code>.</p>
+<h5 id="examples-27"><a href="#examples-27">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>uint64 = text::int::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="number">10</span>)
+    .from_str::&lt;u64&gt;()
+    .unwrapped();
+
+<span class="macro">assert_eq!</span>(uint64.parse(<span class="string">&quot;7&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">7</span>));
+<span class="macro">assert_eq!</span>(uint64.parse(<span class="string">&quot;42&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="number">42</span>));</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.unwrapped" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1881-1890">source</a><h4 class="code-header">fn <a href="#method.unwrapped" class="fn">unwrapped</a>(self) -&gt; <a class="struct" href="combinator/struct.Unwrapped.html" title="struct chumsky::combinator::Unwrapped">Unwrapped</a>&lt;Self, O&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,</span></h4></section></summary><div class="docblock"><p>For parsers that produce a <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result"><code>Result</code></a> as their output, unwrap the result (panicking if an <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Err" title="variant core::result::Result::Err"><code>Err</code></a> is
+encountered).</p>
+<p>In general, this method should be avoided except in cases where all possible that the parser might produce can
+by parsed using <a href="https://doc.rust-lang.org/nightly/core/str/traits/trait.FromStr.html" title="trait core::str::traits::FromStr"><code>FromStr</code></a> without producing an error.</p>
+<p>This combinator is not named <code>unwrap</code> to avoid confusion: it unwraps <em>during parsing</em>, not immediately.</p>
+<p>The output type of this parser is <code>U</code>, the <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html#variant.Ok" title="variant core::result::Result::Ok"><code>Ok</code></a> value of the <a href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result"><code>Result</code></a>.</p>
+<h5 id="examples-28"><a href="#examples-28">Examples</a></h5>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>boolean = just::&lt;<span class="kw">_</span>, <span class="kw">_</span>, extra::Err&lt;Simple&lt;char&gt;&gt;&gt;(<span class="string">&quot;true&quot;</span>)
+    .or(just(<span class="string">&quot;false&quot;</span>))
+    .from_str::&lt;bool&gt;()
+    .unwrapped(); <span class="comment">// Cannot panic: the only possible outputs generated by the parser are &quot;true&quot; or &quot;false&quot;
+
+</span><span class="macro">assert_eq!</span>(boolean.parse(<span class="string">&quot;true&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>));
+<span class="macro">assert_eq!</span>(boolean.parse(<span class="string">&quot;false&quot;</span>).into_result(), <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>));
+<span class="comment">// Does not panic, because the original parser only accepts &quot;true&quot; or &quot;false&quot;
+</span><span class="macro">assert!</span>(boolean.parse(<span class="string">&quot;42&quot;</span>).has_errors());</code></pre></div>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.boxed" class="method"><a class="srclink rightside" href="../src/chumsky/lib.rs.html#1980-1985">source</a><h4 class="code-header">fn <a href="#method.boxed" class="fn">boxed</a>&lt;'b&gt;(self) -&gt; <a class="struct" href="struct.Boxed.html" title="struct chumsky::Boxed">Boxed</a>&lt;'a, 'b, I, O, E&gt;<span class="where fmt-newline">where
+    Self: <a class="trait" href="util/trait.MaybeSync.html" title="trait chumsky::util::MaybeSync">MaybeSync</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + 'a + 'b,</span></h4></section></summary><div class="docblock"><p>Box the parser, yielding a parser that performs parsing through dynamic dispatch.</p>
+<p>Boxing a parser might be useful for:</p>
+<ul>
+<li>
+<p>Dynamically building up parsers at run-time</p>
+</li>
+<li>
+<p>Improving compilation times (Rust can struggle to compile code containing very long types)</p>
+</li>
+<li>
+<p>Passing a parser over an FFI boundary</p>
+</li>
+<li>
+<p>Getting around compiler implementation problems with long types such as
+<a href="https://github.com/rust-lang/rust/issues/54540">this</a>.</p>
+</li>
+<li>
+<p>Places where you need to name the type of a parser</p>
+</li>
+</ul>
+<p>Boxing a parser is broadly equivalent to boxing other combinators via dynamic dispatch, such as <a href="https://doc.rust-lang.org/nightly/core/iter/traits/iterator/trait.Iterator.html" title="trait core::iter::traits::iterator::Iterator"><code>Iterator</code></a>.</p>
+<p>The output type of this parser is <code>O</code>, the same as the original parser.</p>
+<h5 id="examples-29"><a href="#examples-29">Examples</a></h5>
+<p>When not using <code>boxed</code>, the following patterns are either impossible or very difficult to express:</p>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code>
+<span class="kw">pub trait </span>Parseable: Sized {
+    <span class="kw">type </span>Parser&lt;<span class="lifetime">&#39;a</span>&gt;: Parser&lt;<span class="lifetime">&#39;a</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="self">Self</span>&gt;;
+
+    <span class="kw">fn </span>parser&lt;<span class="lifetime">&#39;a</span>&gt;() -&gt; <span class="self">Self</span>::Parser&lt;<span class="lifetime">&#39;a</span>&gt;;
+}
+
+<span class="kw">impl </span>Parseable <span class="kw">for </span>i32 {
+    <span class="comment">// We *can* write this type, but it will be very impractical, and change on any alterations
+    // to the implementation
+    </span><span class="kw">type </span>Parser&lt;<span class="lifetime">&#39;a</span>&gt; = <span class="question-mark">???</span>;
+
+    <span class="kw">fn </span>parser&lt;<span class="lifetime">&#39;a</span>&gt;() -&gt; <span class="self">Self</span>::Parser&lt;<span class="lifetime">&#39;a</span>&gt; {
+        todo()
+    }
+}</code></pre></div>
+
+<div class="example-wrap compile_fail"><a href="#" class="tooltip" title="This example deliberately fails to compile">ⓘ</a><pre class="rust rust-example-rendered"><code>
+<span class="kw">let </span>user_input = user_input();
+
+<span class="kw">let </span><span class="kw-2">mut </span>parser = just(<span class="string">&#39;a&#39;</span>);
+<span class="kw">for </span>i <span class="kw">in </span>user_input {
+    <span class="comment">// Doesn&#39;t work due to type mismatch - since every combinator creates a unique type
+    </span>parser = parser.or(i);
+}
+
+<span class="kw">let </span>parser = parser.then(just(<span class="string">&#39;z&#39;</span>));
+<span class="kw">let _ </span>= parser.parse(<span class="string">&quot;b&quot;</span>).into_result();</code></pre></div>
+<p>However, with <code>boxed</code>, we can express them by making the parsers all share a common type:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>chumsky::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">pub trait </span>Parseable: Sized {
+    <span class="kw">fn </span>parser&lt;<span class="lifetime">&#39;a</span>&gt;() -&gt; Boxed&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;a</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="self">Self</span>, extra::Default&gt;;
+}
+
+<span class="kw">impl </span>Parseable <span class="kw">for </span>i32 {
+    <span class="kw">fn </span>parser&lt;<span class="lifetime">&#39;a</span>&gt;() -&gt; Boxed&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;a</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>str, <span class="self">Self</span>, extra::Default&gt; {
+        todo().boxed()
+    }
+}</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>user_input = user_input();
+<span class="kw">let </span><span class="kw-2">mut </span>parser = just(<span class="string">&#39;a&#39;</span>).boxed();
+<span class="kw">for </span>i <span class="kw">in </span>user_input {
+    <span class="comment">// Doesn&#39;t work due to type mismatch - since every combinator creates a unique type
+    </span>parser = parser.or(i).boxed();
+}
+<span class="kw">let </span>parser = parser.then(just(<span class="string">&#39;z&#39;</span>));
+parser.parse(<span class="string">&quot;az&quot;</span>).into_result().unwrap();</code></pre></div>
+</div></details></div><h2 id="implementors" class="small-section-header">Implementors<a href="#implementors" class="anchor">§</a></h2><div id="implementors-list"><section id="impl-Parser%3C'a,+I,+O,+E%3E-for-P" class="impl"><a class="srclink rightside" href="../src/chumsky/blanket.rs.html#37-43">source</a><a href="#impl-Parser%3C'a,+I,+O,+E%3E-for-P" class="anchor">§</a><h3 class="code-header">impl&lt;'a, I, O, E, P&gt; <a class="trait" href="trait.Parser.html" title="trait chumsky::Parser">Parser</a>&lt;'a, I, O, E&gt; for P<span class="where fmt-newline">where
+    I: <a class="trait" href="input/trait.Input.html" title="trait chumsky::input::Input">Input</a>&lt;'a&gt;,
+    E: <a class="trait" href="extra/trait.ParserExtra.html" title="trait chumsky::extra::ParserExtra">ParserExtra</a>&lt;'a, I&gt;,
+    P: ?<a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> + ParserSealed&lt;'a, I, O, E&gt;,</span></h3></section></div><script src="../implementors/chumsky/trait.Parser.js" async></script></section></div></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["sort_tuple","sort_tuples_by_fst"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["any","choice","custom","empty","end","group","just","map_ctx","none_of","one_of","select","select_ref","todo"],"struct":["Any","Choice","Custom","Empty","End","Group","Just","JustCfg","MapCtx","NoneOf","OneOf","Select","SelectRef","Todo"]};

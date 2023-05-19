@@ -1,0 +1,3 @@
+(function() {var implementors = {
+"beef":[["impl&lt;T, U&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html\" title=\"trait core::borrow::Borrow\">Borrow</a>&lt;T&gt; for <a class=\"struct\" href=\"beef/generic/struct.Cow.html\" title=\"struct beef::generic::Cow\">Cow</a>&lt;'_, T, U&gt;<span class=\"where fmt-newline\">where\n    T: Beef + ?<a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html\" title=\"trait core::marker::Sized\">Sized</a>,\n    U: Capacity,</span>"]]
+};if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
