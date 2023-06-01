@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["aligned_allocation","basic_allocation","extended_functions","heap","runtime_options","types","utils"]};

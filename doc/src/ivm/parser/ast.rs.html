@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src\parser\ast.rs`."><title>ast.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (ec2f40c6b 2023-03-30)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../ivm/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/parser/ast.rs`."><title>ast.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (9d871b061 2023-05-21)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../ivm/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -387,11 +387,42 @@
 <a href="#387" id="387">387</a>
 <a href="#388" id="388">388</a>
 <a href="#389" id="389">389</a>
-</pre><pre class="rust"><code><span class="kw">use crate</span>::{
+<a href="#390" id="390">390</a>
+<a href="#391" id="391">391</a>
+<a href="#392" id="392">392</a>
+<a href="#393" id="393">393</a>
+<a href="#394" id="394">394</a>
+<a href="#395" id="395">395</a>
+<a href="#396" id="396">396</a>
+<a href="#397" id="397">397</a>
+<a href="#398" id="398">398</a>
+<a href="#399" id="399">399</a>
+<a href="#400" id="400">400</a>
+<a href="#401" id="401">401</a>
+<a href="#402" id="402">402</a>
+<a href="#403" id="403">403</a>
+<a href="#404" id="404">404</a>
+<a href="#405" id="405">405</a>
+<a href="#406" id="406">406</a>
+<a href="#407" id="407">407</a>
+<a href="#408" id="408">408</a>
+<a href="#409" id="409">409</a>
+<a href="#410" id="410">410</a>
+<a href="#411" id="411">411</a>
+<a href="#412" id="412">412</a>
+<a href="#413" id="413">413</a>
+<a href="#414" id="414">414</a>
+<a href="#415" id="415">415</a>
+<a href="#416" id="416">416</a>
+<a href="#417" id="417">417</a>
+<a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
   error::{pass_output_and_errors_to_result, IvmResult, ProgramErrors},
   inet::{port, INet, NodeIdx},
   inet_program::INetProgram,
-  rule_book::{AgentId, RuleBook, ROOT_AGENT_ID},
+  rule_book::{AgentId, RuleBook, ROOT_AGENT_ID, RULE_BOOK_MAX_PRE_REDUCTION_STEPS},
 };
 <span class="kw">use </span>chumsky::{prelude::Rich, span::SimpleSpan};
 <span class="kw">use </span>derive_new::new;
@@ -401,9 +432,10 @@
 <span class="doccomment">/// The first node in a net is the root node
 </span><span class="kw">pub const </span>ROOT_NODE_IDX: NodeIdx = <span class="number">0</span>;
 
-<span class="kw">pub const </span>ROOT_PORT_NAME: <span class="kw-2">&amp;</span>str = <span class="string">&quot;root&quot;</span>;
+<span class="doccomment">/// Port name of the root node in `init` connections
+</span><span class="kw">pub const </span>ROOT_PORT_NAME: <span class="kw-2">&amp;</span>str = <span class="string">&quot;root&quot;</span>;
 
-<span class="doccomment">/// Matches Token::KeywordInit
+<span class="doccomment">/// Matches `Token::KeywordInit`
 </span><span class="kw">pub const </span>INIT_CONNECTIONS: <span class="kw-2">&amp;</span>str = <span class="string">&quot;init&quot;</span>;
 
 <span class="doccomment">/// Starts with uppercase letter (Token::Agent)
@@ -541,6 +573,7 @@
     /// Check linearity restriction (each port must be referenced exactly twice)
     /// Check that each agent usage has correct number of ports matching its declaration
     /// `rule_src` is used for error messages, pass `None` when validating `init` connections
+    /// Returns false if the connections reference non-existing agents
     </span><span class="kw">fn </span>validate_connections(
       errors: <span class="kw-2">&amp;mut </span>ProgramErrors,
       span: SimpleSpan,
@@ -549,12 +582,13 @@
       <span class="kw-2">mut </span>port_name_occurrences: HashMap&lt;PortName, usize&gt;,
       agent_arity: <span class="kw-2">&amp;</span>HashMap&lt;<span class="kw-2">&amp;</span>AgentName, usize&gt;,
       agent_usages: <span class="kw-2">&amp;mut </span>HashMap&lt;<span class="kw-2">&amp;</span>AgentName, usize&gt;,
-    ) {
+    ) -&gt; bool {
+      <span class="kw">let </span><span class="kw-2">mut </span>all_referenced_agents_exist = <span class="bool-val">true</span>;
       <span class="comment">// Check agent arity and count port occurrences
       </span>process_agents_and_ports(
         connections,
         |agent| {
-          validate_agent_usage(errors, span, agent, agent_arity, agent_usages);
+          all_referenced_agents_exist &amp;= validate_agent_usage(errors, span, agent, agent_arity, agent_usages);
         },
         |port_name: <span class="kw-2">&amp;</span>PortName| {
           <span class="kw">let </span>occurrences = port_name_occurrences.entry(port_name.to_owned()).or_insert(<span class="number">0</span>);
@@ -585,6 +619,8 @@
           }
         }
       }
+
+      all_referenced_agents_exist
     }
 
     <span class="kw">let </span><span class="kw-2">mut </span>errors = ProgramErrors::new();
@@ -609,11 +645,11 @@
       .keys()
       .sorted()
       .enumerate()
-      .map(|(i, <span class="kw-2">&amp;</span>agent)| (agent.to_owned(), <span class="number">1 </span>+ i))
+      .map(|(i, <span class="kw-2">&amp;</span>agent)| (agent.to_owned(), (<span class="number">1 </span>+ i) <span class="kw">as </span>AgentId))
       .collect::&lt;HashMap&lt;AgentName, AgentId&gt;&gt;();
 
     <span class="comment">// Validate rules and build rule book
-    </span><span class="kw">let </span><span class="kw-2">mut </span>rule_book = RuleBook::new(agent_name_to_id);
+    </span><span class="kw">let </span><span class="kw-2">mut </span>rule_book = RuleBook::new(agent_name_to_id.len());
     <span class="kw">for </span>rule <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>.rules {
       <span class="doccomment">/// Reject duplicate port names in agents of active pair
       /// E.g. A(a, a) ~ B is invalid, port names in active pair must be distinct
@@ -644,7 +680,7 @@
 
       <span class="comment">// Validate LHS
       </span><span class="kw">let </span>ActivePair { lhs, rhs } = active_pair;
-      <span class="kw">let </span>active_pair_agents_exist =
+      <span class="kw">let </span><span class="kw-2">mut </span>all_agents_referenced_in_rule_exist =
         validate_agent_usage(<span class="kw-2">&amp;mut </span>errors, span, lhs, <span class="kw-2">&amp;</span>agent_arity, <span class="kw-2">&amp;mut </span>agent_usages_in_rule_active_pairs)
           &amp;&amp; validate_agent_usage(
             <span class="kw-2">&amp;mut </span>errors,
@@ -655,8 +691,8 @@
           );
 
       <span class="comment">// Ensure that sets of port names in LHS and RHS of active pair are disjoint
-      </span><span class="kw">let </span>port_names_in_lhs = validate_agent_port_references(<span class="kw-2">&amp;mut </span>errors, span, <span class="string">&quot;LHS&quot;</span>, <span class="kw-2">&amp;</span>lhs);
-      <span class="kw">let </span>port_names_in_rhs = validate_agent_port_references(<span class="kw-2">&amp;mut </span>errors, span, <span class="string">&quot;RHS&quot;</span>, <span class="kw-2">&amp;</span>rhs);
+      </span><span class="kw">let </span>port_names_in_lhs = validate_agent_port_references(<span class="kw-2">&amp;mut </span>errors, span, <span class="string">&quot;LHS&quot;</span>, lhs);
+      <span class="kw">let </span>port_names_in_rhs = validate_agent_port_references(<span class="kw-2">&amp;mut </span>errors, span, <span class="string">&quot;RHS&quot;</span>, rhs);
 
       <span class="comment">// Reject duplicate port names in active pair
       // E.g. A(c) ~ B(c) is invalid, port names in active pair must be distinct
@@ -678,7 +714,7 @@
       </span><span class="kw">let </span>port_name_occurrences = port_names_in_active_pair.map(|port| (port, <span class="number">1</span>)).collect::&lt;HashMap&lt;<span class="kw">_</span>, <span class="kw">_</span>&gt;&gt;();
 
       <span class="comment">// Validate RHS
-      </span>validate_connections(
+      </span>all_agents_referenced_in_rule_exist &amp;= validate_connections(
         <span class="kw-2">&amp;mut </span>errors,
         span,
         <span class="bool-val">true</span>,
@@ -689,10 +725,11 @@
       );
 
       <span class="comment">// Add rule to rule book
-      </span><span class="kw">if </span>active_pair_agents_exist {
-        rule_book.add_rule(rule, rule_src, <span class="kw-2">&amp;mut </span>errors);
+      </span><span class="kw">if </span>all_agents_referenced_in_rule_exist {
+        rule_book.insert_rule(rule, rule_src, <span class="kw-2">&amp;</span>agent_name_to_id, <span class="kw-2">&amp;mut </span>errors);
       }
     }
+    <span class="kw">let </span>agent_id_to_name = agent_name_to_id.iter().map(|(name, id)| (<span class="kw-2">*</span>id, name.clone())).collect();
 
     <span class="comment">// We validated the connections of all rules&#39; RHS, now we validate the `init` connections
     </span>validate_connections(
@@ -721,37 +758,62 @@
     </span>drop(agent_arity);
     drop(agent_usages_in_rule_active_pairs);
 
-    pass_output_and_errors_to_result(src, <span class="prelude-val">Some</span>(ValidatedAst { ast: <span class="self">self</span>, rule_book }), errors)
+    pass_output_and_errors_to_result(
+      src,
+      <span class="prelude-val">Some</span>(ValidatedAst { ast: <span class="self">self</span>, rule_book, agent_name_to_id, agent_id_to_name }),
+      errors,
+    )
   }
 }
 
-<span class="kw">pub struct </span>ValidatedAst {
+<span class="doccomment">/// A validated AST and its corresponding `RuleBook`
+</span><span class="kw">pub struct </span>ValidatedAst {
   <span class="kw">pub </span>ast: Ast,
   <span class="kw">pub </span>rule_book: RuleBook,
+  <span class="kw">pub </span>agent_name_to_id: HashMap&lt;AgentName, AgentId&gt;,
+  <span class="kw">pub </span>agent_id_to_name: HashMap&lt;AgentId, AgentName&gt;,
 }
 
 <span class="kw">impl </span>ValidatedAst {
   <span class="doccomment">/// Generate an `INetProgram` from a `ValidatedAst`
-  </span><span class="kw">pub fn </span>into_inet_program(<span class="self">self</span>) -&gt; INetProgram {
-    <span class="kw">let </span><span class="self">Self </span>{ ast, rule_book } = <span class="self">self</span>;
+  </span><span class="kw">pub fn </span>into_inet_program(<span class="self">self</span>, pre_preduce: bool) -&gt; INetProgram {
+    <span class="kw">let </span><span class="self">Self </span>{ ast, <span class="kw-2">mut </span>rule_book, agent_name_to_id, agent_id_to_name } = <span class="self">self</span>;
 
     <span class="kw">let </span><span class="kw-2">mut </span>net = INet::default();
 
-    <span class="comment">// Create root node with one port
+    <span class="comment">// Create root node with one port which points to itself (by default)
     </span><span class="kw">let </span>root_node_idx = net.new_node(ROOT_AGENT_ID, <span class="number">1</span>);
     <span class="macro">debug_assert_eq!</span>(root_node_idx, ROOT_NODE_IDX);
-    net[root_node_idx].agent_name = ROOT_PORT_NAME.to_string();
     <span class="kw">let </span>root_port = port(root_node_idx, <span class="number">0</span>);
 
-    <span class="comment">// The root node is the only external link (&quot;free variable&quot;) in the `init` connections
-    </span><span class="kw">let </span>external_links = <span class="macro">vec!</span>[[<span class="prelude-val">Err</span>(ROOT_PORT_NAME), <span class="prelude-val">Ok</span>(root_port)]];
+    <span class="comment">// The root node is the only external port (&quot;free variable&quot;) in the `init` connections
+    </span><span class="kw">let </span>external_ports = <span class="macro">vec!</span>[[<span class="prelude-val">Err</span>(ROOT_PORT_NAME), <span class="prelude-val">Ok</span>(root_port)]];
 
-    net.add_connections(<span class="kw-2">&amp;</span>ast.init.val, external_links, <span class="kw-2">&amp;</span>rule_book.agent_name_to_id);
+    net.add_connections(<span class="kw-2">&amp;</span>ast.init.val, external_ports, <span class="kw-2">&amp;</span>agent_name_to_id);
 
     <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
-      net.validate();
+      net.validate(<span class="bool-val">false</span>);
     }
-    INetProgram { net, ast, rule_book }
+
+    rule_book.finalize(<span class="kw-2">&amp;</span>agent_id_to_name, pre_preduce);
+
+    <span class="kw">if </span>pre_preduce {
+      <span class="kw">let </span><span class="kw-2">mut </span>reduced_net = net.clone();
+      <span class="kw">if let </span><span class="prelude-val">Some</span>(reduction_count) =
+        reduced_net.reduce_in_max_steps::&lt;RULE_BOOK_MAX_PRE_REDUCTION_STEPS&gt;(<span class="kw-2">&amp;</span>rule_book)
+      {
+        <span class="kw">if </span>reduction_count &gt; <span class="number">0 </span>{
+          <span class="comment">// There were active pairs that were reduced
+          </span>reduced_net.remove_unused_nodes();
+          <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+            reduced_net.validate(<span class="bool-val">false</span>);
+          }
+          net = reduced_net;
+        }
+      }
+    }
+
+    INetProgram::new(ast, net, rule_book, agent_id_to_name)
   }
 }
 

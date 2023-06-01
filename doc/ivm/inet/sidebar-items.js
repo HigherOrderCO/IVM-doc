@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":["INTERMEDIARY_AGENT_ID"],"fn":["build_connector_from_port","port","port_target"],"struct":["INet","Node","NodePort"],"type":["ActivePairs","CreatedNodes","MaybeLinkedPort","MaybeLinkedPorts","NodeIdx","PortIdx"]};
+window.SIDEBAR_ITEMS = {"fn":["port"],"struct":["ActivePairCandidates","INet","Node","NodePort","ReuseableRewriteData","ReuseableSubnetData"],"type":["ActiveNodePair","ActiveNodePairs","MaybeLinkedPort","MaybeLinkedPorts","NodeIdx","NodeIndices","PortIdx","PortVec"]};

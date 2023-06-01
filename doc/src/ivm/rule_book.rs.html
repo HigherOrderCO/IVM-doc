@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src\rule_book.rs`."><title>rule_book.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (ec2f40c6b 2023-03-30)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ivm/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/rule_book.rs`."><title>rule_book.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (9d871b061 2023-05-21)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ivm/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -111,80 +111,399 @@
 <a href="#111" id="111">111</a>
 <a href="#112" id="112">112</a>
 <a href="#113" id="113">113</a>
-</pre><pre class="rust"><code><span class="kw">use crate</span>::{
+<a href="#114" id="114">114</a>
+<a href="#115" id="115">115</a>
+<a href="#116" id="116">116</a>
+<a href="#117" id="117">117</a>
+<a href="#118" id="118">118</a>
+<a href="#119" id="119">119</a>
+<a href="#120" id="120">120</a>
+<a href="#121" id="121">121</a>
+<a href="#122" id="122">122</a>
+<a href="#123" id="123">123</a>
+<a href="#124" id="124">124</a>
+<a href="#125" id="125">125</a>
+<a href="#126" id="126">126</a>
+<a href="#127" id="127">127</a>
+<a href="#128" id="128">128</a>
+<a href="#129" id="129">129</a>
+<a href="#130" id="130">130</a>
+<a href="#131" id="131">131</a>
+<a href="#132" id="132">132</a>
+<a href="#133" id="133">133</a>
+<a href="#134" id="134">134</a>
+<a href="#135" id="135">135</a>
+<a href="#136" id="136">136</a>
+<a href="#137" id="137">137</a>
+<a href="#138" id="138">138</a>
+<a href="#139" id="139">139</a>
+<a href="#140" id="140">140</a>
+<a href="#141" id="141">141</a>
+<a href="#142" id="142">142</a>
+<a href="#143" id="143">143</a>
+<a href="#144" id="144">144</a>
+<a href="#145" id="145">145</a>
+<a href="#146" id="146">146</a>
+<a href="#147" id="147">147</a>
+<a href="#148" id="148">148</a>
+<a href="#149" id="149">149</a>
+<a href="#150" id="150">150</a>
+<a href="#151" id="151">151</a>
+<a href="#152" id="152">152</a>
+<a href="#153" id="153">153</a>
+<a href="#154" id="154">154</a>
+<a href="#155" id="155">155</a>
+<a href="#156" id="156">156</a>
+<a href="#157" id="157">157</a>
+<a href="#158" id="158">158</a>
+<a href="#159" id="159">159</a>
+<a href="#160" id="160">160</a>
+<a href="#161" id="161">161</a>
+<a href="#162" id="162">162</a>
+<a href="#163" id="163">163</a>
+<a href="#164" id="164">164</a>
+<a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
+<a href="#175" id="175">175</a>
+<a href="#176" id="176">176</a>
+<a href="#177" id="177">177</a>
+<a href="#178" id="178">178</a>
+<a href="#179" id="179">179</a>
+<a href="#180" id="180">180</a>
+<a href="#181" id="181">181</a>
+<a href="#182" id="182">182</a>
+<a href="#183" id="183">183</a>
+<a href="#184" id="184">184</a>
+<a href="#185" id="185">185</a>
+<a href="#186" id="186">186</a>
+<a href="#187" id="187">187</a>
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+<a href="#261" id="261">261</a>
+<a href="#262" id="262">262</a>
+<a href="#263" id="263">263</a>
+<a href="#264" id="264">264</a>
+<a href="#265" id="265">265</a>
+<a href="#266" id="266">266</a>
+<a href="#267" id="267">267</a>
+<a href="#268" id="268">268</a>
+<a href="#269" id="269">269</a>
+<a href="#270" id="270">270</a>
+<a href="#271" id="271">271</a>
+<a href="#272" id="272">272</a>
+<a href="#273" id="273">273</a>
+<a href="#274" id="274">274</a>
+<a href="#275" id="275">275</a>
+<a href="#276" id="276">276</a>
+<a href="#277" id="277">277</a>
+<a href="#278" id="278">278</a>
+<a href="#279" id="279">279</a>
+<a href="#280" id="280">280</a>
+<a href="#281" id="281">281</a>
+<a href="#282" id="282">282</a>
+<a href="#283" id="283">283</a>
+<a href="#284" id="284">284</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
   error::ProgramErrors,
-  inet::{CreatedNodes, INet, NodeIdx},
-  parser::ast::{ActivePair, AgentName, Connection, PortName, Rule},
+  inet::{ActiveNodePair, ActivePairCandidates, INet, NodePort, ReuseableSubnetData},
+  parser::ast::{ActivePair, AgentName, PortName, Rule, ROOT_NODE_IDX},
+  rule_map::RuleMap,
   util::sort_tuples_by_fst,
 };
 <span class="kw">use </span>chumsky::prelude::Rich;
-<span class="kw">use </span>derive_new::new;
 <span class="kw">use </span>hashbrown::HashMap;
 <span class="kw">use </span>itertools::Itertools;
 
+<span class="doccomment">/// Maximum number of reduction steps to perform on a net during pre-reduction.
+/// If it cannot be reduced in this many steps, the original net is kept.
+/// Because rules&#39; RHS sub-nets (and the init net) aren&#39;t guaranteed to terminate.
+</span><span class="kw">pub const </span>RULE_BOOK_MAX_PRE_REDUCTION_STEPS: usize = <span class="number">100</span>;
+
 <span class="doccomment">/// Agent IDs start from 1, 0 is reserved for the root node&#39;s agent_id
-</span><span class="kw">pub type </span>AgentId = usize;
+</span><span class="kw">pub type </span>AgentId = u32;
 
 <span class="doccomment">/// Agent ID 0 is reserved for the root
 </span><span class="kw">pub const </span>ROOT_AGENT_ID: AgentId = <span class="number">0</span>;
 
 <span class="doccomment">/// Ordered pair of AgentIds represents active pair
 /// So that we only have to store one mapping to cover A ~ B and B ~ A
-</span><span class="kw">type </span>RuleLhs = (AgentId, AgentId);
+</span><span class="kw">pub type </span>RuleLhs = (AgentId, AgentId);
 
-<span class="kw">struct </span>RuleRhs {
-  rule_src: String, <span class="comment">// Rule&#39;s source code, used for showing in error messages
-  </span>port_idx_to_name: [Vec&lt;PortName&gt;; <span class="number">2</span>],
-  connections: Vec&lt;Connection&gt;,
+<span class="doccomment">/// RHS of a rule, contains the rule&#39;s RHS sub-net
+</span><span class="attr">#[derive(Clone)]
+</span><span class="kw">pub struct </span>RuleRhs {
+  <span class="doccomment">/// Active pair of the rule, only used for logging
+  </span>active_pair: ActivePair,
+
+  <span class="doccomment">/// Names of the rule&#39;s RHS sub-net root node&#39;s ports == aux port names of the
+  /// rule&#39;s active pair after ordering them by agent id. Used for read back.
+  </span>root_port_names: Vec&lt;PortName&gt;,
+
+  <span class="doccomment">/// The rule&#39;s RHS sub-net, with the root node&#39;s ports representing links to the rule&#39;s
+  /// active pair aux ports. E.g. in `rule Eq(ret, a) ~ Zero = IsZero(ret) ~ a`
+  /// (assuming the agent id of `Eq` is less than the agent id of `IsZero`)
+  /// the root node has 2 ports since the total number of active pair aux ports is 2.
+  /// `root_port_names` is `[&quot;ret&quot;, &quot;a&quot;]`, and the sub-net is `IsZero((0, 0)) ~ (0, 1)`.
+  /// The sub-net&#39;s root node is removed during rule application after its ports have been
+  /// pass-through-linked to bridge the boundary between the main net and the sub-net.
+  </span><span class="kw">pub</span>(<span class="kw">crate</span>) subnet: INet,
+
+  <span class="kw">pub</span>(<span class="kw">crate</span>) active_pair_candidates_after_inserting_subnet: ActivePairCandidates,
 }
 
-<span class="doccomment">/**
-The rule book is a mapping from active pair to a rule&#39;s RHS connections.
-E.g. if we have: rule Add(ret, a) ~ Succ(b) = ret ~ Succ(cnt), Add(cnt, a) ~ b
-then the rule book maps (Add, Succ) to [ret ~ Succ(cnt), Add(cnt, a) ~ b]
-which is a sub-net in which the ports that are named in the active pair
-appear as external links (i.e. not connected to any other ports in the sub-net).
-During rule application, the rule RHS sub-net is constructed and external links
-are connected to the corresponding ports in the active pair of the net.
-Currently the ports are linked by name, but this could be changed to use port ids.
-*/
-</span><span class="attr">#[derive(new)]
+<span class="doccomment">/// The rule book is a mapping from active pair to a rule&#39;s RHS connections.
+/// E.g. if we have: rule Add(ret, a) ~ Succ(b) = ret ~ Succ(cnt), Add(cnt, a) ~ b
+/// then the rule book maps (Add, Succ) to [ret ~ Succ(cnt), Add(cnt, a) ~ b]
+/// which is a sub-net in which the ports that are named in the active pair
+/// appear as external links (i.e. not connected to any other ports in the sub-net).
+/// During rule application, the rule RHS sub-net is constructed and external links
+/// are connected to the corresponding ports in the active pair of the net.
+/// Currently the ports are linked by name, but this could be changed to use port ids.
+</span><span class="attr">#[derive(Clone)]
 </span><span class="kw">pub struct </span>RuleBook {
-  <span class="kw">pub </span>agent_name_to_id: HashMap&lt;AgentName, AgentId&gt;,
-  <span class="attr">#[new(default)]
-  </span>rules: HashMap&lt;RuleLhs, RuleRhs&gt;,
+  rules: RuleMap,
 }
 
 <span class="kw">impl </span>RuleBook {
+  <span class="kw">pub fn </span>new(_agent_count: usize) -&gt; <span class="self">Self </span>{
+    <span class="self">Self </span>{ rules: RuleMap::new() }
+    <span class="comment">// Self { rules: RuleMap::new(agent_count) }
+  </span>}
+
   <span class="doccomment">/// Insert into rule book and check for duplicate rules
-  </span><span class="kw">pub fn </span>add_rule(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule: <span class="kw-2">&amp;</span>Rule, rule_src: <span class="kw-2">&amp;</span>str, errors: <span class="kw-2">&amp;mut </span>ProgramErrors) {
+  </span><span class="kw">pub fn </span>insert_rule(
+    <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+    rule: <span class="kw-2">&amp;</span>Rule,
+    _rule_src: <span class="kw-2">&amp;</span>str,
+    agent_name_to_id: <span class="kw-2">&amp;</span>HashMap&lt;AgentName, AgentId&gt;,
+    errors: <span class="kw-2">&amp;mut </span>ProgramErrors,
+  ) {
     <span class="kw">let </span>Rule { lhs: active_pair, rhs: rule_rhs, span } = rule;
 
     <span class="kw">let </span>ActivePair { lhs: lhs_agent, rhs: rhs_agent } = active_pair;
-    <span class="kw">let </span>lhs_id = <span class="self">self</span>.agent_name_to_id[<span class="kw-2">&amp;</span>lhs_agent.agent];
-    <span class="kw">let </span>rhs_id = <span class="self">self</span>.agent_name_to_id[<span class="kw-2">&amp;</span>rhs_agent.agent];
+    <span class="kw">let </span>lhs_id = agent_name_to_id[<span class="kw-2">&amp;</span>lhs_agent.agent];
+    <span class="kw">let </span>rhs_id = agent_name_to_id[<span class="kw-2">&amp;</span>rhs_agent.agent];
 
     <span class="comment">// Construct RuleLhs, ordered pair of AgentIDs. Order agents along with AgentIDs
     </span><span class="kw">let </span>((lhs_id, lhs_agent), (rhs_id, rhs_agent)) =
       sort_tuples_by_fst(((lhs_id, lhs_agent), (rhs_id, rhs_agent)));
     <span class="kw">let </span>key = (lhs_id, rhs_id); <span class="comment">// Ordered pair
 
-    </span><span class="kw">let </span>value = RuleRhs {
-      rule_src: rule_src.to_owned(),
-      port_idx_to_name: [
-        lhs_agent.ports.iter().map(|port_name| port_name.to_owned()).collect_vec(),
-        rhs_agent.ports.iter().map(|port_name| port_name.to_owned()).collect_vec(),
-      ],
-      connections: rule_rhs.clone(),
+    </span><span class="kw">let </span>(root_port_names, root_node_ports): (Vec&lt;<span class="kw">_</span>&gt;, Vec&lt;<span class="kw">_</span>&gt;) = [lhs_agent, rhs_agent]
+      .into_iter()
+      .flat_map(|agent| <span class="kw-2">&amp;</span>agent.ports)
+      .enumerate()
+      .map(|(external_port_idx, port_name)| {
+        (port_name.to_owned(), NodePort { node_idx: ROOT_NODE_IDX, port_idx: external_port_idx })
+      })
+      .unzip();
+
+    <span class="kw">let </span>subnet = {
+      <span class="kw">let </span>external_ports = root_port_names
+        .iter()
+        .zip(<span class="kw-2">&amp;</span>root_node_ports)
+        .map(|(port_name, node_port)| [<span class="prelude-val">Err</span>(port_name.as_str()), <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>node_port)])
+        .collect_vec();
+
+      <span class="comment">// This inet represents the rule&#39;s RHS sub-net
+      </span><span class="kw">let </span><span class="kw-2">mut </span>subnet = INet::default();
+
+      <span class="comment">// Create root node with as many ports as there are external ports in the rule&#39;s RHS sub-net
+      // (== the number of aux ports in the active pair)
+      // Set each port to point to itself.
+      </span><span class="kw">let </span>root_node_idx = subnet.new_node(ROOT_AGENT_ID, external_ports.len());
+      <span class="macro">debug_assert_eq!</span>(root_node_idx, ROOT_NODE_IDX);
+      subnet[root_node_idx].ports = root_node_ports.into();
+
+      <span class="kw">let </span>_created_nodes = subnet.add_connections(rule_rhs, external_ports, agent_name_to_id);
+      <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+        subnet.validate(<span class="bool-val">false</span>);
+      }
+      subnet
     };
-    <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw">_</span>) = <span class="self">self</span>.rules.insert(key, value) {
+
+    <span class="comment">// let active_pair_candidates_after_inserting_subnet =
+    //   subnet.active_pair_candidates_after_inserting_subnet(self);
+
+    </span><span class="kw">let </span>active_pair_candidates_after_inserting_subnet = ActivePairCandidates::default();
+
+    <span class="kw">let </span>value = RuleRhs {
+      active_pair: active_pair.clone(),
+      root_port_names,
+      subnet,
+      active_pair_candidates_after_inserting_subnet,
+    };
+    <span class="kw">if </span><span class="self">self</span>.rules.insert(key, value).is_some() {
       errors.push(Rich::custom(<span class="kw-2">*</span>span, <span class="macro">format!</span>(<span class="string">&quot;Duplicate rule for active pair `{active_pair}`&quot;</span>)));
     }
   }
 
-  <span class="doccomment">/// Apply rule to active pair if such a rule exists
-  /// Returns indices of created nodes if a rule was applied, None otherwise
-  </span><span class="kw">pub fn </span>apply(<span class="kw-2">&amp;</span><span class="self">self</span>, net: <span class="kw-2">&amp;mut </span>INet, active_pair: (NodeIdx, NodeIdx)) -&gt; <span class="prelude-ty">Option</span>&lt;CreatedNodes&gt; {
+  <span class="doccomment">/// Finalize the rule book after all rules have been inserted. Must be called before doing rewrites.
+  /// Precompute and store the active pair candidates for each rule&#39;s RHS subnet.
+  /// Optionally optimize the rule book by reducing the RHS sub-nets of each rule.
+  </span><span class="kw">pub fn </span>finalize(<span class="kw-2">&amp;mut </span><span class="self">self</span>, agent_id_to_name: <span class="kw-2">&amp;</span>HashMap&lt;AgentId, AgentName&gt;, pre_preduce: bool) {
+    <span class="self">self</span>.precompute_active_pair_candidates();
+
+    <span class="kw">if </span>pre_preduce {
+      <span class="self">self</span>.pre_reduce_rule_rhs_subnets(agent_id_to_name);
+    }
+  }
+
+  <span class="doccomment">/// Precompute and store the active pair candidates for each rule&#39;s RHS subnet.
+  </span><span class="kw">fn </span>precompute_active_pair_candidates(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+    <span class="self">self</span>.rules = RuleMap::from_iter(
+      <span class="comment">// self.rules.agent_count,
+      </span><span class="self">self</span>.rules.clone().into_iter().map(|(lhs, <span class="kw-2">mut </span>rhs)| {
+        rhs.active_pair_candidates_after_inserting_subnet =
+          rhs.subnet.active_pair_candidates_after_inserting_subnet(<span class="self">self</span>);
+        (lhs, rhs)
+      }),
+    );
+  }
+
+  <span class="doccomment">/// Pre-reduce the rule book&#39;s RHS sub-nets as an optimization step before running the program.
+  /// This must be done after all rules have been inserted.
+  </span><span class="kw">fn </span>pre_reduce_rule_rhs_subnets(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _agent_id_to_name: <span class="kw-2">&amp;</span>HashMap&lt;AgentId, AgentName&gt;) {
+    <span class="kw">let </span>reduced_rules = <span class="self">self
+      </span>.rules
+      .iter()
+      .filter_map(
+        |(
+          key,
+          RuleRhs { active_pair, root_port_names, subnet, active_pair_candidates_after_inserting_subnet },
+        )| {
+          <span class="comment">// We can reduce if there are active pairs in the rule&#39;s RHS sub-net.
+          // It doesn&#39;t guarantee that the reduction terminates though.
+          </span><span class="kw">let </span>can_reduce =
+            !active_pair_candidates_after_inserting_subnet.active_pairs_inside_subnet.is_empty();
+          <span class="kw">if </span>can_reduce {
+            <span class="kw">let </span><span class="kw-2">mut </span>subnet: INet = subnet.clone();
+            subnet.reduce_in_max_steps::&lt;RULE_BOOK_MAX_PRE_REDUCTION_STEPS&gt;(<span class="self">self</span>).and_then(
+              |reduction_count| {
+                (reduction_count &gt; <span class="number">0</span>).then(|| {
+                  <span class="comment">// There were active pairs that were reduced
+                  </span>subnet.remove_unused_nodes();
+                  <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+                    subnet.validate(<span class="bool-val">false</span>);
+                  }
+
+                  <span class="kw">let </span>active_pair_candidates_after_inserting_subnet =
+                    subnet.active_pair_candidates_after_inserting_subnet(<span class="self">self</span>);
+                  <span class="macro">debug_assert_eq!</span>(
+                    active_pair_candidates_after_inserting_subnet.active_pairs_inside_subnet,
+                    <span class="macro">vec!</span>[],
+                    <span class="string">&quot;Subnet must not have any active pairs after being reduced&quot;
+                  </span>);
+
+                  (<span class="kw-2">*</span>key, RuleRhs {
+                    active_pair: active_pair.clone(),
+                    root_port_names: root_port_names.clone(),
+                    subnet,
+                    active_pair_candidates_after_inserting_subnet,
+                  })
+                })
+              },
+            )
+          } <span class="kw">else </span>{
+            <span class="prelude-val">None
+          </span>}
+        },
+      )
+      .collect_vec();
+
+    <span class="comment">// Overwrite rules with reduced rules
+    </span><span class="self">self</span>.rules.extend(reduced_rules);
+  }
+
+  <span class="doccomment">/// Apply rule to active pair if such a rule exists.
+  /// Assumes that `reuse.rule_book_external_ports` is empty.
+  /// Returns `true` if a rule was applied, in that case `reuse.inet_subnet_node_idx_to_self_node_idx`
+  /// contains the node indices of the inserted subnet nodes.
+  </span><span class="kw">pub fn </span>apply_rewrite_rule(
+    <span class="kw-2">&amp;</span><span class="self">self</span>,
+    net: <span class="kw-2">&amp;mut </span>INet,
+    active_pair: ActiveNodePair,
+    reuse: <span class="kw-2">&amp;mut </span>ReuseableSubnetData,
+  ) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>ActivePairCandidates&gt; {
     <span class="kw">let </span>(node_idx_lhs, node_idx_rhs) = active_pair;
     <span class="kw">let </span>(lhs_node, rhs_node) = (<span class="kw-2">&amp;</span>net[node_idx_lhs], <span class="kw-2">&amp;</span>net[node_idx_rhs]);
     <span class="kw">let </span>(lhs_id, rhs_id) = (lhs_node.agent_id, rhs_node.agent_id);
@@ -194,34 +513,57 @@ Currently the ports are linked by name, but this could be changed to use port id
       sort_tuples_by_fst(((lhs_id, lhs_node), (rhs_id, rhs_node)));
     <span class="kw">let </span>key = (lhs_id, rhs_id); <span class="comment">// Ordered pair
 
-    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(RuleRhs { rule_src, port_idx_to_name, connections }) = <span class="self">self</span>.rules.get(<span class="kw-2">&amp;</span>key) {
-      <span class="comment">// Build `external_links` (pairs of port name and NodePort)
-      // based on all auxiliary ports in the active pair, e.g. if the rule LHS
-      // is Add(ret, a) ~ Succ(b), the ports {ret, a, b} are external links, then
-      // `INet::add_connections` looks up ports when adding the connections of the RHS sub-net
-      </span><span class="kw">let </span>external_links = [lhs_node, rhs_node]
-        .into_iter()
-        .zip(port_idx_to_name)
-        .flat_map(|(node, port_idx_to_name)| {
-          <span class="macro">debug_assert_eq!</span>(
-            node.ports.len(),
-            port_idx_to_name.len() + <span class="number">1</span>,
-            <span class="string">&quot;\n{net:#?}\n{rule_src}\n{node:?}, {port_idx_to_name:?}&quot;
-          </span>);
+    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span>RuleRhs {
+      active_pair: <span class="kw">_</span>,
+      root_port_names: <span class="kw">_</span>,
+      <span class="kw-2">ref </span>subnet,
+      <span class="kw-2">ref </span>active_pair_candidates_after_inserting_subnet,
+    }) = <span class="self">self</span>.rules.get(<span class="kw-2">&amp;</span>key)
+    {
+      <span class="kw">let </span>external_ports = <span class="kw-2">&amp;mut </span>reuse.rule_book_external_ports;
+      <span class="macro">debug_assert_eq!</span>(<span class="kw-2">*</span>external_ports, <span class="macro">vec!</span>[]);
 
-          <span class="comment">// Skip principal port, only auxiliary ports have names
-          </span>node
-            .ports
-            .iter()
-            .skip(<span class="number">1</span>)
-            .zip(port_idx_to_name)
-            .map(|(<span class="kw-2">&amp;</span>node_port, port_name)| [<span class="prelude-val">Err</span>(port_name.as_str()), <span class="prelude-val">Ok</span>(node_port)])
-        })
-        .collect();
-      <span class="prelude-val">Some</span>(net.add_connections(connections, external_links, <span class="kw-2">&amp;</span><span class="self">self</span>.agent_name_to_id))
+      <span class="comment">// Construct external ports for the rule&#39;s RHS sub-net:
+      // The aux ports of the two active pair nodes are mapped to the subnet&#39;s root node ports
+      </span>external_ports.extend([lhs_node, rhs_node].into_iter().flat_map(|node| {
+        node.ports.iter().skip(<span class="number">1</span>).copied() <span class="comment">// Skip principal port
+      </span>}));
+
+      net.insert_rule_rhs_subnet(subnet, reuse);
+      <span class="prelude-val">Some</span>(active_pair_candidates_after_inserting_subnet)
     } <span class="kw">else </span>{
       <span class="prelude-val">None
     </span>}
+  }
+
+  <span class="doccomment">/// Checks if a rule exists for the given active pair, returns the node indices ordered by agent IDs
+  </span><span class="kw">pub fn </span>rule_exists_for_active_pair(
+    <span class="kw-2">&amp;</span><span class="self">self</span>,
+    net: <span class="kw-2">&amp;</span>INet,
+    active_pair: ActiveNodePair,
+  ) -&gt; <span class="prelude-ty">Option</span>&lt;ActiveNodePair&gt; {
+    <span class="kw">let </span>(node_idx_lhs, node_idx_rhs) = active_pair;
+    <span class="kw">let </span>(lhs_node, rhs_node) = (<span class="kw-2">&amp;</span>net[node_idx_lhs], <span class="kw-2">&amp;</span>net[node_idx_rhs]);
+    <span class="kw">let </span>(lhs_id, rhs_id) = (lhs_node.agent_id, rhs_node.agent_id);
+
+    <span class="comment">// Order node indices along with AgentIDs
+    </span><span class="kw">let </span>((lhs_id, node_idx_lhs), (rhs_id, node_idx_rhs)) =
+      sort_tuples_by_fst(((lhs_id, node_idx_lhs), (rhs_id, node_idx_rhs)));
+    <span class="kw">let </span>key = (lhs_id, rhs_id); <span class="comment">// Ordered pair
+
+    </span><span class="self">self</span>.rules.contains_key(<span class="kw-2">&amp;</span>key).then_some((node_idx_lhs, node_idx_rhs))
+  }
+
+  <span class="doccomment">/// Returns `true` if a rule exists for the given agent ID on either side of the active pair
+  </span><span class="kw">pub fn </span>rule_exists_for_agent_id(<span class="kw-2">&amp;</span><span class="self">self</span>, agent_id: AgentId) -&gt; bool {
+    <span class="self">self</span>.rules.keys().flat_map(|(lhs_id, rhs_id)| [lhs_id, rhs_id]).any(|id| <span class="kw-2">*</span>id == agent_id)
+  }
+
+  <span class="attr">#[cfg(test)]
+  </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>get_rule_for_agents(<span class="kw-2">&amp;</span><span class="self">self</span>, agent_ids: RuleLhs) -&gt; <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>RuleRhs&gt; {
+    <span class="kw">use </span><span class="kw">crate</span>::util::sort_tuple;
+
+    <span class="self">self</span>.rules.get(<span class="kw-2">&amp;</span>sort_tuple(agent_ids))
   }
 }
 </code></pre></div></section></main></body></html>

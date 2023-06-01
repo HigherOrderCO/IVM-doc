@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["GlobalHeap","MiMallocHeap"],"trait":["HeapVisitor"],"type":["MiMallocHeapGlobal"]};

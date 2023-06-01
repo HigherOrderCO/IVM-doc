@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src\inet.rs`."><title>inet.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (ec2f40c6b 2023-03-30)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-9ade54abd4bd73c8.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ivm/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/inet.rs`."><title>inet.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-f3501f0f5ae15dfb.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="ivm" data-themes="" data-resource-suffix="" data-rustdoc-version="1.71.0-nightly (9d871b061 2023-05-21)" data-search-js="search-4926e5fc22a5646a.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-6f6ffb5395b17c6e.css" data-theme-light-css="light-0f8c037637f9eb3e.css" data-theme-dark-css="dark-1097f8e92a01e3cf.css" data-theme-ayu-css="ayu-614652228113ac93.css" ></div><script src="../../static.files/storage-62ce34ea385b278a.js"></script><script defer src="../../static.files/source-script-11255107d0a65077.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-f0540c1d82cde29b.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-0f8c037637f9eb3e.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-1097f8e92a01e3cf.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../ivm/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><div data-nosnippet><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -528,16 +528,386 @@
 <a href="#528" id="528">528</a>
 <a href="#529" id="529">529</a>
 <a href="#530" id="530">530</a>
-</pre><pre class="rust"><code><span class="kw">use crate</span>::{
-  parser::ast::{
-    Agent, AgentName, Connection, Connector, PortName, PortNameRef, ROOT_NODE_IDX, ROOT_PORT_NAME,
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a>
+<a href="#545" id="545">545</a>
+<a href="#546" id="546">546</a>
+<a href="#547" id="547">547</a>
+<a href="#548" id="548">548</a>
+<a href="#549" id="549">549</a>
+<a href="#550" id="550">550</a>
+<a href="#551" id="551">551</a>
+<a href="#552" id="552">552</a>
+<a href="#553" id="553">553</a>
+<a href="#554" id="554">554</a>
+<a href="#555" id="555">555</a>
+<a href="#556" id="556">556</a>
+<a href="#557" id="557">557</a>
+<a href="#558" id="558">558</a>
+<a href="#559" id="559">559</a>
+<a href="#560" id="560">560</a>
+<a href="#561" id="561">561</a>
+<a href="#562" id="562">562</a>
+<a href="#563" id="563">563</a>
+<a href="#564" id="564">564</a>
+<a href="#565" id="565">565</a>
+<a href="#566" id="566">566</a>
+<a href="#567" id="567">567</a>
+<a href="#568" id="568">568</a>
+<a href="#569" id="569">569</a>
+<a href="#570" id="570">570</a>
+<a href="#571" id="571">571</a>
+<a href="#572" id="572">572</a>
+<a href="#573" id="573">573</a>
+<a href="#574" id="574">574</a>
+<a href="#575" id="575">575</a>
+<a href="#576" id="576">576</a>
+<a href="#577" id="577">577</a>
+<a href="#578" id="578">578</a>
+<a href="#579" id="579">579</a>
+<a href="#580" id="580">580</a>
+<a href="#581" id="581">581</a>
+<a href="#582" id="582">582</a>
+<a href="#583" id="583">583</a>
+<a href="#584" id="584">584</a>
+<a href="#585" id="585">585</a>
+<a href="#586" id="586">586</a>
+<a href="#587" id="587">587</a>
+<a href="#588" id="588">588</a>
+<a href="#589" id="589">589</a>
+<a href="#590" id="590">590</a>
+<a href="#591" id="591">591</a>
+<a href="#592" id="592">592</a>
+<a href="#593" id="593">593</a>
+<a href="#594" id="594">594</a>
+<a href="#595" id="595">595</a>
+<a href="#596" id="596">596</a>
+<a href="#597" id="597">597</a>
+<a href="#598" id="598">598</a>
+<a href="#599" id="599">599</a>
+<a href="#600" id="600">600</a>
+<a href="#601" id="601">601</a>
+<a href="#602" id="602">602</a>
+<a href="#603" id="603">603</a>
+<a href="#604" id="604">604</a>
+<a href="#605" id="605">605</a>
+<a href="#606" id="606">606</a>
+<a href="#607" id="607">607</a>
+<a href="#608" id="608">608</a>
+<a href="#609" id="609">609</a>
+<a href="#610" id="610">610</a>
+<a href="#611" id="611">611</a>
+<a href="#612" id="612">612</a>
+<a href="#613" id="613">613</a>
+<a href="#614" id="614">614</a>
+<a href="#615" id="615">615</a>
+<a href="#616" id="616">616</a>
+<a href="#617" id="617">617</a>
+<a href="#618" id="618">618</a>
+<a href="#619" id="619">619</a>
+<a href="#620" id="620">620</a>
+<a href="#621" id="621">621</a>
+<a href="#622" id="622">622</a>
+<a href="#623" id="623">623</a>
+<a href="#624" id="624">624</a>
+<a href="#625" id="625">625</a>
+<a href="#626" id="626">626</a>
+<a href="#627" id="627">627</a>
+<a href="#628" id="628">628</a>
+<a href="#629" id="629">629</a>
+<a href="#630" id="630">630</a>
+<a href="#631" id="631">631</a>
+<a href="#632" id="632">632</a>
+<a href="#633" id="633">633</a>
+<a href="#634" id="634">634</a>
+<a href="#635" id="635">635</a>
+<a href="#636" id="636">636</a>
+<a href="#637" id="637">637</a>
+<a href="#638" id="638">638</a>
+<a href="#639" id="639">639</a>
+<a href="#640" id="640">640</a>
+<a href="#641" id="641">641</a>
+<a href="#642" id="642">642</a>
+<a href="#643" id="643">643</a>
+<a href="#644" id="644">644</a>
+<a href="#645" id="645">645</a>
+<a href="#646" id="646">646</a>
+<a href="#647" id="647">647</a>
+<a href="#648" id="648">648</a>
+<a href="#649" id="649">649</a>
+<a href="#650" id="650">650</a>
+<a href="#651" id="651">651</a>
+<a href="#652" id="652">652</a>
+<a href="#653" id="653">653</a>
+<a href="#654" id="654">654</a>
+<a href="#655" id="655">655</a>
+<a href="#656" id="656">656</a>
+<a href="#657" id="657">657</a>
+<a href="#658" id="658">658</a>
+<a href="#659" id="659">659</a>
+<a href="#660" id="660">660</a>
+<a href="#661" id="661">661</a>
+<a href="#662" id="662">662</a>
+<a href="#663" id="663">663</a>
+<a href="#664" id="664">664</a>
+<a href="#665" id="665">665</a>
+<a href="#666" id="666">666</a>
+<a href="#667" id="667">667</a>
+<a href="#668" id="668">668</a>
+<a href="#669" id="669">669</a>
+<a href="#670" id="670">670</a>
+<a href="#671" id="671">671</a>
+<a href="#672" id="672">672</a>
+<a href="#673" id="673">673</a>
+<a href="#674" id="674">674</a>
+<a href="#675" id="675">675</a>
+<a href="#676" id="676">676</a>
+<a href="#677" id="677">677</a>
+<a href="#678" id="678">678</a>
+<a href="#679" id="679">679</a>
+<a href="#680" id="680">680</a>
+<a href="#681" id="681">681</a>
+<a href="#682" id="682">682</a>
+<a href="#683" id="683">683</a>
+<a href="#684" id="684">684</a>
+<a href="#685" id="685">685</a>
+<a href="#686" id="686">686</a>
+<a href="#687" id="687">687</a>
+<a href="#688" id="688">688</a>
+<a href="#689" id="689">689</a>
+<a href="#690" id="690">690</a>
+<a href="#691" id="691">691</a>
+<a href="#692" id="692">692</a>
+<a href="#693" id="693">693</a>
+<a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
+<a href="#704" id="704">704</a>
+<a href="#705" id="705">705</a>
+<a href="#706" id="706">706</a>
+<a href="#707" id="707">707</a>
+<a href="#708" id="708">708</a>
+<a href="#709" id="709">709</a>
+<a href="#710" id="710">710</a>
+<a href="#711" id="711">711</a>
+<a href="#712" id="712">712</a>
+<a href="#713" id="713">713</a>
+<a href="#714" id="714">714</a>
+<a href="#715" id="715">715</a>
+<a href="#716" id="716">716</a>
+<a href="#717" id="717">717</a>
+<a href="#718" id="718">718</a>
+<a href="#719" id="719">719</a>
+<a href="#720" id="720">720</a>
+<a href="#721" id="721">721</a>
+<a href="#722" id="722">722</a>
+<a href="#723" id="723">723</a>
+<a href="#724" id="724">724</a>
+<a href="#725" id="725">725</a>
+<a href="#726" id="726">726</a>
+<a href="#727" id="727">727</a>
+<a href="#728" id="728">728</a>
+<a href="#729" id="729">729</a>
+<a href="#730" id="730">730</a>
+<a href="#731" id="731">731</a>
+<a href="#732" id="732">732</a>
+<a href="#733" id="733">733</a>
+<a href="#734" id="734">734</a>
+<a href="#735" id="735">735</a>
+<a href="#736" id="736">736</a>
+<a href="#737" id="737">737</a>
+<a href="#738" id="738">738</a>
+<a href="#739" id="739">739</a>
+<a href="#740" id="740">740</a>
+<a href="#741" id="741">741</a>
+<a href="#742" id="742">742</a>
+<a href="#743" id="743">743</a>
+<a href="#744" id="744">744</a>
+<a href="#745" id="745">745</a>
+<a href="#746" id="746">746</a>
+<a href="#747" id="747">747</a>
+<a href="#748" id="748">748</a>
+<a href="#749" id="749">749</a>
+<a href="#750" id="750">750</a>
+<a href="#751" id="751">751</a>
+<a href="#752" id="752">752</a>
+<a href="#753" id="753">753</a>
+<a href="#754" id="754">754</a>
+<a href="#755" id="755">755</a>
+<a href="#756" id="756">756</a>
+<a href="#757" id="757">757</a>
+<a href="#758" id="758">758</a>
+<a href="#759" id="759">759</a>
+<a href="#760" id="760">760</a>
+<a href="#761" id="761">761</a>
+<a href="#762" id="762">762</a>
+<a href="#763" id="763">763</a>
+<a href="#764" id="764">764</a>
+<a href="#765" id="765">765</a>
+<a href="#766" id="766">766</a>
+<a href="#767" id="767">767</a>
+<a href="#768" id="768">768</a>
+<a href="#769" id="769">769</a>
+<a href="#770" id="770">770</a>
+<a href="#771" id="771">771</a>
+<a href="#772" id="772">772</a>
+<a href="#773" id="773">773</a>
+<a href="#774" id="774">774</a>
+<a href="#775" id="775">775</a>
+<a href="#776" id="776">776</a>
+<a href="#777" id="777">777</a>
+<a href="#778" id="778">778</a>
+<a href="#779" id="779">779</a>
+<a href="#780" id="780">780</a>
+<a href="#781" id="781">781</a>
+<a href="#782" id="782">782</a>
+<a href="#783" id="783">783</a>
+<a href="#784" id="784">784</a>
+<a href="#785" id="785">785</a>
+<a href="#786" id="786">786</a>
+<a href="#787" id="787">787</a>
+<a href="#788" id="788">788</a>
+<a href="#789" id="789">789</a>
+<a href="#790" id="790">790</a>
+<a href="#791" id="791">791</a>
+<a href="#792" id="792">792</a>
+<a href="#793" id="793">793</a>
+<a href="#794" id="794">794</a>
+<a href="#795" id="795">795</a>
+<a href="#796" id="796">796</a>
+<a href="#797" id="797">797</a>
+<a href="#798" id="798">798</a>
+<a href="#799" id="799">799</a>
+<a href="#800" id="800">800</a>
+<a href="#801" id="801">801</a>
+<a href="#802" id="802">802</a>
+<a href="#803" id="803">803</a>
+<a href="#804" id="804">804</a>
+<a href="#805" id="805">805</a>
+<a href="#806" id="806">806</a>
+<a href="#807" id="807">807</a>
+<a href="#808" id="808">808</a>
+<a href="#809" id="809">809</a>
+<a href="#810" id="810">810</a>
+<a href="#811" id="811">811</a>
+<a href="#812" id="812">812</a>
+<a href="#813" id="813">813</a>
+<a href="#814" id="814">814</a>
+<a href="#815" id="815">815</a>
+<a href="#816" id="816">816</a>
+<a href="#817" id="817">817</a>
+<a href="#818" id="818">818</a>
+<a href="#819" id="819">819</a>
+<a href="#820" id="820">820</a>
+<a href="#821" id="821">821</a>
+<a href="#822" id="822">822</a>
+<a href="#823" id="823">823</a>
+<a href="#824" id="824">824</a>
+<a href="#825" id="825">825</a>
+<a href="#826" id="826">826</a>
+<a href="#827" id="827">827</a>
+<a href="#828" id="828">828</a>
+<a href="#829" id="829">829</a>
+<a href="#830" id="830">830</a>
+<a href="#831" id="831">831</a>
+<a href="#832" id="832">832</a>
+<a href="#833" id="833">833</a>
+<a href="#834" id="834">834</a>
+<a href="#835" id="835">835</a>
+<a href="#836" id="836">836</a>
+<a href="#837" id="837">837</a>
+<a href="#838" id="838">838</a>
+<a href="#839" id="839">839</a>
+<a href="#840" id="840">840</a>
+<a href="#841" id="841">841</a>
+<a href="#842" id="842">842</a>
+<a href="#843" id="843">843</a>
+<a href="#844" id="844">844</a>
+<a href="#845" id="845">845</a>
+<a href="#846" id="846">846</a>
+<a href="#847" id="847">847</a>
+<a href="#848" id="848">848</a>
+<a href="#849" id="849">849</a>
+<a href="#850" id="850">850</a>
+<a href="#851" id="851">851</a>
+<a href="#852" id="852">852</a>
+<a href="#853" id="853">853</a>
+<a href="#854" id="854">854</a>
+<a href="#855" id="855">855</a>
+<a href="#856" id="856">856</a>
+<a href="#857" id="857">857</a>
+<a href="#858" id="858">858</a>
+<a href="#859" id="859">859</a>
+<a href="#860" id="860">860</a>
+<a href="#861" id="861">861</a>
+<a href="#862" id="862">862</a>
+<a href="#863" id="863">863</a>
+<a href="#864" id="864">864</a>
+<a href="#865" id="865">865</a>
+<a href="#866" id="866">866</a>
+<a href="#867" id="867">867</a>
+<a href="#868" id="868">868</a>
+<a href="#869" id="869">869</a>
+<a href="#870" id="870">870</a>
+<a href="#871" id="871">871</a>
+<a href="#872" id="872">872</a>
+<a href="#873" id="873">873</a>
+<a href="#874" id="874">874</a>
+<a href="#875" id="875">875</a>
+<a href="#876" id="876">876</a>
+<a href="#877" id="877">877</a>
+<a href="#878" id="878">878</a>
+<a href="#879" id="879">879</a>
+<a href="#880" id="880">880</a>
+<a href="#881" id="881">881</a>
+<a href="#882" id="882">882</a>
+<a href="#883" id="883">883</a>
+<a href="#884" id="884">884</a>
+<a href="#885" id="885">885</a>
+<a href="#886" id="886">886</a>
+<a href="#887" id="887">887</a>
+<a href="#888" id="888">888</a>
+<a href="#889" id="889">889</a>
+<a href="#890" id="890">890</a>
+<a href="#891" id="891">891</a>
+<a href="#892" id="892">892</a>
+<a href="#893" id="893">893</a>
+<a href="#894" id="894">894</a>
+<a href="#895" id="895">895</a>
+<a href="#896" id="896">896</a>
+<a href="#897" id="897">897</a>
+<a href="#898" id="898">898</a>
+</pre></div><pre class="rust"><code><span class="kw">use crate</span>::{
+  parser::{
+    ast::{Agent, AgentName, Connection, Connector, PortName, PortNameRef, ROOT_NODE_IDX, ROOT_PORT_NAME},
+    display::fmt_nested_connections,
+    flatten::unflatten_connections,
   },
-  rule_book::{AgentId, RuleBook},
+  rule_book::{AgentId, RuleBook, ROOT_AGENT_ID},
   util::sort_tuple,
 };
 <span class="kw">use </span>hashbrown::HashMap;
-<span class="kw">use </span>itertools::Itertools;
 <span class="kw">use </span>std::{
+  cmp::Reverse,
   fmt,
   ops::{Index, IndexMut},
   vec,
@@ -545,6 +915,8 @@
 
 <span class="kw">pub type </span>NodeIdx = usize;
 <span class="kw">pub type </span>PortIdx = usize;
+
+<span class="kw">type </span>PortVec = Vec&lt;NodePort&gt;;
 
 <span class="doccomment">/// A node in the INet
 </span><span class="attr">#[derive(Debug, Clone, Default)]
@@ -556,9 +928,7 @@
   </span><span class="kw">pub </span>agent_id: AgentId,
 
   <span class="doccomment">/// 0: principal port
-  </span><span class="kw">pub </span>ports: Vec&lt;NodePort&gt;,
-
-  <span class="kw">pub </span>agent_name: AgentName,
+  </span><span class="kw">pub </span>ports: PortVec,
 }
 
 <span class="doccomment">/// A port in the INet
@@ -576,6 +946,7 @@
 }
 
 <span class="doccomment">/// Construct a NodePort that can be used to index into INet
+</span><span class="attr">#[inline(always)]
 </span><span class="kw">pub fn </span>port(node_idx: NodeIdx, port_idx: PortIdx) -&gt; NodePort {
   NodePort { node_idx, port_idx }
 }
@@ -589,6 +960,7 @@
 
 <span class="kw">impl </span>INet {
   <span class="doccomment">/// Allocate a new node
+  </span><span class="attr">#[inline(always)]
   </span><span class="kw">pub fn </span>new_node(<span class="kw-2">&amp;mut </span><span class="self">self</span>, agent_id: AgentId, port_count: usize) -&gt; NodeIdx {
     <span class="kw">let </span>node_idx = <span class="kw">match </span><span class="self">self</span>.free_nodes.pop() {
       <span class="prelude-val">Some</span>(node_idx) =&gt; node_idx,
@@ -602,307 +974,99 @@
     <span class="kw">let </span>node = <span class="kw-2">&amp;mut </span><span class="self">self</span>[node_idx];
     node.used = <span class="bool-val">true</span>;
     node.agent_id = agent_id;
-    node.ports = <span class="macro">vec!</span>[Default::default(); port_count];
+    node.ports.resize(port_count, Default::default());
+
     node_idx
   }
 
   <span class="doccomment">/// Make node available for reuse
+  </span><span class="attr">#[inline(always)]
   </span><span class="kw">pub fn </span>free_node(<span class="kw-2">&amp;mut </span><span class="self">self</span>, node_idx: NodeIdx) {
-    <span class="self">self</span>[node_idx] = Default::default();
-    <span class="self">self</span>.free_nodes.push(node_idx);
+    <span class="kw">let </span>node = <span class="kw-2">&amp;mut </span><span class="self">self</span>[node_idx];
+    node.used = <span class="bool-val">false</span>;
+    node.ports.clear(); <span class="comment">// Not strictly necessary, but more correct
+
+    </span><span class="self">self</span>.free_nodes.push(node_idx);
   }
 
-  <span class="doccomment">/// Mutually link port
-  </span><span class="kw">pub fn </span>link(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: NodePort, b: NodePort) {
+  <span class="doccomment">/// Mutually link ports
+  </span><span class="attr">#[inline(always)]
+  </span><span class="kw">fn </span>link(<span class="kw-2">&amp;mut </span><span class="self">self</span>, a: NodePort, b: NodePort) {
     <span class="self">self</span>[a] = b;
     <span class="self">self</span>[b] = a;
   }
 
   <span class="doccomment">/// Validate the inet, panics if invalid, useful for debugging/tests
-  /// If an INet generated from a valid AST fails validation, it&#39;s a bug
-  </span><span class="kw">pub fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-    <span class="kw">let </span><span class="kw-2">mut </span>used_node_count = <span class="number">0</span>;
+  /// If an INet generated from a valid AST fails validation, it&#39;d be a bug
+  </span><span class="kw">pub fn </span>validate(<span class="kw-2">&amp;</span><span class="self">self</span>, allow_unused_nodes: bool) {
+    <span class="comment">/* if cfg!(test) {
+      eprintln!(&quot;validate: {self:#?}&quot;);
+    } */
+
+    </span><span class="kw">let </span><span class="kw-2">mut </span>contains_unused_nodes = <span class="bool-val">false</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>root_node_count = <span class="number">0</span>;
     <span class="kw">for </span>(node_idx, node) <span class="kw">in </span><span class="self">self</span>.nodes.iter().enumerate() {
       <span class="kw">if </span>node.used {
-        used_node_count += <span class="number">1</span>;
+        <span class="macro">assert_ne!</span>(node.agent_id, <span class="self">Self</span>::INTERMEDIARY_AGENT_ID);
 
-        <span class="macro">assert_ne!</span>(node.ports.len(), <span class="number">0</span>, <span class="string">&quot;Nodes must have at least one port:\n{node:#?}&quot;</span>);
+        <span class="kw">if </span>node_idx == ROOT_NODE_IDX {
+          root_node_count += <span class="number">1</span>;
+        } <span class="kw">else </span>{
+          <span class="macro">assert_ne!</span>(
+            node.agent_id, ROOT_AGENT_ID,
+            <span class="string">&quot;Non-root nodes must have a non-root agent id:\n{node:#?}&quot;
+          </span>);
+          <span class="macro">assert_ne!</span>(node.ports.len(), <span class="number">0</span>, <span class="string">&quot;Non-root nodes must have at least one port:\n{node:#?}&quot;</span>);
+        }
+
         <span class="kw">for </span>port_idx <span class="kw">in </span><span class="number">0 </span>.. node.ports.len() {
           <span class="kw">let </span>src = port(node_idx, port_idx);
           <span class="kw">let </span>dst = <span class="self">self</span>[src];
 
+          <span class="comment">/* if cfg!(test) {
+            eprintln!(&quot;{src} ~ {dst}&quot;);
+          } */
+          </span><span class="macro">assert!</span>(<span class="self">self</span>[dst.node_idx].used, <span class="string">&quot;\nUsed node linked to unused node {:?}:\n{self:#?}&quot;</span>, (src, dst));
+
           <span class="macro">assert_eq!</span>(<span class="self">self</span>[dst], src, <span class="string">&quot;\nNon-bidirectional link {:?}:\n{self:#?}&quot;</span>, (src, dst));
-
-          <span class="macro">assert!</span>(<span class="self">self</span>[dst.node_idx].used, <span class="string">&quot;\nUsed node linked to unused node {:?}:\n{self:#?}&quot;</span>, (src, dst));
         }
+        <span class="macro">assert!</span>(!<span class="self">self</span>.free_nodes.contains(<span class="kw-2">&amp;</span>node_idx), <span class="string">&quot;\n{self:#?}&quot;</span>);
       } <span class="kw">else </span>{
-        <span class="macro">assert_eq!</span>(node.ports, <span class="macro">vec!</span>[]);
-        <span class="macro">assert!</span>(<span class="self">self</span>.free_nodes.contains(<span class="kw-2">&amp;</span>node_idx), <span class="string">&quot;\n{self:#?}&quot;</span>);
+        contains_unused_nodes = <span class="bool-val">true</span>;
+        <span class="comment">// assert_eq!(node.ports, PortVec::default());
+        </span><span class="macro">assert!</span>(<span class="self">self</span>.free_nodes.contains(<span class="kw-2">&amp;</span>node_idx), <span class="string">&quot;\n{self:#?}&quot;</span>);
       }
     }
-    <span class="macro">assert!</span>(used_node_count &gt;= <span class="number">2</span>, <span class="string">&quot;Interaction net has {used_node_count} &lt; 2 nodes:\n{self:#?}&quot;</span>);
+    <span class="kw">if </span>!<span class="self">self</span>.nodes.is_empty() {
+      <span class="kw">let </span>node = <span class="kw-2">&amp;</span><span class="self">self</span>[ROOT_NODE_IDX];
+      <span class="macro">assert!</span>(node.used, <span class="string">&quot;Root node must be used&quot;</span>);
+      <span class="macro">assert_eq!</span>(node.agent_id, ROOT_AGENT_ID);
+      <span class="macro">assert_eq!</span>(root_node_count, <span class="number">1</span>, <span class="string">&quot;There must be exactly one root node&quot;</span>);
+    }
+    <span class="macro">assert!</span>(
+      allow_unused_nodes || !contains_unused_nodes,
+      <span class="string">&quot;INet is not allowed to have unused nodes:\n{self:#?}&quot;
+    </span>);
   }
 
-  <span class="doccomment">/// Determines if a given node is part of an active pair and returns the other node in the pair
-  </span><span class="kw">fn </span>node_is_part_of_active_pair(<span class="kw-2">&amp;</span><span class="self">self</span>, node_idx: NodeIdx) -&gt; <span class="prelude-ty">Option</span>&lt;NodeIdx&gt; {
-    <span class="kw">let </span>dst = <span class="self">self</span>[port(node_idx, <span class="number">0</span>)];
-    <span class="comment">// After validation, we can assume that dst.node_idx == node_idx
-    </span>(dst.port_idx == <span class="number">0</span>).then_some(dst.node_idx)
-  }
-
-  <span class="doccomment">/// Determine active pairs that can potentially be rewritten if there is a matching rule
-  </span><span class="kw">pub fn </span>active_pairs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ActivePairs {
-    <span class="kw">let </span><span class="kw-2">mut </span>active_pairs = <span class="macro">vec!</span>[];
-    <span class="kw">for </span>(node_idx, node) <span class="kw">in </span><span class="self">self</span>.nodes.iter().enumerate() {
-      <span class="kw">if </span>!node.used {
-        <span class="kw">continue</span>;
-      }
-
-      <span class="kw">if let </span><span class="prelude-val">Some</span>(dst_node_idx) = <span class="self">self</span>.node_is_part_of_active_pair(node_idx) {
-        <span class="comment">// Only process each bidirectional link once, to prevent duplicates
-        </span><span class="kw">if </span>node_idx &lt; dst_node_idx {
-          active_pairs.push((node_idx, dst_node_idx));
-        }
-      }
-    }
-    active_pairs
-  }
-
-  <span class="doccomment">/// Rewrite active pair using rule book
-  /// Returns new active pairs that were created during the rewrite
-  /// Returns None if active pair could not be rewritten because there was no matching rule
-  </span><span class="kw">fn </span>rewrite(<span class="kw-2">&amp;mut </span><span class="self">self</span>, (a, b): (NodeIdx, NodeIdx), rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; <span class="prelude-ty">Option</span>&lt;ActivePairs&gt; {
-    <span class="macro">debug_assert!</span>(
-      <span class="self">self</span>[port(a, <span class="number">0</span>)] == port(b, <span class="number">0</span>) &amp;&amp; <span class="self">self</span>[port(b, <span class="number">0</span>)] == port(a, <span class="number">0</span>),
-      <span class="string">&quot;Expected active pair: {:?}\n{self:#?}&quot;</span>,
-      (a, b),
-    );
-
-    <span class="comment">// New active pairs can appear within the inserted sub-net or at the links between the sub-net and
-    // the rest of the net. Of the pre-existing nodes, only the nodes whose principal port was linked
-    // to an aux port of the active pair before the rewrite can become active pairs after the rewrite.
-
-    // We need to determine which local nodes could form active pairs after this rewrite
-    // The rewrite could connect aux ports of both A and B which could form an active pair
-    // So initially we add those nodes as candidates whose principal port is connected to
-    // an aux port of A or B. (Note that it&#39;s impossible that we accidentally add A or B
-    // as candidates, because their principal ports are already connected to each other&#39;s.)
-    // (Also note that we don&#39;t have to dedup A&#39;s and B&#39;s candidates, because each node
-    // can only be a candidate once because it only has one principal port.)
-    // After the rewrite, we add the nodes as candidates that were created during the rewrite.
-    </span><span class="kw">let </span>active_pair_candidate_nodes = <span class="self">self</span>[a]
-      .ports
-      .iter()
-      .skip(<span class="number">1</span>)
-      .chain(<span class="self">self</span>[b].ports.iter().skip(<span class="number">1</span>))
-      .filter(|port| port.port_idx == <span class="number">0</span>)
-      .map(|port| port.node_idx)
-      .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
-
-    <span class="comment">/*
-    The rewrite mechanism assumes that all wires between aux ports of the active pair
-    and the rest of the net are unique. E.g. `A(a, a) ~ B` or `A(a) ~ B(a)` would be a problem.
-    Our workaround: If the active pair contains two references to the same wire,
-    we split the wire into two, by inserting a temporary intermediary node:
-    E.g. `A(a, a) ~ B` becomes `A(a, b) ~ B, a ~ TMP(b)`
-    E.g. `A(a) ~ B(a)` becomes `A(a) ~ B(b), a ~ TMP(b)`
-    This is done by adding an intermediary node with two ports, one of which is linked to each
-    of the two aux ports that were previously using the same wire (like a wire going through it).
-    Then the rewrite is performed as usual, and afterwards the two ports of the intermediary
-    node are linked together and the intermediary node is removed.
-    */
-    </span><span class="kw">const </span>INTERMEDIARY_AGENT_ID: AgentId = usize::MAX;
-    <span class="kw">let </span><span class="kw-2">mut </span>intermediary_nodes = <span class="macro">vec!</span>[];
-    <span class="kw">for </span>node_idx <span class="kw">in </span>[a, b] {
-      <span class="kw">for </span>port_idx <span class="kw">in </span><span class="number">0 </span>.. <span class="self">self</span>[node_idx].ports.len() {
-        <span class="kw">let </span>dst = <span class="self">self</span>[node_idx][port_idx];
-        <span class="kw">if </span>dst.node_idx == a || dst.node_idx == b {
-          <span class="comment">// Create intermediary node that will be removed after rewrite. It temporarily converts
-          // the problematic self-link of the active pair into a link to another node,
-          // which allows us to rewrite the active pair by assuming there are no self-links.
-          // We link port 0 of TMP to src and port 1 of TMP to dst, to split the shared wire.
-          </span><span class="kw">let </span>intermediary = <span class="self">self</span>.new_node(INTERMEDIARY_AGENT_ID, <span class="number">2</span>);
-          <span class="kw">let </span>src = port(node_idx, port_idx);
-          <span class="self">self</span>.link(src, port(intermediary, <span class="number">0</span>));
-          <span class="self">self</span>.link(dst, port(intermediary, <span class="number">1</span>));
-          intermediary_nodes.push(intermediary);
-        }
-      }
-    }
-
-    <span class="comment">// Apply rewrite rule to active pair if there is a matching rule
-    </span><span class="kw">let </span>rule_application_result = rule_book.apply(<span class="self">self</span>, (a, b));
-
-    <span class="comment">// Now that the rewrite is done (or no rewrite happened if there was no applicable rule),
-    // we can remove the intermediary nodes and link their two wires together into one again.
-    </span><span class="kw">for </span>node_idx <span class="kw">in </span>intermediary_nodes {
-      <span class="kw">let </span>node = <span class="kw-2">&amp;</span><span class="self">self</span>[node_idx];
-      <span class="kw">let </span>src = node[<span class="number">0</span>];
-      <span class="kw">let </span>dst = node[<span class="number">1</span>];
-      <span class="self">self</span>.link(src, dst);
-      <span class="self">self</span>.free_node(node_idx);
-    }
-
-    <span class="kw">let </span>new_active_pairs = <span class="kw">if let </span><span class="prelude-val">Some</span>(created_nodes) = rule_application_result {
-      <span class="comment">// Remove the nodes of the active pair that was rewritten
-      </span><span class="self">self</span>.free_node(a);
-      <span class="self">self</span>.free_node(b);
-
-      <span class="comment">// Add nodes created by rewrite as candidates for new active pairs
-      // There are no duplicates in this chained iter, because these sets are disjoint
-      </span><span class="kw">let </span>active_pair_candidate_nodes = active_pair_candidate_nodes.into_iter().chain(created_nodes);
-
-      <span class="comment">// Check which of the candidates actually form active pairs.
-      // Sort each pair of node indices so that we can dedup them.
-      // Sort the list of pairs so that we can dedup them.
-      </span><span class="kw">let </span>new_active_pairs = active_pair_candidate_nodes
-        .filter_map(|node_idx| {
-          <span class="macro">debug_assert!</span>(<span class="self">self</span>[node_idx].used, <span class="string">&quot;Node {node_idx} is not used: {:#?}&quot;</span>, <span class="self">self</span>[node_idx]);
-          <span class="self">self</span>.node_is_part_of_active_pair(node_idx).map(|dst_node_idx| {
-            <span class="macro">debug_assert!</span>(
-              <span class="self">self</span>[dst_node_idx].used,
-              <span class="string">&quot;Node {dst_node_idx} is not used: {:#?}&quot;</span>,
-              <span class="self">self</span>[dst_node_idx]
-            );
-            sort_tuple((node_idx, dst_node_idx))
-          })
-        })
-        .sorted()
-        .dedup()
-        .collect_vec();
-      <span class="prelude-val">Some</span>(new_active_pairs)
-    } <span class="kw">else </span>{
-      <span class="prelude-val">None </span><span class="comment">// No rewrite happened, so no new active pairs came into existence
-    </span>};
-
-    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
-      <span class="self">self</span>.validate();
-    }
-    new_active_pairs
-  }
-
-  <span class="doccomment">/// Perform one reduction step
-  </span><span class="kw">pub fn </span>reduce_step(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; bool {
-    <span class="kw">for </span>active_pair <span class="kw">in </span><span class="self">self</span>.active_pairs() {
-      <span class="kw">if </span><span class="self">self</span>.rewrite(active_pair, rule_book).is_some() {
-        <span class="kw">return </span><span class="bool-val">true</span>;
-      }
-    }
-    <span class="bool-val">false
-  </span>}
-
-  <span class="doccomment">/// Reduce net until no more reductions are possible, without rescanning for active pairs after each rewrite.
-  /// Only scans the net for active pairs in the beginning. After each rewrite, new active pairs are found by
-  /// checking the nodes involved in and adjacent to the rewritten sub-net.
-  </span><span class="kw">pub fn </span>reduce_full(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; usize {
-    <span class="kw">let </span><span class="kw-2">mut </span>active_pairs = <span class="self">self</span>.active_pairs();
-    <span class="kw">let </span><span class="kw-2">mut </span>new_active_pairs = <span class="macro">vec!</span>[];
-    <span class="kw">let </span><span class="kw-2">mut </span>reduction_count = <span class="number">0</span>;
-    <span class="kw">while </span>!active_pairs.is_empty() {
-      <span class="comment">// At this point, `new_active_pairs` is empty and `active_pairs` contains all currently active pairs
-      </span><span class="kw">for </span>active_pair <span class="kw">in </span>active_pairs.drain(..) {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(new_active_pairs_created_by_rewrite) = <span class="self">self</span>.rewrite(active_pair, rule_book) {
-          new_active_pairs.extend(new_active_pairs_created_by_rewrite);
-          reduction_count += <span class="number">1</span>;
-        }
-      }
-      <span class="comment">// At this point, `active_pairs` is empty and `new_active_pairs` contains all new active pairs
-      </span>active_pairs.extend(new_active_pairs.drain(..)); <span class="comment">// Reusing Vecs between iterations
-    </span>}
-    reduction_count
-  }
-
-  <span class="doccomment">/// Read back reduced net into textual form
-  </span><span class="kw">pub fn </span>read_back(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Connection&gt; {
-    <span class="comment">// Helper function to generate new unique port names
-    </span><span class="kw">let </span><span class="kw-2">mut </span>new_port_name = {
-      <span class="kw">let </span><span class="kw-2">mut </span>next_port_idx = <span class="number">0</span>;
-      <span class="kw">move </span>|| {
-        <span class="kw">let </span>r = <span class="macro">format!</span>(<span class="string">&quot;_{}&quot;</span>, next_port_idx);
-        next_port_idx += <span class="number">1</span>;
-        r
-      }
-    };
-
-    <span class="comment">// We use this to keep track of the names we give to agent aux ports
-    </span><span class="kw">let </span><span class="kw-2">mut </span>nodes_aux_port_names = HashMap::&lt;NodeIdx, Vec&lt;PortName&gt;&gt;::new();
-
-    <span class="comment">// Keep track of connections between ports
-    </span><span class="kw">let </span><span class="kw-2">mut </span>connections = <span class="macro">vec!</span>[];
-
-    <span class="comment">// Iterate over all active links
-    </span><span class="kw">for </span>(node_idx, node) <span class="kw">in </span><span class="self">self</span>.nodes.iter().enumerate() {
-      <span class="kw">if </span>!node.used {
-        <span class="kw">continue</span>;
-      }
-
-      <span class="kw">for </span>port_idx <span class="kw">in </span><span class="number">0 </span>.. node.ports.len() {
-        <span class="kw">let </span>src = port(node_idx, port_idx);
-        <span class="kw">let </span>dst = <span class="self">self</span>[src];
-
-        <span class="comment">// Only process each bidirectional link once, to prevent duplicates
-        </span><span class="kw">if </span>src &lt; dst {
-          <span class="doccomment">/// Build a `Connector` from a port. If the port is a principal port, the connector is an `Agent`.
-          /// If the port is an aux port, the connector is a `Port`.
-          </span><span class="kw">fn </span>build_connector_from_port(
-            net: <span class="kw-2">&amp;</span>INet,
-            node_idx_to_agent_port_names: <span class="kw-2">&amp;mut </span>HashMap&lt;NodeIdx, Vec&lt;PortName&gt;&gt;,
-            <span class="kw-2">mut </span>new_port_name: <span class="kw">impl </span>FnMut() -&gt; String,
-            node_port: NodePort,
-          ) -&gt; Connector {
-            <span class="kw">let </span>node = <span class="kw-2">&amp;</span>net[node_port.node_idx];
-            <span class="comment">// Whenever we encounter a node we haven&#39;t seen before, we generate new unique aux port names for it.
-            // When we encounter the same node again, we read the previously generated aux port names.
-            // This ensures that all references to the same node use the same aux port names.
-            </span><span class="kw">let </span>agent_aux_port_names = node_idx_to_agent_port_names
-              .entry(node_port.node_idx)
-              .or_insert_with(|| (<span class="number">1 </span>.. node.ports.len()).map(|<span class="kw">_</span>| new_port_name()).collect());
-
-            <span class="kw">if </span>node_port.port_idx == <span class="number">0 </span>{
-              <span class="comment">// Connected to a principal port, either `x ~ root` or `x ~ Agent(...)`
-              </span><span class="kw">if </span>node_port.node_idx == ROOT_NODE_IDX {
-                Connector::Port(ROOT_PORT_NAME.to_string())
-              } <span class="kw">else </span>{
-                Connector::Agent(Agent {
-                  agent: node.agent_name.clone(),
-                  ports: agent_aux_port_names.clone(),
-                })
-              }
-            } <span class="kw">else </span>{
-              <span class="comment">// Connected to auxiliary port of agent: `x ~ aux, Agent(..., aux, ...) ~ y`
-              </span>Connector::Port(agent_aux_port_names[node_port.port_idx - <span class="number">1</span>].clone())
-            }
-          }
-
-          <span class="comment">// For each link, we create a `Connection`: src ~ dst
-          </span><span class="kw">let </span>src = build_connector_from_port(<span class="self">self</span>, <span class="kw-2">&amp;mut </span>nodes_aux_port_names, <span class="kw-2">&amp;mut </span>new_port_name, src);
-          <span class="kw">let </span>dst = build_connector_from_port(<span class="self">self</span>, <span class="kw-2">&amp;mut </span>nodes_aux_port_names, <span class="kw-2">&amp;mut </span>new_port_name, dst);
-          connections.push(Connection::new(src, dst));
-        }
-      }
-    }
-    connections
-  }
-
-  <span class="doccomment">/// Add a `Connector` to the net
+  <span class="doccomment">/// Add a `Connector` to the net, only called by `INet::add_connections`.
   /// If the connector is a port, `Err(port_name)` is returned so that it can be linked later.
   /// If the connector is an agent, it is added as a new node and its principal port is returned as `Ok(port)`.
   /// Connections to auxiliary ports are added to `deferred_port_links` so that they can be linked later.
+  /// This function is only called by `INet::add_connections`
   </span><span class="kw">fn </span>add_connector&lt;<span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span>: <span class="lifetime">&#39;a</span>&gt;(
     <span class="kw-2">&amp;mut </span><span class="self">self</span>,
     connector: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b </span>Connector,
     deferred_port_links: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span><span class="kw-2">mut </span>MaybeLinkedPorts&lt;<span class="lifetime">&#39;b</span>&gt;,
     agent_name_to_id: <span class="kw-2">&amp;</span>HashMap&lt;AgentName, AgentId&gt;,
-    created_nodes: <span class="kw-2">&amp;mut </span>CreatedNodes,
+    created_nodes: <span class="kw-2">&amp;mut </span>NodeIndices,
   ) -&gt; MaybeLinkedPort&lt;<span class="lifetime">&#39;b</span>&gt; {
     <span class="kw">match </span>connector {
       Connector::Agent(agent) =&gt; {
         <span class="comment">// Create agent node
-        </span><span class="kw">let </span>agent_name = agent.agent.clone();
-        <span class="kw">let </span>Agent { agent, ports } = agent;
+        </span><span class="kw">let </span>Agent { agent, ports } = agent;
         <span class="kw">let </span>agent_id = agent_name_to_id[agent];
         <span class="kw">let </span>node_idx = <span class="self">self</span>.new_node(agent_id, <span class="number">1 </span>+ ports.len());
-        <span class="self">self</span>[node_idx].agent_name = agent_name;
 
         <span class="kw">for </span>(i, port_name) <span class="kw">in </span>ports.iter().enumerate() {
           <span class="kw">let </span>port = port(node_idx, <span class="number">1 </span>+ i); <span class="comment">// +1 to skip principal port
@@ -924,16 +1088,18 @@
 
   <span class="doccomment">/// Add connections to the net, either when creating a net from scratch or inserting a sub-net
   /// during a rewrite. `external_ports` is a map from port names to ports in the parent net.
-  /// When creating a net from scratch, `external_ports` only contains the `root` port.
-  /// When called by `RuleBook::apply`, `external_ports` contains the ports of the parent net that
-  /// the rule&#39;s RHS sub-net is connected to, based on which INet ports the rule&#39;s LHS (active pair)
+  /// When creating a net from scratch (in `ValidatedAst::into_inet_program`),
+  /// `external_ports` only contains the `root` port.
+  /// When called by `RuleBook::apply_rewrite_rule`, `external_ports` contains the ports of the parent net
+  /// that the rule&#39;s RHS sub-net is connected to, based on which INet ports the rule&#39;s LHS (active pair)
   /// aux port names map to, in that context of the local rewrite.
+  /// Returns the indices of the created nodes.
   </span><span class="kw">pub fn </span>add_connections&lt;<span class="lifetime">&#39;a</span>&gt;(
     <span class="kw-2">&amp;mut </span><span class="self">self</span>,
     connections: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a </span>[Connection],
     external_ports: MaybeLinkedPorts&lt;<span class="lifetime">&#39;a</span>&gt;,
     agent_name_to_id: <span class="kw-2">&amp;</span>HashMap&lt;AgentName, AgentId&gt;,
-  ) -&gt; CreatedNodes {
+  ) -&gt; NodeIndices {
     <span class="doccomment">/// Follow connections to find the target of a `port_name` that it resolves to.
     /// Returns `Ok(port)` if the target port could be found, `Err(port_name)` otherwise.
     /// Connections are removed (consumed) from `deferred_port_links` as they are followed.
@@ -975,17 +1141,19 @@
 
     <span class="comment">// Add all connectors of all connections to `deferred_port_links`
     </span><span class="kw">for </span>Connection { lhs, rhs } <span class="kw">in </span>connections {
-      <span class="kw">let </span>lhs = <span class="self">self</span>.add_connector(<span class="kw-2">&amp;</span>lhs, <span class="kw-2">&amp;mut </span>deferred_port_links, agent_name_to_id, <span class="kw-2">&amp;mut </span>created_nodes);
-      <span class="kw">let </span>rhs = <span class="self">self</span>.add_connector(<span class="kw-2">&amp;</span>rhs, <span class="kw-2">&amp;mut </span>deferred_port_links, agent_name_to_id, <span class="kw-2">&amp;mut </span>created_nodes);
+      <span class="kw">let </span>lhs = <span class="self">self</span>.add_connector(lhs, <span class="kw-2">&amp;mut </span>deferred_port_links, agent_name_to_id, <span class="kw-2">&amp;mut </span>created_nodes);
+      <span class="kw">let </span>rhs = <span class="self">self</span>.add_connector(rhs, <span class="kw-2">&amp;mut </span>deferred_port_links, agent_name_to_id, <span class="kw-2">&amp;mut </span>created_nodes);
       deferred_port_links.push([lhs, rhs]);
     }
-    <span class="comment">// At this point, `deferred_port_links` contains all pairs of ports that still need to be linked
+
+    <span class="comment">// At this point, `deferred_port_links` contains all pairs of ports that need to be linked
 
     // Link all pairs of ports that could not be linked yet
     </span><span class="kw">while let </span><span class="prelude-val">Some</span>([lhs, rhs]) = deferred_port_links.pop() {
-      <span class="kw">match </span>(lhs, rhs) {
+      <span class="comment">// eprintln!(&quot;deferred_port_links: {deferred_port_links:#?}, {lhs:?} ~ {rhs:?}&quot;);
+      </span><span class="kw">match </span>(lhs, rhs) {
         (<span class="prelude-val">Ok</span>(lhs), <span class="prelude-val">Ok</span>(rhs)) =&gt; {
-          <span class="comment">// Both connectors are ready to be linked
+          <span class="comment">// Both connectors are resolved to ports, thus ready to be linked
           </span><span class="self">self</span>.link(lhs, rhs);
         }
         (<span class="prelude-val">Ok</span>(node_port), <span class="prelude-val">Err</span>(port_name)) | (<span class="prelude-val">Err</span>(port_name), <span class="prelude-val">Ok</span>(node_port)) =&gt; {
@@ -993,27 +1161,595 @@
           </span><span class="kw">let </span>target = port_target(<span class="kw-2">&amp;mut </span>deferred_port_links, port_name);
           deferred_port_links.push([target, <span class="prelude-val">Ok</span>(node_port)]);
         }
-        (<span class="prelude-val">Err</span>(lhs), <span class="prelude-val">Err</span>(rhs)) =&gt; {
+        (<span class="prelude-val">Err</span>(lhs_name), <span class="prelude-val">Err</span>(rhs_name)) =&gt; {
           <span class="comment">// Look up the connection target of both connectors, and queue the connection for later linking
-          </span><span class="kw">let </span>lhs = port_target(<span class="kw-2">&amp;mut </span>deferred_port_links, lhs);
-          <span class="kw">let </span>rhs = port_target(<span class="kw-2">&amp;mut </span>deferred_port_links, rhs);
-          deferred_port_links.push([lhs, rhs]);
+          </span><span class="kw">let </span>lhs = port_target(<span class="kw-2">&amp;mut </span>deferred_port_links, lhs_name);
+          <span class="kw">let </span>rhs = port_target(<span class="kw-2">&amp;mut </span>deferred_port_links, rhs_name);
+          <span class="kw">if </span>lhs == <span class="prelude-val">Err</span>(lhs_name) &amp;&amp; rhs == <span class="prelude-val">Err</span>(rhs_name) {
+            <span class="comment">// Both connectors are unresolved, so we can&#39;t link them
+          </span>} <span class="kw">else </span>{
+            deferred_port_links.push([lhs, rhs]);
+          }
         }
       }
     }
 
     created_nodes
   }
+
+  <span class="doccomment">/// Remove all unused nodes, called by `RuleBook::pre_preduce`
+  </span><span class="kw">pub fn </span>remove_unused_nodes(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+    <span class="self">self</span>.free_nodes.sort_by_key(|<span class="kw-2">&amp;</span>node_idx| Reverse(node_idx));
+    <span class="kw">for </span>unused_node_idx <span class="kw">in </span><span class="self">self</span>.free_nodes.drain(..) {
+      <span class="comment">// Remove node
+      </span><span class="kw">let </span>_unused_node = <span class="self">self</span>.nodes.remove(unused_node_idx);
+      <span class="kw">for </span>node <span class="kw">in </span><span class="kw-2">&amp;mut </span><span class="self">self</span>.nodes {
+        <span class="comment">// Update node indices in links
+        </span><span class="kw">for </span>port <span class="kw">in </span><span class="kw-2">&amp;mut </span>node.ports {
+          <span class="kw">if </span>port.node_idx &gt; unused_node_idx {
+            port.node_idx -= <span class="number">1</span>;
+          }
+        }
+      }
+    }
+  }
+
+  <span class="comment">// The rewrite mechanism assumes that all wires between aux ports of the active pair
+  // and the rest of the net are unique. E.g. `A(a, a) ~ B` or `A(a) ~ B(a)` would be a problem.
+  // Our workaround: If the active pair contains two references to the same wire,
+  // we split the wire into two, by inserting a temporary intermediary node:
+  // E.g. `A(a, a) ~ B` becomes `A(a, b) ~ B, a ~ TMP(b)`
+  // E.g. `A(a) ~ B(a)` becomes `A(a) ~ B(b), a ~ TMP(b)`
+  // This is done by adding an intermediary node with two ports, one of which is linked to each
+  // of the two aux ports that were previously using the same wire (like a wire going through it).
+  // Then the rewrite is performed as usual, and afterwards the two ports of the intermediary
+  // node are linked together and the intermediary node is removed.
+  </span><span class="kw">const </span>INTERMEDIARY_AGENT_ID: AgentId = AgentId::MAX;
+
+  <span class="doccomment">/// Rewrite active pair using rule book.
+  /// Assumes that reuse buffers are empty.
+  /// Returns `false` if active pair could not be rewritten because there was no matching rule
+  /// Returns `true` when a rule matched and a rewrite happened, in that case
+  /// `reuse.inet_new_active_pairs_created_by_rewrite` contains the new active pairs.
+  </span><span class="kw">fn </span>rewrite_active_pair(
+    <span class="kw-2">&amp;mut </span><span class="self">self</span>,
+    (a, b): ActiveNodePair,
+    rule_book: <span class="kw-2">&amp;</span>RuleBook,
+    reuse: <span class="kw-2">&amp;mut </span>ReuseableRewriteData,
+  ) -&gt; bool {
+    <span class="macro">debug_assert!</span>(a &lt; b, <span class="string">&quot;Expected active pair to be ordered: {:?}&quot;</span>, (a, b));
+    <span class="macro">debug_assert!</span>(
+      <span class="self">self</span>[port(a, <span class="number">0</span>)] == port(b, <span class="number">0</span>) &amp;&amp; <span class="self">self</span>[port(b, <span class="number">0</span>)] == port(a, <span class="number">0</span>),
+      <span class="string">&quot;Expected active pair: {:?}\n{self:#?}&quot;</span>,
+      (a, b),
+    );
+
+    <span class="comment">// New active pairs can appear within the inserted sub-net or at the links between the sub-net and
+    // the rest of the net. Of the pre-existing nodes, only the nodes whose principal port was linked
+    // to an aux port of the active pair before the rewrite can become active pairs after the rewrite.
+
+    // We need to determine which local nodes could form active pairs after this rewrite
+    // The rewrite could connect aux ports of both A and B which could form an active pair
+    // So initially we add those nodes as candidates whose principal port is connected to
+    // an aux port of A or B. (Note that it&#39;s impossible that we accidentally add A or B
+    // as candidates, because their principal ports are already connected to each other&#39;s.)
+    // (Also note that we don&#39;t have to dedup A&#39;s and B&#39;s candidates, because each node
+    // can only be a candidate once because it only has one principal port.)
+    // After the rewrite, we add the nodes as candidates that were created during the rewrite.
+    </span><span class="kw">let </span>active_pair_candidate_nodes_whose_principal_port_points_into_subnet =
+      <span class="kw-2">&amp;mut </span>reuse.inet_active_pair_candidate_nodes;
+    <span class="macro">debug_assert_eq!</span>(<span class="kw-2">*</span>active_pair_candidate_nodes_whose_principal_port_points_into_subnet, <span class="macro">vec!</span>[]);
+    active_pair_candidate_nodes_whose_principal_port_points_into_subnet.extend(
+      <span class="self">self</span>[a]
+        .ports
+        .iter()
+        .skip(<span class="number">1</span>)
+        .chain(<span class="self">self</span>[b].ports.iter().skip(<span class="number">1</span>))
+        .filter(|port| port.port_idx == <span class="number">0</span>)
+        .map(|port| port.node_idx),
+    );
+
+    <span class="kw">let </span>intermediary_nodes = <span class="kw-2">&amp;mut </span>reuse.inet_intermediary_nodes;
+    <span class="macro">debug_assert_eq!</span>(<span class="kw-2">*</span>intermediary_nodes, <span class="macro">vec!</span>[]);
+    <span class="kw">for </span>node_idx <span class="kw">in </span>[a, b] {
+      <span class="comment">// Skip principal port
+      </span><span class="kw">for </span>port_idx <span class="kw">in </span><span class="number">1 </span>.. <span class="self">self</span>[node_idx].ports.len() {
+        <span class="kw">let </span>src = port(node_idx, port_idx);
+        <span class="kw">let </span>dst = <span class="self">self</span>[src];
+        <span class="kw">if </span>dst.node_idx == a || dst.node_idx == b {
+          <span class="comment">// Create intermediary node that will be removed after rewrite. It temporarily converts
+          // the problematic self-link of the active pair into a link to another node,
+          // which allows us to rewrite the active pair by assuming there are no self-links.
+          // We link port 0 of TMP to src and port 1 of TMP to dst, to split the shared wire.
+          </span><span class="kw">let </span>intermediary = <span class="self">self</span>.new_node(<span class="self">Self</span>::INTERMEDIARY_AGENT_ID, <span class="number">2</span>);
+          <span class="kw">let </span>src = port(node_idx, port_idx);
+          <span class="self">self</span>.link(src, port(intermediary, <span class="number">0</span>));
+          <span class="self">self</span>.link(dst, port(intermediary, <span class="number">1</span>));
+          intermediary_nodes.push(intermediary);
+        }
+      }
+    }
+
+    <span class="comment">// Apply rewrite rule to active pair if there is a matching rule
+    </span><span class="kw">let </span>active_pair_candidates = rule_book.apply_rewrite_rule(<span class="self">self</span>, (a, b), <span class="kw-2">&amp;mut </span>reuse.subnet);
+
+    <span class="comment">// Now that the rewrite is done (or no rewrite happened if there was no applicable rule),
+    // we can remove the intermediary nodes and link their two wires together into one again.
+    </span><span class="kw">for </span><span class="kw-2">&amp;</span>node_idx <span class="kw">in </span><span class="kw-2">&amp;*</span>intermediary_nodes {
+      <span class="kw">let </span>node = <span class="kw-2">&amp;</span><span class="self">self</span>[node_idx];
+      <span class="self">self</span>.link(node[<span class="number">0</span>], node[<span class="number">1</span>]);
+      <span class="self">self</span>.free_node(node_idx);
+    }
+
+    <span class="kw">let </span>rewrite_happened = <span class="kw">if let </span><span class="prelude-val">Some</span>(active_pair_candidates) = active_pair_candidates {
+      <span class="comment">// Remove the nodes of the active pair that was rewritten
+      </span><span class="self">self</span>.free_node(a);
+      <span class="self">self</span>.free_node(b);
+
+      <span class="comment">// Now we compute the new active pairs that came into existence by this rewrite
+
+      </span><span class="kw">let </span>subnet = <span class="kw-2">&amp;</span>reuse.subnet;
+      <span class="kw">let </span>new_active_pairs = <span class="kw-2">&amp;mut </span>reuse.inet_new_active_pairs_created_by_rewrite;
+      <span class="macro">debug_assert_eq!</span>(<span class="kw-2">*</span>new_active_pairs, <span class="macro">vec!</span>[]);
+
+      <span class="comment">// These are nodes whose principal port points through the subnet boundary, they could form
+      // an active pair, depending on whether they connect to the other node&#39;s principal port.
+      // Note: There are no duplicates in this chained iter, because these sets are disjoint.
+      </span><span class="kw">let </span>active_pair_candidate_nodes =
+        active_pair_candidate_nodes_whose_principal_port_points_into_subnet.iter().copied().chain(
+          active_pair_candidates.nodes_whose_principal_port_points_outside_subnet.iter().map(|<span class="kw-2">&amp;</span>node_idx| {
+            <span class="comment">// The node_idx is relative to the subnet, we need to map it to an index in `self`
+            </span>subnet.map_node_idx_to_outer_net(node_idx)
+          }),
+        );
+
+      <span class="comment">// Add active pairs between nodes of the inserted subnet and nodes that already existed in `self`.
+      // Check which of the candidates actually form active pairs.
+      // This can create duplicates, e.g.
+      // if `active_pair_candidate_nodes_whose_principal_port_points_into_subnet` contains (1, 2) and
+      // `nodes_whose_principal_port_points_outside_subnet` contains (2, 1), we dedup the sorted tuples below.
+      </span>new_active_pairs.extend(active_pair_candidate_nodes.filter_map(|node_idx| {
+        <span class="macro">debug_assert!</span>(<span class="self">self</span>[node_idx].used, <span class="string">&quot;Node {node_idx} is not used: {:#?}&quot;</span>, <span class="self">self</span>[node_idx]);
+        <span class="self">self</span>.node_is_part_of_active_pair(node_idx).map(|dst_node_idx| {
+          <span class="macro">debug_assert!</span>(
+            <span class="self">self</span>[dst_node_idx].used,
+            <span class="string">&quot;Node {dst_node_idx} is not used: {:#?}&quot;</span>,
+            <span class="self">self</span>[dst_node_idx]
+          );
+          sort_tuple((node_idx, dst_node_idx))
+        })
+      }));
+
+      <span class="comment">// Each pair of node indices was sorted so that we can dedup them after sorting
+      </span>new_active_pairs.sort_unstable();
+      new_active_pairs.dedup();
+
+      <span class="comment">// Add active pairs between nodes of the inserted subnet
+      // These active pairs were already confirmed to exist between nodes of the inserted subnet.
+      // These exist when a rule&#39;s RHS subnet could not be reduced within the max number of rewrites.
+      // Note: This cannot add duplicates because `active_pairs_inside_subnet`
+      // and `active_pair_candidate_nodes` are disjoint.
+      </span><span class="kw">if </span>!active_pair_candidates.active_pairs_inside_subnet.is_empty() {
+        new_active_pairs.extend(active_pair_candidates.active_pairs_inside_subnet.iter().map(
+          |<span class="kw-2">&amp;</span>(lhs_node_idx, rhs_node_idx)| {
+            <span class="comment">// The node indices are relative to the subnet, we need to map them to an index in `self`
+            </span><span class="kw">let </span>(lhs_node_idx, rhs_node_idx) = (
+              subnet.map_node_idx_to_outer_net(lhs_node_idx),
+              subnet.map_node_idx_to_outer_net(rhs_node_idx),
+            );
+            <span class="macro">debug_assert!</span>(
+              <span class="self">self</span>[lhs_node_idx].used,
+              <span class="string">&quot;Node {lhs_node_idx} is not used: {:#?}&quot;</span>,
+              <span class="self">self</span>[lhs_node_idx]
+            );
+            <span class="macro">debug_assert!</span>(
+              <span class="self">self</span>[rhs_node_idx].used,
+              <span class="string">&quot;Node {rhs_node_idx} is not used: {:#?}&quot;</span>,
+              <span class="self">self</span>[rhs_node_idx]
+            );
+            <span class="macro">debug_assert_eq!</span>(
+              <span class="self">self</span>.node_is_part_of_active_pair(lhs_node_idx),
+              <span class="prelude-val">Some</span>(rhs_node_idx),
+              <span class="string">&quot;Expected active pair: {:?}\n{self:#?}&quot;</span>,
+              (lhs_node_idx, rhs_node_idx)
+            );
+            <span class="kw">let </span>node_indices = (lhs_node_idx, rhs_node_idx);
+            <span class="macro">debug_assert_eq!</span>(
+              node_indices,
+              sort_tuple(node_indices),
+              <span class="string">&quot;Expected sorted tuple: {:?}&quot;</span>,
+              node_indices
+            );
+            node_indices
+          },
+        ));
+        <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+          <span class="kw">let </span>len_before_dedup = new_active_pairs.len();
+          new_active_pairs.sort_unstable();
+          new_active_pairs.dedup();
+          <span class="macro">assert_eq!</span>(
+            len_before_dedup,
+            new_active_pairs.len(),
+            <span class="string">&quot;`active_pair_candidate_nodes` and `active_pairs_inside_subnet` must be disjoint&quot;
+          </span>);
+        }
+      }
+      <span class="bool-val">true
+    </span>} <span class="kw">else </span>{
+      <span class="bool-val">false
+    </span>};
+
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+      <span class="self">self</span>.validate(<span class="bool-val">true</span>);
+    }
+    rewrite_happened
+  }
+
+  <span class="doccomment">/// Inserts a rule&#39;s RHS sub-net into the net, called by `RuleBook::apply_rewrite_rule`.
+  /// It works by:
+  /// - Creating nodes in `self` for the `subnet` nodes, to get new node indices
+  /// - Copying ports of `subnet` nodes to the new nodes, translating links using new node indices
+  /// - Pass-through-linking the subnet root node&#39;s ports to the corresponding ports in `self`
+  /// - Removing the subnet root node from `self`
+  /// The aux ports of the two active pair nodes are mapped to the subnet&#39;s root node ports:
+  /// `external_ports` maps subnet root node port indices to ports in the `self` net.
+  /// External (subnet root node) port indices refer to auxiliary ports in the active pair of the rule LHS:
+  /// E.g. if the rule LHS is `X(a, b) ~ Y(c, d)`, then `external_ports` contains the ports of `self`
+  /// that map to `[a, b, c, d]` (in that order) in the context of the local rewrite.
+  /// In other words, the ports are indexed left-to-right, after ordering both active pair agent IDs:
+  /// So the external ports would be the same if the rule LHS was written as `Y(c, d) ~ X(a, b)`.
+  /// (Assuming X&#39;s AgentId &lt; Y&#39;s AgentId in this example.)
+  /// This function assumes that `reuse.subnet_node_idx_to_main_node_idx` is empty
+  /// and that `reuse.rule_book_external_ports` contains the external ports of the subnet.
+  /// When this function returns, `reuse.inet_subnet_node_idx_to_main_node_idx` contains the node indices
+  /// of the inserted subnet nodes, to enable `rewrite_active_pair` to determine new active pairs.
+  /// (`reuse.inet_subnet_node_idx_to_main_node_idx[0]` will be the index of the removed subnet root node.)
+  </span><span class="kw">pub fn </span>insert_rule_rhs_subnet(<span class="kw-2">&amp;mut </span><span class="self">self</span>, subnet: <span class="kw-2">&amp;</span>INet, reuse: <span class="kw-2">&amp;mut </span>ReuseableSubnetData) {
+    <span class="kw">let </span>subnet_node_idx_to_main_node_idx = <span class="kw-2">&amp;mut </span>reuse.inet_subnet_node_idx_to_main_node_idx;
+    <span class="macro">debug_assert_eq!</span>(<span class="kw-2">*</span>subnet_node_idx_to_main_node_idx, <span class="macro">vec!</span>[]);
+
+    <span class="comment">// Copy fields except `ports` from `subnet` node to `self` node and store new node indices
+    </span>subnet_node_idx_to_main_node_idx.extend(subnet.nodes.iter().map(|node| {
+      <span class="macro">debug_assert!</span>(node.used); <span class="comment">// Rule RHS subnet must have all unused nodes removed
+
+      // Create a new node in `self` for each node in `subnet` and return its index
+      </span><span class="self">self</span>.new_node(node.agent_id, node.ports.len())
+    }));
+
+    <span class="comment">// Copy mapped ports using new node indices
+    </span><span class="kw">for </span>(subnet_node, self_node_idx) <span class="kw">in </span>subnet.nodes.iter().zip(<span class="kw-2">&amp;*</span>subnet_node_idx_to_main_node_idx) {
+      <span class="kw">let </span>self_node = <span class="kw-2">&amp;mut </span><span class="self">self</span>[<span class="kw-2">*</span>self_node_idx];
+      <span class="kw">for </span>(subnet_port, self_port) <span class="kw">in </span>subnet_node.ports.iter().zip(self_node.ports.iter_mut()) {
+        <span class="kw">let </span>NodePort { node_idx: subnet_node_idx, port_idx } = <span class="kw-2">*</span>subnet_port;
+        <span class="comment">// Copy `port_idx` unchanged but map `node_idx` from `subnet` to `self`
+        </span><span class="kw-2">*</span>self_port = NodePort {
+          node_idx: <span class="kw">unsafe </span>{ <span class="kw-2">*</span>subnet_node_idx_to_main_node_idx.get_unchecked(subnet_node_idx) },
+          port_idx,
+        };
+      }
+    }
+
+    <span class="kw">let </span>external_ports = <span class="kw-2">&amp;</span>reuse.rule_book_external_ports;
+    <span class="comment">// Pass-through link subnet root node&#39;s ports and then remove it, like temporary nodes in `rewrite_active_pair`
+    // Remove subnet root node from list of created nodes
+    </span><span class="kw">let </span>subnet_root_node_idx_in_self = reuse.map_node_idx_to_outer_net(ROOT_NODE_IDX);
+    <span class="kw">let </span>subnet_root_node: <span class="kw-2">&amp;</span>Node = <span class="kw-2">&amp;</span><span class="self">self</span>[subnet_root_node_idx_in_self];
+    <span class="macro">debug_assert_eq!</span>(subnet_root_node.agent_id, ROOT_AGENT_ID);
+    <span class="macro">debug_assert_eq!</span>(subnet_root_node.ports.len(), external_ports.len());
+    <span class="kw">for </span>(port_idx, <span class="kw-2">&amp;</span>ext_port) <span class="kw">in </span>external_ports.iter().enumerate() {
+      <span class="comment">// Note: `target_port` doesn&#39;t necessary point to a former `subnet` node,
+      // if subnet root node contains self-links. See `test_subnet_root_node_self_links`
+      </span><span class="kw">let </span>target_port = <span class="self">self</span>[port(subnet_root_node_idx_in_self, port_idx)];
+      <span class="self">self</span>.link(ext_port, target_port);
+    }
+
+    <span class="comment">// Remove subnet root node, now that we pass-through-linked all its ports to external ports
+    </span><span class="self">self</span>.free_node(subnet_root_node_idx_in_self);
+  }
+
+  <span class="doccomment">/// Determines if a given node is part of an active pair and returns the other node in the pair
+  </span><span class="attr">#[inline(always)]
+  </span><span class="kw">fn </span>node_is_part_of_active_pair(<span class="kw-2">&amp;</span><span class="self">self</span>, node_idx: NodeIdx) -&gt; <span class="prelude-ty">Option</span>&lt;NodeIdx&gt; {
+    <span class="comment">// The only node that can have no ports is the subnet root node, e.g. in `rule Era ~ Zero =`
+    </span><span class="kw">let </span>node = <span class="kw-2">&amp;</span><span class="self">self</span>[node_idx];
+    <span class="kw">if </span>node.agent_id != ROOT_AGENT_ID {
+      <span class="kw">let </span>dst = <span class="self">self</span>[port(node_idx, <span class="number">0</span>)];
+      <span class="comment">// After validation, we can assume that dst.node_idx == node_idx
+      </span>(dst.port_idx == <span class="number">0</span>).then_some(dst.node_idx)
+    } <span class="kw">else </span>{
+      <span class="comment">// Never consider the root node to be part of an active pair
+      </span><span class="prelude-val">None
+    </span>}
+  }
+
+  <span class="doccomment">/// Determine active pairs that can potentially be rewritten if there is a matching rule
+  </span><span class="kw">pub fn </span>scan_active_pairs(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; ActiveNodePairs {
+    <span class="kw">let </span><span class="kw-2">mut </span>active_pairs = <span class="macro">vec!</span>[];
+    <span class="kw">for </span>(node_idx, node) <span class="kw">in </span><span class="self">self</span>.nodes.iter().enumerate() {
+      <span class="kw">if </span>!node.used {
+        <span class="kw">continue</span>;
+      }
+
+      <span class="kw">if let </span><span class="prelude-val">Some</span>(dst_node_idx) = <span class="self">self</span>.node_is_part_of_active_pair(node_idx) {
+        <span class="comment">// Only process each bidirectional link once, to prevent duplicates
+        </span><span class="kw">if </span>node_idx &lt; dst_node_idx {
+          active_pairs.push((node_idx, dst_node_idx));
+        }
+      }
+    }
+    active_pairs
+  }
+
+  <span class="doccomment">/// Returns the active pairs that can come into existence after inserting a subnet,
+  /// pass-through-linking through its root node and removing it.
+  /// In other words, returns indices of nodes whose principal port points to a root node port.
+  </span><span class="kw">fn </span>nodes_whose_principal_port_points_outside_subnet(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NodeIndices {
+    <span class="kw">let </span><span class="kw-2">mut </span>nodes_whose_principal_port_points_outside_subnet = <span class="macro">vec!</span>[];
+    <span class="kw">for </span><span class="kw-2">&amp;</span>target <span class="kw">in </span><span class="kw-2">&amp;</span><span class="self">self</span>[ROOT_NODE_IDX].ports {
+      <span class="kw">if </span>target.node_idx != ROOT_NODE_IDX &amp;&amp; target.port_idx == <span class="number">0 </span>{
+        nodes_whose_principal_port_points_outside_subnet.push(target.node_idx);
+      }
+    }
+    nodes_whose_principal_port_points_outside_subnet
+  }
+
+  <span class="doccomment">/// Returns the active pairs that can come into existence after inserting a subnet:
+  /// - Field `active_pairs_inside_subnet` contains the active pairs that already exist in the subnet,
+  ///   which will definitely exist after inserting the subnet (and for which a rule exists)
+  /// - Field `nodes_whose_principal_port_points_outside_subnet` contains the indices of nodes
+  ///   whose principal port points to a root node port, which can form active pairs with other nodes
+  ///   whose principal port points to aux ports of an active pair that gets rewritten.
+  ///   So these are not definitive active pair nodes, but they could form active pairs after a rewrite.
+  </span><span class="kw">pub fn </span>active_pair_candidates_after_inserting_subnet(<span class="kw-2">&amp;</span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; ActivePairCandidates {
+    <span class="kw">let </span><span class="kw-2">mut </span>active_pairs_inside_subnet = <span class="self">self</span>.scan_active_pairs();
+    <span class="kw">let </span><span class="kw-2">mut </span>nodes_whose_principal_port_points_outside_subnet =
+      <span class="self">self</span>.nodes_whose_principal_port_points_outside_subnet();
+
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) {
+      <span class="kw">let </span><span class="kw-2">mut </span>set = hashbrown::HashSet::new();
+      <span class="kw">for </span>node_idx <span class="kw">in </span>active_pairs_inside_subnet
+        .iter()
+        .flat_map(|(lhs, rhs)| [lhs, rhs])
+        .chain(<span class="kw-2">&amp;</span>nodes_whose_principal_port_points_outside_subnet)
+      {
+        <span class="macro">assert!</span>(set.insert(node_idx), <span class="string">&quot;Duplicate node in active_pairs: {set:#?}&quot;</span>);
+      }
+    }
+
+    active_pairs_inside_subnet.retain_mut(|active_pair| {
+      <span class="kw">if let </span><span class="prelude-val">Some</span>(ordered_active_pair) = rule_book.rule_exists_for_active_pair(<span class="self">self</span>, <span class="kw-2">*</span>active_pair) {
+        <span class="kw-2">*</span>active_pair = ordered_active_pair;
+        <span class="bool-val">true
+      </span>} <span class="kw">else </span>{
+        <span class="bool-val">false
+      </span>}
+    });
+
+    nodes_whose_principal_port_points_outside_subnet
+      .retain(|<span class="kw-2">&amp;</span>node_idx| rule_book.rule_exists_for_agent_id(<span class="self">self</span>[node_idx].agent_id));
+
+    ActivePairCandidates { active_pairs_inside_subnet, nodes_whose_principal_port_points_outside_subnet }
+  }
+
+  <span class="doccomment">/// Perform one reduction step:
+  /// Scan for active pairs and rewrite the first one for which a rule exists.
+  /// Returns `true` if a rewrite happened, false otherwise (either because
+  /// there are no active pairs or because no rule applies to any of them).
+  /// Not efficient because of the rescan for active pairs, but useful for debugging.
+  </span><span class="kw">pub fn </span>scan_active_pairs_and_reduce_step(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; bool {
+    <span class="kw">let </span><span class="kw-2">mut </span>reuse = ReuseableRewriteData::default();
+    <span class="kw">for </span>active_pair <span class="kw">in </span><span class="self">self</span>.scan_active_pairs() {
+      <span class="kw">if </span><span class="self">self</span>.rewrite_active_pair(active_pair, rule_book, <span class="kw-2">&amp;mut </span>reuse) {
+        <span class="kw">return </span><span class="bool-val">true</span>;
+      }
+    }
+    <span class="bool-val">false
+  </span>}
+
+  <span class="doccomment">/// Reduce net until no more reductions are possible, without rescanning for active pairs after each rewrite.
+  /// Only scans the net for active pairs in the beginning. After each rewrite, new active pairs are found by
+  /// checking the nodes involved in and adjacent to the rewritten sub-net.
+  </span><span class="kw">pub fn </span>reduce(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; usize {
+    <span class="kw">let </span>reduction_count = <span class="self">self</span>.reduce_in_max_steps::&lt;{ usize::MAX }&gt;(rule_book);
+    <span class="kw">unsafe </span>{ reduction_count.unwrap_unchecked() }
+  }
+
+  <span class="doccomment">/// Like `reduce` but performs maximum `max_reductions` reduction steps.
+  /// Returns the number of reductions actually performed, None if limit was reached.
+  </span><span class="kw">pub fn </span>reduce_in_max_steps&lt;<span class="kw">const </span>MAX_REDUCTIONS: usize&gt;(<span class="kw-2">&amp;mut </span><span class="self">self</span>, rule_book: <span class="kw-2">&amp;</span>RuleBook) -&gt; <span class="prelude-ty">Option</span>&lt;usize&gt; {
+    <span class="kw">let </span><span class="kw-2">mut </span>reuse = ReuseableRewriteData::default();
+    <span class="kw">let </span><span class="kw-2">mut </span>reduction_count = <span class="number">0</span>;
+    <span class="kw">let </span><span class="kw-2">mut </span>active_pairs = <span class="self">self</span>.scan_active_pairs();
+    <span class="kw">while let </span><span class="prelude-val">Some</span>(active_pair) = active_pairs.pop() {
+      <span class="kw">if </span><span class="self">self</span>.rewrite_active_pair(active_pair, rule_book, <span class="kw-2">&amp;mut </span>reuse) {
+        active_pairs.extend(<span class="kw-2">&amp;</span>reuse.inet_new_active_pairs_created_by_rewrite);
+        reduction_count += <span class="number">1</span>;
+        <span class="kw">if </span>reduction_count &gt; MAX_REDUCTIONS {
+          <span class="kw">return </span><span class="prelude-val">None</span>;
+        }
+        reuse.clear_when_rule_matched();
+      } <span class="kw">else </span>{
+        reuse.clear_when_no_rule_matched();
+      }
+    }
+    <span class="prelude-val">Some</span>(reduction_count)
+  }
+
+  <span class="doccomment">/// Read back reduced net into textual form raw (unchanged)
+  </span><span class="kw">pub fn </span>read_back_raw(
+    <span class="kw-2">&amp;</span><span class="self">self</span>,
+    agent_id_to_name: <span class="kw-2">&amp;</span>HashMap&lt;AgentId, AgentName&gt;,
+    root_port_names: <span class="kw-2">&amp;</span>[PortName],
+  ) -&gt; Vec&lt;Connection&gt; {
+    <span class="comment">// Helper function to generate new unique port names
+    </span><span class="kw">let </span><span class="kw-2">mut </span>new_port_name = {
+      <span class="kw">let </span><span class="kw-2">mut </span>next_port_idx = <span class="number">0</span>;
+      <span class="kw">move </span>|| {
+        <span class="kw">let </span>r = <span class="macro">format!</span>(<span class="string">&quot;_{}&quot;</span>, next_port_idx);
+        next_port_idx += <span class="number">1</span>;
+        r
+      }
+    };
+
+    <span class="comment">// We use this to keep track of the names we give to agent aux ports
+    </span><span class="kw">let </span><span class="kw-2">mut </span>nodes_aux_port_names = HashMap::&lt;NodeIdx, Vec&lt;PortName&gt;&gt;::new();
+
+    <span class="comment">// Keep track of connections between ports
+    </span><span class="kw">let </span><span class="kw-2">mut </span>connections = <span class="macro">vec!</span>[];
+
+    <span class="comment">// Iterate over all active links
+    </span><span class="kw">for </span>(node_idx, node) <span class="kw">in </span><span class="self">self</span>.nodes.iter().enumerate() {
+      <span class="kw">if </span>!node.used {
+        <span class="kw">continue</span>;
+      }
+
+      <span class="kw">for </span>port_idx <span class="kw">in </span><span class="number">0 </span>.. node.ports.len() {
+        <span class="comment">// src ~ dst
+        </span><span class="kw">let </span>src = port(node_idx, port_idx);
+        <span class="kw">let </span>dst = <span class="self">self</span>[src];
+
+        <span class="comment">// Only process each bidirectional link once, to prevent duplicates
+        </span><span class="kw">if </span>src &lt; dst {
+          <span class="doccomment">/// Build a `Connector` from a port. If the port is a principal port, the connector is an `Agent`.
+          /// If the port is an aux port, the connector is a `Port`.
+          </span><span class="kw">fn </span>build_connector_from_port(
+            net: <span class="kw-2">&amp;</span>INet,
+            agent_id_to_name: <span class="kw-2">&amp;</span>HashMap&lt;AgentId, AgentName&gt;,
+            node_idx_to_agent_port_names: <span class="kw-2">&amp;mut </span>HashMap&lt;NodeIdx, Vec&lt;PortName&gt;&gt;,
+            root_port_names: <span class="kw-2">&amp;</span>[PortName],
+            <span class="kw-2">mut </span>new_port_name: <span class="kw">impl </span>FnMut() -&gt; String,
+            node_port: NodePort,
+          ) -&gt; Connector {
+            <span class="kw">let </span>node = <span class="kw-2">&amp;</span>net[node_port.node_idx];
+            <span class="comment">// Whenever we encounter a node we haven&#39;t seen before, we generate new unique aux port names for it.
+            // When we encounter the same node again, we read the previously generated aux port names.
+            // This ensures that all references to the same node use the same aux port names.
+            </span><span class="kw">let </span>agent_aux_port_names = node_idx_to_agent_port_names
+              .entry(node_port.node_idx)
+              .or_insert_with(|| (<span class="number">1 </span>.. node.ports.len()).map(|<span class="kw">_</span>| new_port_name()).collect());
+
+            <span class="kw">if </span>node.agent_id == ROOT_AGENT_ID {
+              <span class="comment">// Connected to a port of the root node
+              </span>Connector::Port(root_port_names[node_port.port_idx].clone())
+            } <span class="kw">else </span>{
+              <span class="kw">if </span>node_port.port_idx == <span class="number">0 </span>{
+                <span class="comment">// Connected to a principal port, either `x ~ root` or `x ~ Agent(...)`
+                </span><span class="kw">if </span>node_port.node_idx == ROOT_NODE_IDX {
+                  Connector::Port(ROOT_PORT_NAME.to_string())
+                } <span class="kw">else </span>{
+                  Connector::Agent(Agent {
+                    agent: agent_id_to_name[<span class="kw-2">&amp;</span>node.agent_id].clone(),
+                    ports: agent_aux_port_names.clone(),
+                  })
+                }
+              } <span class="kw">else </span>{
+                <span class="comment">// Connected to auxiliary port of agent: `x ~ aux, Agent(..., aux, ...) ~ y`
+                </span>Connector::Port(agent_aux_port_names[node_port.port_idx - <span class="number">1</span>].clone())
+              }
+            }
+          }
+
+          <span class="comment">// For each link src ~ dst, we create a `Connection`
+          </span><span class="kw">let </span>src = build_connector_from_port(
+            <span class="self">self</span>,
+            agent_id_to_name,
+            <span class="kw-2">&amp;mut </span>nodes_aux_port_names,
+            root_port_names,
+            <span class="kw-2">&amp;mut </span>new_port_name,
+            src,
+          );
+          <span class="kw">let </span>dst = build_connector_from_port(
+            <span class="self">self</span>,
+            agent_id_to_name,
+            <span class="kw-2">&amp;mut </span>nodes_aux_port_names,
+            root_port_names,
+            <span class="kw-2">&amp;mut </span>new_port_name,
+            dst,
+          );
+          connections.push(Connection::new(src, dst));
+        }
+      }
+    }
+    connections
+  }
+
+  <span class="doccomment">/// Read back reduced net into readable (nested) textual form
+  </span><span class="kw">pub fn </span>read_back(
+    <span class="kw-2">&amp;</span><span class="self">self</span>,
+    agent_id_to_name: <span class="kw-2">&amp;</span>HashMap&lt;AgentId, AgentName&gt;,
+    root_port_names: <span class="kw-2">&amp;</span>[PortName],
+  ) -&gt; String {
+    <span class="kw">let </span>connections = <span class="self">self</span>.read_back_raw(agent_id_to_name, root_port_names);
+    <span class="kw">let </span>connections = unflatten_connections(connections, root_port_names);
+    fmt_nested_connections(<span class="kw-2">&amp;</span>connections)
+  }
 }
 
-<span class="kw">pub type </span>CreatedNodes = Vec&lt;NodeIdx&gt;;
+<span class="doccomment">/// Reuseable memory between rewrites, to avoid unnecessary allocations
+</span><span class="attr">#[derive(Default)]
+</span><span class="kw">struct </span>ReuseableRewriteData {
+  inet_active_pair_candidate_nodes: NodeIndices,
+  inet_intermediary_nodes: NodeIndices,
+  subnet: ReuseableSubnetData,
+  inet_new_active_pairs_created_by_rewrite: ActiveNodePairs,
+}
+
+<span class="doccomment">/// Separate sub-borrowable struct to pass to `RuleBook::apply_rewrite_rule`
+</span><span class="attr">#[derive(Default)]
+</span><span class="kw">pub struct </span>ReuseableSubnetData {
+  <span class="kw">pub </span>rule_book_external_ports: Vec&lt;NodePort&gt;,
+  inet_subnet_node_idx_to_main_node_idx: NodeIndices,
+}
+
+<span class="kw">impl </span>ReuseableSubnetData {
+  <span class="doccomment">/// Map a node index in the subnet to a node index in the outer net.
+  /// Used after inserting a rule&#39;s RHS subnet during rewrite,
+  /// to determine node indices of new active pairs.
+  </span><span class="kw">fn </span>map_node_idx_to_outer_net(<span class="kw-2">&amp;</span><span class="self">self</span>, node_idx: NodeIdx) -&gt; NodeIdx {
+    <span class="kw">unsafe </span>{ <span class="kw-2">*</span><span class="self">self</span>.inet_subnet_node_idx_to_main_node_idx.get_unchecked(node_idx) }
+  }
+}
+
+<span class="kw">impl </span>ReuseableRewriteData {
+  <span class="doccomment">/// When no rule matched, only the first two fields were populated
+  </span><span class="kw">fn </span>clear_when_no_rule_matched(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+    <span class="self">self</span>.inet_active_pair_candidate_nodes.clear();
+    <span class="self">self</span>.inet_intermediary_nodes.clear();
+  }
+
+  <span class="doccomment">/// When a rule matched, all fields were populated
+  </span><span class="kw">fn </span>clear_when_rule_matched(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+    <span class="self">self</span>.inet_active_pair_candidate_nodes.clear();
+    <span class="self">self</span>.inet_intermediary_nodes.clear();
+    <span class="self">self</span>.subnet.rule_book_external_ports.clear();
+    <span class="self">self</span>.subnet.inet_subnet_node_idx_to_main_node_idx.clear();
+    <span class="self">self</span>.inet_new_active_pairs_created_by_rewrite.clear();
+  }
+}
 
 <span class="doccomment">/// Represents a connection between two ports for deferred linking
 /// Either Ok(port) or Err(port_name) which needs to be looked up later
 </span><span class="kw">type </span>MaybeLinkedPort&lt;<span class="lifetime">&#39;a</span>&gt; = <span class="prelude-ty">Result</span>&lt;NodePort, PortNameRef&lt;<span class="lifetime">&#39;a</span>&gt;&gt;;
 <span class="kw">type </span>MaybeLinkedPorts&lt;<span class="lifetime">&#39;a</span>&gt; = Vec&lt;[MaybeLinkedPort&lt;<span class="lifetime">&#39;a</span>&gt;; <span class="number">2</span>]&gt;;
 
-<span class="kw">type </span>ActivePairs = Vec&lt;(NodeIdx, NodeIdx)&gt;;
+<span class="doccomment">/// Represents active pair of nodes in a net, meaning that their principal ports are connected.
+/// Not necessarily that a rewrite rule exists for this pair.
+</span><span class="kw">pub type </span>ActiveNodePair = (NodeIdx, NodeIdx);
+
+<span class="kw">pub type </span>ActiveNodePairs = Vec&lt;ActiveNodePair&gt;;
+
+<span class="kw">pub type </span>NodeIndices = Vec&lt;NodeIdx&gt;;
+
+<span class="doccomment">/// When building the rule book, we keep track of which subnet nodes can form active pairs after a rewrite
+</span><span class="attr">#[derive(Clone, Debug, PartialEq, Default)]
+</span><span class="kw">pub struct </span>ActivePairCandidates {
+  <span class="doccomment">/// Definitive active pairs inside subnet whose principal ports are connected
+  </span><span class="kw">pub </span>active_pairs_inside_subnet: ActiveNodePairs,
+
+  <span class="doccomment">/// Nodes inside subnet whose principal port points to a root node port such that
+  /// it can form an active pair after a rewrite
+  </span><span class="kw">pub </span>nodes_whose_principal_port_points_outside_subnet: NodeIndices,
+}
 
 <span class="comment">// Indexing utils to allow indexing an INet with a NodeIdx and NodePort
 
@@ -1021,13 +1757,13 @@
   <span class="kw">type </span>Output = Node;
 
   <span class="kw">fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: NodeIdx) -&gt; <span class="kw-2">&amp;</span><span class="self">Self</span>::Output {
-    <span class="kw-2">&amp;</span><span class="self">self</span>.nodes[idx]
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) { <span class="kw-2">&amp;</span><span class="self">self</span>.nodes[idx] } <span class="kw">else </span>{ <span class="kw">unsafe </span>{ <span class="self">self</span>.nodes.get_unchecked(idx) } }
   }
 }
 
 <span class="kw">impl </span>IndexMut&lt;NodeIdx&gt; <span class="kw">for </span>INet {
   <span class="kw">fn </span>index_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>, idx: NodeIdx) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Output {
-    <span class="kw-2">&amp;mut </span><span class="self">self</span>.nodes[idx]
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) { <span class="kw-2">&amp;mut </span><span class="self">self</span>.nodes[idx] } <span class="kw">else </span>{ <span class="kw">unsafe </span>{ <span class="self">self</span>.nodes.get_unchecked_mut(idx) } }
   }
 }
 
@@ -1035,13 +1771,13 @@
   <span class="kw">type </span>Output = NodePort;
 
   <span class="kw">fn </span>index(<span class="kw-2">&amp;</span><span class="self">self</span>, idx: PortIdx) -&gt; <span class="kw-2">&amp;</span><span class="self">Self</span>::Output {
-    <span class="kw-2">&amp;</span><span class="self">self</span>.ports[idx]
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) { <span class="kw-2">&amp;</span><span class="self">self</span>.ports[idx] } <span class="kw">else </span>{ <span class="kw">unsafe </span>{ <span class="self">self</span>.ports.get_unchecked(idx) } }
   }
 }
 
 <span class="kw">impl </span>IndexMut&lt;PortIdx&gt; <span class="kw">for </span>Node {
   <span class="kw">fn </span>index_mut(<span class="kw-2">&amp;mut </span><span class="self">self</span>, idx: PortIdx) -&gt; <span class="kw-2">&amp;mut </span><span class="self">Self</span>::Output {
-    <span class="kw-2">&amp;mut </span><span class="self">self</span>.ports[idx]
+    <span class="kw">if </span><span class="macro">cfg!</span>(debug_assertions) { <span class="kw-2">&amp;mut </span><span class="self">self</span>.ports[idx] } <span class="kw">else </span>{ <span class="kw">unsafe </span>{ <span class="self">self</span>.ports.get_unchecked_mut(idx) } }
   }
 }
 

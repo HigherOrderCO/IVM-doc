@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":["ROOT_AGENT_ID"],"struct":["RuleBook","RuleRhs"],"type":["AgentId","RuleLhs"]};
+window.SIDEBAR_ITEMS = {"constant":["ROOT_AGENT_ID","RULE_BOOK_MAX_PRE_REDUCTION_STEPS"],"struct":["RuleBook","RuleRhs"],"type":["AgentId","RuleLhs"]};

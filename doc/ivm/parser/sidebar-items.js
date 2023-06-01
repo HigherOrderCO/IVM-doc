@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["Definition"],"mod":["ast","display","flatten"],"opaque":[""]};
+window.SIDEBAR_ITEMS = {"mod":["ast","display","flatten"]};

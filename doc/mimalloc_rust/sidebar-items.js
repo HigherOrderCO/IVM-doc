@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":["with_heap"],"mod":["heap"],"struct":["GlobalMiMalloc"]};
